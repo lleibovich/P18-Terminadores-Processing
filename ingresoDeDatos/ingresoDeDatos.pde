@@ -1,68 +1,81 @@
 /*
 processing 3.3.5
 */
+//aparentemente los key pressed no funcionan adentro de un while
+//cada renglon seria 50 a este tamanip
 //constantes
-String inicialS= "inicial";
-String finalS ="final";
+String inicialS= "un miedo";
+String finalS ="una fortaleza";
 //int cantCaract = 20;
 String auxS ="";
-String prevS ="";
 char car=0;
 //arrays
 ArrayList<String> palInicial = new ArrayList<String>();
 ArrayList<String> palFinal = new ArrayList<String>();
 PFont font;
-int p = 0;
-boolean teclaPres = false;
+int p = 1;
 boolean inicial = true;
+boolean fin =false;
 
 void setup(){
-   size(900,600);
+   size(900,600);//combiene asi para testing , fulscreen release
    //fullScreen();
    background(255);
-   font = createFont("Arial Bold",32);
+   font = createFont("Arial Bold",32);//ver de cambiar tamanio
    textFont(font);
+   noStroke();
+   smooth();
 }
 
 void draw(){
   fill(0);
   if (keyPressed){//al apretar
     car = key;
-  }
-  if(car== ENTER){//al presionar enter
-    if(inicial){//inicial
-      palInicial.set(p,auxS);
-      inicial=false;
-    }
-    else{//final
-      palFinal.set(p,auxS);
-      inicial=true;
-      p=p+1;
-    }
     
   }
-  else if(car==BACKSPACE){//borrar  
-    auxS=prevS;
-    //falta borrar el display
+  if(car== ENTER&&(!keyPressed)){//al presionar enter
+    if(inicial){//inicial
+      palInicial.add(auxS);//cargo el array
+      inicial=false;//cambio de array
+    }
+    else{//final
+      palFinal.add(auxS);//cargo el array
+      inicial=true;//cambio de array
+      p=p+1;
+    }
+    fill(255);//cuadrado blanco para borrar lo ingresado
+    rect(0,25,width,50);
+    fill(0);
+    auxS="";//vacio aux
+    car = 0;//bacio el caracter
+  }
+  else if(car==BACKSPACE &&(!keyPressed)){//borrar  
+    auxS="";
+    car = 0;//solo un caracter 
+  }
+  else if(car==ESC&&(!keyPressed)){
+    fin=true;
+    car = 0;
   }
   else if((car != 0)&&(!keyPressed)){//al soltar  
-    //print(car);
-    //println(auxS);
-    prevS=auxS;
     auxS=auxS+str(car);
     car = 0;
     
   }
-  //text("Test", 10, 24);
+  if(inicial){
+    fill(255);
+    rect(0,0,width,25);
+    fill(0);
+    text("escribir "+inicialS, 10, 24);
+  }
+  else if(!inicial){
+    fill(255);
+    rect(0,0,width,25);
+    fill(0);
+    text("escribir "+finalS, 10, 24);
+  }
+  fill(255);//cuadrado blanco para borrar lo ingresado
+  rect(0,25,width,50);//asi queda mas suave
+  fill(0);//mas estetico sino que da rugoso
   text(auxS, 10, 50);
 }
-
-/*
-void keyPressed() {
-  teclaPres=true;
-}
-
-void keyReleased() {
-  teclaPres=false;
-}
-*/
