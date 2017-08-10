@@ -6,6 +6,7 @@ processing 3.3.5
 //constantes
 String inicialS= "un miedo";
 String finalS ="una fortaleza";
+int anchoRenglon =25;
 //int cantCaract = 20;
 String auxS ="";
 char car=0;
@@ -43,9 +44,7 @@ void draw(){
       inicial=true;//cambio de array
       p=p+1;
     }
-    fill(255);//cuadrado blanco para borrar lo ingresado
-    rect(0,25,width,50);
-    fill(0);
+    blanquearRenglon(2);
     auxS="";//vacio aux
     car = 0;//bacio el caracter
   }
@@ -63,19 +62,19 @@ void draw(){
     
   }
   if(inicial){
-    fill(255);
-    rect(0,0,width,25);
-    fill(0);
+    blanquearRenglon(1);
     text("escribir "+inicialS, 10, 24);
   }
   else if(!inicial){
-    fill(255);
-    rect(0,0,width,25);
-    fill(0);
+    blanquearRenglon(1);
     text("escribir "+finalS, 10, 24);
   }
-  fill(255);//cuadrado blanco para borrar lo ingresado
-  rect(0,25,width,50);//asi queda mas suave
-  fill(0);//mas estetico sino que da rugoso
+  blanquearRenglon(2);
   text(auxS, 10, 50);
 }
+void blanquearRenglon(int r){
+  fill(255);//cuadrado blanco para borrar lo ingresado
+  rect(0,(anchoRenglon*r)-(anchoRenglon*r),width,anchoRenglon*r);//asi queda mas suave
+  fill(0);//mas estetico sino que da rugoso
+}
+//http://www.puerta18.org.ar/
