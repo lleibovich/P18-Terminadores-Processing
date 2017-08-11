@@ -17,11 +17,11 @@ void setup() {
 void draw() {
   for (int i=0; i<bodies.size (); i++) {
     SkeletonData _s = bodies.get(i);
-    if(movimiento(_s)) {} // Acá deberían poner lo que quieren que haga si detecta movimiento
+    // Acá deberían poner lo que quieren que haga si detecta movimiento
   }
 }
 
-boolean movimiento(SkeletonData _s) {
+int movimiento(SkeletonData _s) {
   // Variables locales para puntos x e y de todo el cuerpo
   int[] skely = new int[20];
   int[] skelx = new int[20];
@@ -36,10 +36,26 @@ boolean movimiento(SkeletonData _s) {
   
   // Detecta si el usuario se movio de la posición indicada cpn cada parte del cuerpo
   for(int l = 0;l < 20;l++) {
+    if (det(_s,l,skelx[l],skely[l],60)){
+      return 6;
+    } // Devuelve verdadero si se movio
+    if (det(_s,l,skelx[l],skely[l],50)){
+      return 5;
+    }
+    if (det(_s,l,skelx[l],skely[l],40)){
+      return 4;
+    }
+    if (det(_s,l,skelx[l],skely[l],30)){
+      return 3;
+    }
+    if (det(_s,l,skelx[l],skely[l],20)){
+      return 2;
+    }
     if (det(_s,l,skelx[l],skely[l],10)){
-    } else {return true;} // Devuelve verdadero si se movio
+      return 1;
+    }
   }
-  return false; // Devuelve falso si no lo hizo
+  return 0; // Devuelve falso si no lo hizo
 }
 
 float pos(SkeletonData _s, int b, char c) { // Toma la posición del cuerpo en cuestion
@@ -52,9 +68,9 @@ float pos(SkeletonData _s, int b, char c) { // Toma la posición del cuerpo en c
 boolean det(SkeletonData _s, int s, int x, int y, int d) { // Detecta si el cuerpo está en un lugar especifíco, o en un radio
   if (pos(_s, s, 'x') >= x-d && pos(_s, s, 'x') <= x+d) {
         if (pos(_s, s, 'y') >= y-d && pos(_s, s, 'y') <= y+d) {
-          return true;
-        } else {return false;}
-      } else {return false;}
+          return false;
+        } else {return true;}
+      } else {return true;}
 }
 
 void appearEvent(SkeletonData _s) 
