@@ -1,0 +1,9 @@
+AnimationType=ANIMACION1
+SensorType=KINECT
+Fears=CSV
+Strengths=CSV
+ProjectorResolution=x,y
+ProjectorName=ABC
+FontName=Arial
+FontSize=32
+DisalignConversionFactor=5.5
