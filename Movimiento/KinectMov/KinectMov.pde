@@ -2,8 +2,6 @@ import kinect4WinSDK.Kinect;
 import kinect4WinSDK.SkeletonData;
 ArrayList <SkeletonData> bodies;
 
-int[] cuerpos = {0,0,0,0,0,0}; // Es una prueba para ver si detecta hasta seis cuerpos
-
 Kinect kinect;
 
 void setup() {
@@ -15,10 +13,16 @@ void setup() {
 }
 
 void draw() {
+  total();
+}
+
+int total() {
+  int todo = 0;
   for (int i=0; i<bodies.size (); i++) {
     SkeletonData _s = bodies.get(i);
-    // Acá deberían poner lo que quieren que haga si detecta movimiento
+    todo = todo + movimiento(_s);
   }
+  return todo;
 }
 
 int movimiento(SkeletonData _s) {
@@ -34,11 +38,11 @@ int movimiento(SkeletonData _s) {
   int time = millis();
   while (time+1000 < millis()){};// Espera un segundo
   
-  // Detecta si el usuario se movio de la posición indicada cpn cada parte del cuerpo
+  // Detecta si el usuario se movio de la posición indicada con cada parte del cuerpo
   for(int l = 0;l < 20;l++) {
     if (det(_s,l,skelx[l],skely[l],60)){
       return 6;
-    } // Devuelve verdadero si se movio
+    } 
     if (det(_s,l,skelx[l],skely[l],50)){
       return 5;
     }
@@ -51,11 +55,9 @@ int movimiento(SkeletonData _s) {
     if (det(_s,l,skelx[l],skely[l],20)){
       return 2;
     }
-    if (det(_s,l,skelx[l],skely[l],10)){
-      return 1;
-    }
   }
-  return 0; // Devuelve falso si no lo hizo
+  randomSeed(hour()*10000+minute()*100+second());
+  return (int)random(0,2);
 }
 
 float pos(SkeletonData _s, int b, char c) { // Toma la posición del cuerpo en cuestion
@@ -80,9 +82,6 @@ void appearEvent(SkeletonData _s)
     return;
   }
   synchronized(bodies) {
-    for (int y = 0;y < 6; y++) {
-      if (cuerpos[y] == 0) {bodies.add(_s); cuerpos[y] = _s.dwTrackingID;}
-    }
   }
 }
 
@@ -92,9 +91,9 @@ void disappearEvent(SkeletonData _s)
     for (int i=bodies.size ()-1; i>=0; i--) 
     {
       if (_s.dwTrackingID == bodies.get(i).dwTrackingID || 0 == bodies.get(i).dwTrackingID) 
-      {for (int y = 0;y < 6;y++) {
-        if (cuerpos[y] == bodies.get(i).dwTrackingID) {bodies.remove(i); cuerpos[y] = 0;}
-      }}
+      {
+        bodies.remove(i);
+      }
     }
   }
 }
