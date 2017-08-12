@@ -1,4 +1,12 @@
 class Word {
+  
+  /*
+    La ubicación de las palabras se va a hacer con una matriz posicional.
+    Se pueden usar renglones como guìa.
+    Tener en cuenta cantidad de palabras y largo de cada palabra para ubicarlas en el espacio x,y disponible.
+    Alto de las palabras siempre igual.
+  */
+  
   public String Text;
   public PVector BottomLeftPos;
   public PVector Size;
