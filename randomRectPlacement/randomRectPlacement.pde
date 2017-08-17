@@ -1,19 +1,17 @@
 class Rectangle {
-  public String Text="";
+  public int listPos;
   public int row ;
-  public int largo;
-  public Rectangle(String Text,int largo){
+  public int largo;//se guarda el largo x la fila y la posicion en la lista  
+  public Rectangle(int largo){
     this.largo=largo;
-    this.Text=Text;
   }
 }
 int auxRow;
 int i =0;
 PVector v1;
 float AlturaLetra = 32;
-float AnchoLetra = 30;
-String word = "test"; 
-String [][] list;//seria Word [][]
+float AnchoLetra = 30; 
+int [][] list;//guardar la forma de identificar cada palabra
 //public PVector BottomLeftPos; //resultado
 int pals =0;
 ArrayList<Rectangle> rectangles = new ArrayList<Rectangle>();
@@ -26,12 +24,12 @@ void setup(){
 }
 void draw(){
   for( i=0;i<cantCuadrados;i++){
-    rectangles.add( new Rectangle(word,word.length()));
+    rectangles.add( new Rectangle(int(random(1,10))));
   }
   int row = int(height/AlturaLetra);//renglon
   int lettersPerRow = int(width /AnchoLetra);//el largo dividido por el largo de una letra
   int []rows=new int[row];
-  list =new String[row][pals];
+  list =new int[row][pals];
   for( i =0;i<rows.length;i++){//inicializacion
     rows[i]=lettersPerRow;
   }
