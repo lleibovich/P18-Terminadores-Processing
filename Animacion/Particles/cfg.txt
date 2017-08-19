@@ -1,5 +1,6 @@
 AnimationType=ANIMACION1
 SensorType=KINECT
+CameraName=ABC
 Fears=CSV
 Strengths=CSV
 ProjectorResolution=x,y

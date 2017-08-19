@@ -8,7 +8,7 @@ class Word {
   */
   
   public String Text;
-  public PVector BottomLeftPos;
+  public PVector TopLeftPos;
   public PVector Size;
   public int FontSize;
   public String FontName;

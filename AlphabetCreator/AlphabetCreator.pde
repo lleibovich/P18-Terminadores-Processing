@@ -1,4 +1,4 @@
-int pixelSteps = 3; // Amount of pixels to skip -> configurar
+int pixelSteps = 6; // Amount of pixels to skip -> configurar
 ArrayList<String> words = new ArrayList<String>();
 color bgColor = color(255, 100);
 String fontName = "Arial Bold";
@@ -65,60 +65,26 @@ void setup() {
   size(700, 300);
   background(255);
 
-  words.add("A");
-  words.add("B");
-  words.add("C");
-  words.add("D");
-  words.add("E");
-  words.add("F");
-  words.add("G");
-  words.add("H");
-  words.add("I");
-  words.add("J");
-  words.add("K");
-  words.add("L");
-  words.add("M");
-  words.add("N");
-  words.add("Ñ");
-  words.add("O");
-  words.add("P");
-  words.add("Q");
-  words.add("R");
-  words.add("S");
-  words.add("T");
-  words.add("U");
-  words.add("V");
-  words.add("W");
-  words.add("X");
-  words.add("Y");
-  words.add("Z");
-  words.add("a");
-  words.add("b");
-  words.add("c");
-  words.add("d");
-  words.add("e");
-  words.add("f");
-  words.add("g");
-  words.add("h");
-  words.add("i");
-  words.add("j");
-  words.add("k");
-  words.add("l");
-  words.add("m");
-  words.add("n");
-  words.add("ñ");
-  words.add("o");
-  words.add("p");
-  words.add("q");
-  words.add("r");
-  words.add("s");
-  words.add("t");
-  words.add("u");
-  words.add("v");
-  words.add("w");
-  words.add("x");
-  words.add("y");
-  words.add("z");
+  words.add("Fear one");
+  words.add("Fear two");
+  words.add("Fear three");
+  words.add("Fear four");
+  words.add("Fear five");
+  words.add("Fear six");
+  words.add("Fear seven");
+  words.add("Fear eight");
+  words.add("Fear nine");
+  words.add("Fear ten");
+  words.add("Strength one");
+  words.add("Strength two");
+  words.add("Strength three");
+  words.add("Strength four");
+  words.add("Strength five");
+  words.add("Strength six");
+  words.add("Strength seven");
+  words.add("Strength eight");
+  words.add("Strength nine");
+  words.add("Strength ten");
 
   
   for (int i = 0; i < words.size(); i++) {

@@ -100,9 +100,9 @@ void nextWord(String word) {
     }
   }
 }
-
+import processing.opengl.*;
 void settings() {
-  size(1600, 900);
+  size(1600, 900, OPENGL);
   
 }
 
