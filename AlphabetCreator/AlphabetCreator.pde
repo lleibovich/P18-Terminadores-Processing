@@ -4,15 +4,15 @@ color bgColor = color(255, 100);
 String fontName = "Arial Bold";
 
 ArrayList<Word> wordsArray = new ArrayList<Word>();
-
+PGraphics pg;
 // Makes all particles draw the next word
 void nextWord(String word) {
   // Draw word in memory
-  PGraphics pg = createGraphics(width, height);
   pg.beginDraw();
-  pg.fill(0);
-  pg.textSize(100);
-  pg.textAlign(CENTER);
+  pg.clear();
+  pg.fill(255);
+  pg.textSize(32);
+  pg.textAlign(LEFT);
   PFont font = createFont(fontName, 100);
   pg.textFont(font);
   pg.text(word, width/2, height/2);
@@ -50,6 +50,22 @@ class Word {
   Word(String varText, ArrayList<Point> varPoints) {
    this.text = varText;
    this.points = varPoints;
+   int x0 = width;
+   int y0 = height;
+   // Searches initial X,Y for the word.
+   for (Point p : this.points) {
+     if (p.x < x0) x0 = p.x;
+     if (p.y < y0) y0 = p.y;
+   }
+   print("X0: ");
+   print(x0);
+   print(" - Y0:");
+   println(y0);
+   // Sets all X,Y from all points relative to x0,y0
+   for (Point p : this.points) {
+     p.x = p.x - x0;
+     p.y = p.y - y0;
+   }
   }
 }
 class Point {
@@ -61,9 +77,15 @@ class Point {
   }
 }
 
+
+int i = 0;
+PrintWriter output;
+
 void setup() {
-  size(700, 300);
+  size(800, 600);
   background(255);
+  output = createWriter("Alphabet.txt");
+  pg = createGraphics(width, height);
 
   words.add("Fear one");
   words.add("Fear two");
@@ -85,21 +107,23 @@ void setup() {
   words.add("Strength eight");
   words.add("Strength nine");
   words.add("Strength ten");
+}
 
-  
-  for (int i = 0; i < words.size(); i++) {
-    nextWord(words.get(i));
-  }
-  PrintWriter output = createWriter("Alphabet.txt");
-  for (Word w : wordsArray) {
-    String str = w.text + ":";
-    for (Point p : w.points) {
-      str = str + str(p.x) + ";"+ str(p.y) + "|";
+void draw() {
+  if (i == words.size()) {
+    for (Word w : wordsArray) {
+      String str = w.text + ":";
+      for (Point p : w.points) {
+        str = str + str(p.x) + ";"+ str(p.y) + "|";
+      }
+      str = str.substring(0, str.length() - 1); 
+      output.println(str);
     }
-    str = str.substring(0, str.length() - 1); 
-    output.println(str);
+    output.flush();
+    output.close();
+    exit();
+  } else {
+    nextWord(words.get(i));
+    i++;
   }
-  output.flush();
-  output.close();
-  exit();
 }
