@@ -7,20 +7,12 @@ class Board {
   
   public Board(Configuration config) {
     for (String fear : config.Fears) {
-      this.Fears.add(new Word(fear, config.FontName, config.FontSize));
+      this.Fears.add(new Word(fear, config.FontName, config.FontSize, this.Fears));
     }
     for (String strength : config.Strengths) {
-      this.Fears.add(new Word(strength, config.FontName, config.FontSize));
+      this.Strengths.add(new Word(strength, config.FontName, config.FontSize, this.Strengths));
     }
     this.Config = config;
-  }
-  
-  private void locateFears() {
-    // TO-DO: Specify location for each Fear Word.
-  }
-  
-  private void locateStrengths() {
-    // TO-DO: Specify location for each Strength Word.
   }
   
   private void getNextAlignedWord() {

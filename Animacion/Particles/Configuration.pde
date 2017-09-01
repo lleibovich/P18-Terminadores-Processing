@@ -6,7 +6,7 @@ class Configuration {
   public PVector ProjectorResolution = new PVector(800,600);
   public String ProjectorName = "";
   public String FontName = "Arial";
-  public int FontSize = 32;
+  public int FontSize = 48;
   public float DisalignConversionFactor = 5.5;
   
   public Configuration() {

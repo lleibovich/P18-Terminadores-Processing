@@ -20,6 +20,13 @@ class Particle {
   Particle(boolean pDrawAsPoints) {
     this.drawAsPoints = pDrawAsPoints;
   }
+  
+  Particle(boolean pDrawAsPoints, int x, int y) {
+    this.drawAsPoints = pDrawAsPoints;
+    this.pos.x = x;
+    this.pos.y = y;
+    //println("Particle created");
+  }
 
   void move() {
     // Check if particle is close enough to its target to slow down

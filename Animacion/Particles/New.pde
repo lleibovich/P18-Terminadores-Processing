@@ -102,28 +102,51 @@ void nextWord(String word) {
 }
 import processing.opengl.*;
 void settings() {
-  size(1600, 900, OPENGL);
-  
+  //size(800, 600, OPENGL);
+  //size(800, 600, P2D);
+  fullScreen(P2D);
 }
 
+Configuration cfg;
+ArrayList<Word> fears;
+
+boolean centered;
 void setup() {
   background(255);
-
+  centered = false;
   words.add("JAVA");
   words.add("Python <3");
   words.add("C++");
   words.add("Bye :-)");
   words.add("");
 
-  nextWord(words.get(wordIndex));
+  //nextWord(words.get(wordIndex));
+  cfg = new Configuration();
+  fears = new ArrayList<Word>();
+  /*for (String s : cfg.Fears) {
+    println(s);
+    fears.add(new Word(s, cfg.FontName, cfg.FontSize, fears));
+  }*/
+  //println("Width: " + width + "; Height: " + height);
 }
 
-
 void draw() {
+  if(frame != null && centered == false)
+  {
+    //frame.setLocation(displayWidth/2-width/2,displayHeight/2-height/2);
+    centered = true;
+    for (String s : cfg.Fears) {
+      println(s);
+      fears.add(new Word(s, cfg.FontName, cfg.FontSize, fears));
+    }
+  }
   // Background & motion blur
   fill(bgColor);
   noStroke();
-  rect(0, 0, width*2, height*2);
+  for (Word w : fears) {
+    w.draw();
+  }
+  /*rect(0, 0, width*2, height*2);
 
   for (int x = particles.size ()-1; x > -1; x--) {
     // Simulate and draw pixels
@@ -145,7 +168,8 @@ void draw() {
   String tipText = "Left-click for a new word.";
   tipText += "\nDrag right-click over particles to interact with them.";
   tipText += "\nPress any key to toggle draw styles.";
-  text(tipText, 10, height-40);
+  text(tipText, 10, height-40);*/
+  
 }
 
 
