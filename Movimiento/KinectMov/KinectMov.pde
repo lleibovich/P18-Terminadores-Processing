@@ -2,8 +2,6 @@ import kinect4WinSDK.Kinect;
 import kinect4WinSDK.SkeletonData;
 ArrayList <SkeletonData> bodies;
 
-int[] cuerpos = {0,0,0,0,0,0}; // Es una prueba para ver si detecta hasta seis cuerpos
-
 Kinect kinect;
 
 void setup() {
@@ -15,13 +13,19 @@ void setup() {
 }
 
 void draw() {
-  for (int i=0; i<bodies.size (); i++) {
-    SkeletonData _s = bodies.get(i);
-    if(movimiento(_s)) {} // Acá deberían poner lo que quieren que haga si detecta movimiento
-  }
+  total();
 }
 
-boolean movimiento(SkeletonData _s) {
+int total() {
+  int todo = 0;
+  for (int i=0; i<bodies.size (); i++) {
+    SkeletonData _s = bodies.get(i);
+    todo = todo + movimiento(_s);
+  }
+  return todo;
+}
+
+int movimiento(SkeletonData _s) {
   // Variables locales para puntos x e y de todo el cuerpo
   int[] skely = new int[20];
   int[] skelx = new int[20];
@@ -34,12 +38,26 @@ boolean movimiento(SkeletonData _s) {
   int time = millis();
   while (time+1000 < millis()){};// Espera un segundo
   
-  // Detecta si el usuario se movio de la posición indicada cpn cada parte del cuerpo
+  // Detecta si el usuario se movio de la posición indicada con cada parte del cuerpo
   for(int l = 0;l < 20;l++) {
-    if (det(_s,l,skelx[l],skely[l],10)){
-    } else {return true;} // Devuelve verdadero si se movio
+    if (det(_s,l,skelx[l],skely[l],60)){
+      return 6;
+    } 
+    if (det(_s,l,skelx[l],skely[l],50)){
+      return 5;
+    }
+    if (det(_s,l,skelx[l],skely[l],40)){
+      return 4;
+    }
+    if (det(_s,l,skelx[l],skely[l],30)){
+      return 3;
+    }
+    if (det(_s,l,skelx[l],skely[l],20)){
+      return 2;
+    }
   }
-  return false; // Devuelve falso si no lo hizo
+  randomSeed(hour()*10000+minute()*100+second());
+  return (int)random(0,2);
 }
 
 float pos(SkeletonData _s, int b, char c) { // Toma la posición del cuerpo en cuestion
@@ -52,9 +70,9 @@ float pos(SkeletonData _s, int b, char c) { // Toma la posición del cuerpo en c
 boolean det(SkeletonData _s, int s, int x, int y, int d) { // Detecta si el cuerpo está en un lugar especifíco, o en un radio
   if (pos(_s, s, 'x') >= x-d && pos(_s, s, 'x') <= x+d) {
         if (pos(_s, s, 'y') >= y-d && pos(_s, s, 'y') <= y+d) {
-          return true;
-        } else {return false;}
-      } else {return false;}
+          return false;
+        } else {return true;}
+      } else {return true;}
 }
 
 void appearEvent(SkeletonData _s) 
@@ -64,9 +82,6 @@ void appearEvent(SkeletonData _s)
     return;
   }
   synchronized(bodies) {
-    for (int y = 0;y < 6; y++) {
-      if (cuerpos[y] == 0) {bodies.add(_s); cuerpos[y] = _s.dwTrackingID;}
-    }
   }
 }
 
@@ -76,9 +91,9 @@ void disappearEvent(SkeletonData _s)
     for (int i=bodies.size ()-1; i>=0; i--) 
     {
       if (_s.dwTrackingID == bodies.get(i).dwTrackingID || 0 == bodies.get(i).dwTrackingID) 
-      {for (int y = 0;y < 6;y++) {
-        if (cuerpos[y] == bodies.get(i).dwTrackingID) {bodies.remove(i); cuerpos[y] = 0;}
-      }}
+      {
+        bodies.remove(i);
+      }
     }
   }
 }
