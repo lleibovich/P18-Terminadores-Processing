@@ -1,10 +1,6 @@
 import java.awt.Rectangle;
 
 class Word {
-  
-  /*
-    La ubicación de las palabras se va a hacer random.
-  */
   int pixelSteps = 1;
   public String Text;
   public PVector TopLeftPos = new PVector(0,0);
@@ -33,10 +29,9 @@ class Word {
     pg.fill(255);
     pg.textSize(this.FontSize);
     pg.textAlign(LEFT);
-    PFont font = createFont(fontName, this.FontSize);
+    PFont font = createFont(this.FontName, this.FontSize);
     pg.textFont(font);
     pg.text(wordText, width/2, height/2);
-    //pg.text(wordText, width/8, height/8);
     pg.endDraw();
     pg.loadPixels();
     ArrayList<Integer> coordsIndexes = new ArrayList<Integer>();
@@ -69,8 +64,6 @@ class Word {
     }
     
     this.Size = this.calculateSizeVector();
-    println(this.Size);
-    
     
     while (!acceptedCoords) {
       // choose location
@@ -78,12 +71,10 @@ class Word {
       locY = int(random(buffer,height-buffer*2));
 
       boolean checkWords = true;
-      //println("Proposed [" + locX + ";" + locY + "] - Rect [" + locX + ";" + locY + ";" + (this.Size.x + locX) + ";" + (this.Size.y + locY) + "]");
-
+      
       rectangle = new Rectangle(locX, locY, (int)this.Size.x, (int)this.Size.y);
       // Ensure full word is visible (inside the margin)
       if ((locX + this.Size.x) > (width-10) || locY + this.Size.y > height-10) {
-        //println("Out of bounds");
         checkWords = false;
         continue;
       }
@@ -91,7 +82,6 @@ class Word {
       {
         if (rectangle.intersects(((Word)sharingBoardWords.get(i)).rectangle))
         {
-          //println("Intersects");
           checkWords = false;
           break;
         }

@@ -2,7 +2,9 @@ class Configuration {
   public String AnimationType = "ANIMACION1";
   public String SensorType = "KINECT";
   public ArrayList<String> Fears = new ArrayList<String>();
+  public ArrayList<Integer> FearsColors = new ArrayList<Integer>(); // colors are integers, add new item with color(r,g,b)
   public ArrayList<String> Strengths = new ArrayList<String>();
+  public ArrayList<Integer> StrengthsColors = new ArrayList<Integer>(); // colors are integers, add new item with color(r,g,b)
   public PVector ProjectorResolution = new PVector(800,600);
   public String ProjectorName = "";
   public String FontName = "Arial";

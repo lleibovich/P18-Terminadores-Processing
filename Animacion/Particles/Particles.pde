@@ -25,7 +25,6 @@ class Particle {
     this.drawAsPoints = pDrawAsPoints;
     this.pos.x = x;
     this.pos.y = y;
-    //println("Particle created");
   }
 
   void move() {
@@ -75,9 +74,9 @@ class Particle {
   void kill() {
     if (! this.isKilled) {
       // Set its target outside the scene
-      PVector randomPos = generateRandomPos(width/2, height/2, (width+height)/2);
-      this.target.x = randomPos.x;
-      this.target.y = randomPos.y;
+      //PVector randomPos = generateRandomPos(width/2, height/2, (width+height)/2);
+      //this.target.x = randomPos.x;
+      //this.target.y = randomPos.y;
 
       // Begin blending its color to black
       this.startColor = lerpColor(this.startColor, this.targetColor, this.colorWeight);
