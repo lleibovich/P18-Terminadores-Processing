@@ -5,6 +5,7 @@ Configuration cfg;
 ArrayList<Word> fears;
 ArrayList<Word> strengths;
 boolean centered;
+Board board;
 
 void settings() {
   fullScreen(P2D);
@@ -22,28 +23,36 @@ void setup() {
 
 void draw() {
   // Background & motion blur
-  background(bgColor);
+  //background(bgColor);
   fill(bgColor);
   noStroke();
   if(frame != null && centered == false)
   {
     centered = true;
-    for (String s : cfg.Fears) {
+    board = new Board(cfg);
+    /*for (String s : cfg.Fears) {
       fears.add(new Word(s, cfg.FontName, cfg.FontSize, fears));
     }
     for (String s : cfg.Strengths) {
       strengths.add(new Word(s, cfg.FontName, cfg.FontSize, strengths));
-    }
-    for (Word w : fears) {
+    }*/
+    /*for (Word w : fears) {
       w.draw();
-    }
+    }*/
   } else {
-    for (Word w : fears) {
+    if (millis() < 60000) {
+      background(bgColor);
+      board.alignAllFears();
+    } else {
+      //println("Should be fully positioned");
+      // TODO: Analyze movement -> disalign words
+    }
+    /*for (Word w : fears) {
       w.alignParticles();
     }
     for (Word w : fears) {
       w.draw();
-    }
+    }*/
   }
 }
 

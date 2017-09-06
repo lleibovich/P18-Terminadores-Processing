@@ -72,7 +72,7 @@ class Word {
 
       boolean checkWords = true;
       
-      rectangle = new Rectangle(locX, locY, (int)this.Size.x, (int)this.Size.y);
+      rectangle = new Rectangle(locX-10, locY-10, (int)this.Size.x+10, (int)this.Size.y+10);
       // Ensure full word is visible (inside the margin)
       if ((locX + this.Size.x) > (width-10) || locY + this.Size.y > height-10) {
         checkWords = false;
@@ -90,7 +90,7 @@ class Word {
       if (checkWords)
       {
         acceptedCoords = true;
-        //rect(locX, locY, (int)this.Size.x, (int)this.Size.y);
+        rect(locX, locY, (int)this.Size.x, (int)this.Size.y);
         this.TopLeftPos = new PVector(locX, locY);
         for (Particle p : this.ComponentParticles) {
           p.target.x += this.TopLeftPos.x;

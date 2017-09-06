@@ -6,13 +6,15 @@ class Board {
   Configuration Config;
   
   public Board(Configuration config) {
+    this.Fears = new ArrayList<Word>();
+    this.Strengths = new ArrayList<Word>();
+    this.Config = config;
     for (String fear : config.Fears) {
-      this.Fears.add(new Word(fear, config.FontName, config.FontSize, this.Fears));
+      this.Fears.add(new Word(fear, this.Config.FontName, this.Config.FontSize, this.Fears));
     }
     for (String strength : config.Strengths) {
-      this.Strengths.add(new Word(strength, config.FontName, config.FontSize, this.Strengths));
+      this.Strengths.add(new Word(strength, this.Config.FontName, this.Config.FontSize, this.Strengths));
     }
-    this.Config = config;
   }
   
   private void getNextAlignedWord() {
@@ -22,6 +24,9 @@ class Board {
   private void alignAllFears() {
     for (Word fear : this.Fears) {
       fear.alignParticles();
+    }
+    for (Word fear : this.Fears) {
+      fear.draw();
     }
   }
   
