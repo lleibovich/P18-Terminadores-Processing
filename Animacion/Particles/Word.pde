@@ -54,13 +54,13 @@ class Word {
     int y0 = height;
     //// Searches initial X,Y for the word.
     for (Particle p : this.ComponentParticles) {
-      if (p.pos.x < x0) x0 = (int)p.pos.x;
-      if (p.pos.y < y0) y0 = (int)p.pos.y;
+      if (p.target.x < x0) x0 = (int)p.target.x;
+      if (p.target.y < y0) y0 = (int)p.target.y;
     }
     //// Sets all X,Y from all points relative to x0,y0
     for (Particle p : this.ComponentParticles) {
-      p.pos.x = p.pos.x - x0;
-      p.pos.y = p.pos.y - y0;
+      p.target.x = p.target.x - x0;
+      p.target.y = p.target.y - y0;
     }
     
     this.Size = this.calculateSizeVector();
@@ -90,11 +90,11 @@ class Word {
       if (checkWords)
       {
         acceptedCoords = true;
-        rect(locX, locY, (int)this.Size.x, (int)this.Size.y);
+        //rect(locX, locY, (int)this.Size.x, (int)this.Size.y);
         this.TopLeftPos = new PVector(locX, locY);
         for (Particle p : this.ComponentParticles) {
-          p.pos.x += this.TopLeftPos.x;
-          p.pos.y += this.TopLeftPos.y;
+          p.target.x += this.TopLeftPos.x;
+          p.target.y += this.TopLeftPos.y;
         }
       }
     }
@@ -102,6 +102,9 @@ class Word {
   
   public void alignParticles() {
     // TO-DO: Align particles to show the word.
+    for (Particle p : this.ComponentParticles) {
+      p.move();
+    }
   }
   
   public void disalignParticles(int force, float conversionFactor) {
@@ -113,11 +116,11 @@ class Word {
     PVector size = new PVector();
     for (Particle p : this.ComponentParticles) {
       if (size.x == 0 || size.x < p.pos.x)
-        size.x = p.pos.x;
+        size.x = p.target.x;
       if (size.y == 0 || size.y < p.pos.y)
-        size.y = p.pos.y;
-      p.pos.x = p.pos.x + this.TopLeftPos.x;
-      p.pos.y = p.pos.y + this.TopLeftPos.y;
+        size.y = p.target.y;
+      p.target.x = p.target.x + this.TopLeftPos.x;
+      p.target.y = p.target.y + this.TopLeftPos.y;
     }
     return size;
   }

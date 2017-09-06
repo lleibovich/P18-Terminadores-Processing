@@ -1,6 +1,6 @@
 import processing.opengl.*;
 
-color bgColor = color(255, 100);
+color bgColor = color(255, 100, 50);
 Configuration cfg;
 ArrayList<Word> fears;
 ArrayList<Word> strengths;
@@ -11,7 +11,8 @@ void settings() {
 }
 
 void setup() {
-  background(255);
+  background(bgColor);
+  
   centered = false;
 
   cfg = new Configuration();
@@ -20,6 +21,10 @@ void setup() {
 }
 
 void draw() {
+  // Background & motion blur
+  background(bgColor);
+  fill(bgColor);
+  noStroke();
   if(frame != null && centered == false)
   {
     centered = true;
@@ -29,12 +34,16 @@ void draw() {
     for (String s : cfg.Strengths) {
       strengths.add(new Word(s, cfg.FontName, cfg.FontSize, strengths));
     }
-  }
-  // Background & motion blur
-  fill(bgColor);
-  noStroke();
-  for (Word w : fears) {
-    w.draw();
+    for (Word w : fears) {
+      w.draw();
+    }
+  } else {
+    for (Word w : fears) {
+      w.alignParticles();
+    }
+    for (Word w : fears) {
+      w.draw();
+    }
   }
 }
 

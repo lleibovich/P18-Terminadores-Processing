@@ -4,7 +4,7 @@ class Particle {
   PVector pos = new PVector(0, 0);
   PVector vel = new PVector(0, 0);
   PVector acc = new PVector(0, 0);
-  PVector target = new PVector(0, 0);
+  public PVector target = new PVector(0, 0);
 
   float closeEnoughTarget = 50;
   float maxSpeed = 4.0;
@@ -23,8 +23,10 @@ class Particle {
   
   Particle(boolean pDrawAsPoints, int x, int y) {
     this.drawAsPoints = pDrawAsPoints;
-    this.pos.x = x;
-    this.pos.y = y;
+    this.target.x = x;
+    this.target.y = y;
+    this.pos.x = width/2;
+    this.pos.y = height/2;
   }
 
   void move() {
