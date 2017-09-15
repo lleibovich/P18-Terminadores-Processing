@@ -10,7 +10,7 @@ class Particle {
   float maxSpeed = 4.0;
   float maxForce = 0.1;
   float particleSize = 5;
-  boolean isKilled = false;
+  public boolean isKilled = false;
 
   color startColor = color(0);
   color targetColor = color(0);
@@ -56,20 +56,22 @@ class Particle {
   }
 
   void draw() {
-    // Draw particle
-    color currentColor = lerpColor(this.startColor, this.targetColor, this.colorWeight);
-    if (drawAsPoints) {
-      stroke(currentColor);
-      point(this.pos.x, this.pos.y);
-    } else {
-      noStroke();
-      fill(currentColor);
-      ellipse(this.pos.x, this.pos.y, this.particleSize, this.particleSize);
-    }
-
-    // Blend towards its target color
-    if (this.colorWeight < 1.0) {
-      this.colorWeight = min(this.colorWeight+this.colorBlendRate, 1.0);
+    if (!this.isKilled) {
+      // Draw particle
+      color currentColor = lerpColor(this.startColor, this.targetColor, this.colorWeight);
+      if (drawAsPoints) {
+        stroke(currentColor);
+        point(this.pos.x, this.pos.y);
+      } else {
+        noStroke();
+        fill(currentColor);
+        ellipse(this.pos.x, this.pos.y, this.particleSize, this.particleSize);
+      }
+  
+      // Blend towards its target color
+      if (this.colorWeight < 1.0) {
+        this.colorWeight = min(this.colorWeight+this.colorBlendRate, 1.0);
+      }
     }
   }
 
@@ -87,5 +89,44 @@ class Particle {
 
       this.isKilled = true;
     }
+  }
+  
+  public boolean isAligned() {
+    if (Math.abs(this.pos.x - this.target.x) < 2 && Math.abs(this.pos.y - this.target.y) < 2)
+      return true;
+    return false;
+  }
+  
+  public boolean isDisaligning() {
+    if (!this.isKilled && this.pos.x != this.target.x && this.pos.y != this.target.y)
+      return true;
+    else
+      return false;
+  }
+  
+  boolean isOutOfBoundaries() {
+    if (this.pos == null) return false;
+    return ((this.pos.x < 0 || this.pos.x > width) && (this.pos.y < 0 || this.pos.y > height));
+  }
+  
+  boolean isTargetOutOfBoundaries() {
+    if (this.target == null) return false;
+    return ((this.target.x < 0 || this.target.x > width) && (this.target.y < 0 || this.target.y > height));
+  }
+  
+  public void disalign() {
+    // Set target out of screen boundaries
+    if (!this.isTargetOutOfBoundaries()) {
+      if (random(0,1) <= 0.5) // Left
+        this.target.x = -random(0, 10);
+      else // Right
+        this.target.x = random(width, width + 10);
+      if (random(0,1) <= 0.5) // Top
+        this.target.y = -random(0,10);
+      else // Bot
+        this.target.y = random(height, height + 10);
+    }
+    this.move();
+    if (this.isAligned()) this.kill();
   }
 }

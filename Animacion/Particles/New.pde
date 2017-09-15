@@ -6,6 +6,10 @@ ArrayList<Word> fears;
 ArrayList<Word> strengths;
 boolean centered;
 Board board;
+boolean creatingBoard;
+boolean aligningFears;
+boolean disaligningFears;
+boolean aligningStrengths;
 
 void settings() {
   fullScreen(P2D);
@@ -19,41 +23,54 @@ void setup() {
   cfg = new Configuration();
   fears = new ArrayList<Word>();
   strengths = new ArrayList<Word>();
+  creatingBoard = true;
+  aligningFears = true;
+  disaligningFears = false;
+  aligningStrengths = false;
 }
+
 
 void draw() {
   // Background & motion blur
   //background(bgColor);
-  fill(bgColor);
+  fill(0);
   noStroke();
-  if(frame != null && centered == false)
-  {
-    centered = true;
+  
+  if (creatingBoard) {
     board = new Board(cfg);
-    /*for (String s : cfg.Fears) {
-      fears.add(new Word(s, cfg.FontName, cfg.FontSize, fears));
-    }
-    for (String s : cfg.Strengths) {
-      strengths.add(new Word(s, cfg.FontName, cfg.FontSize, strengths));
-    }*/
-    /*for (Word w : fears) {
-      w.draw();
-    }*/
-  } else {
-    if (millis() < 60000) {
-      background(bgColor);
-      board.alignAllFears();
-    } else {
-      //println("Should be fully positioned");
-      // TODO: Analyze movement -> disalign words
-    }
-    /*for (Word w : fears) {
-      w.alignParticles();
-    }
-    for (Word w : fears) {
-      w.draw();
-    }*/
+    creatingBoard = false;
   }
+  
+  if (aligningFears) {
+    background(bgColor);
+    board.alignAllFears();
+    if (board.allFearsAligned()) {
+      aligningFears = false;
+      println("All fears aligned"); // DEBUG: Know when all fears have been aligned.
+      disaligningFears = true;
+    }
+  }
+  
+  if (disaligningFears) {
+    background(bgColor);
+    int force = (int)random(0, 6); // TODO: Get from sensor
+    if (!board.disalignWord(force)) {
+      disaligningFears = false;
+      aligningStrengths = true;
+      println("All fears disaligned");
+    }
+    board.drawAllFears();
+  }
+  
+  if (aligningStrengths) {
+    background(bgColor);
+    board.alignAllStrengths();
+    if (board.allStrengthsAligned()) {
+      aligningStrengths = false;
+      println("All strengths aligned"); // DEBUG: Know when all fears have been aligned.
+    }
+  }
+  
 }
 
 // Show next word

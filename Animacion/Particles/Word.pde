@@ -90,7 +90,7 @@ class Word {
       if (checkWords)
       {
         acceptedCoords = true;
-        rect(locX, locY, (int)this.Size.x, (int)this.Size.y);
+        //rect(locX, locY, (int)this.Size.x, (int)this.Size.y);
         this.TopLeftPos = new PVector(locX, locY);
         for (Particle p : this.ComponentParticles) {
           p.target.x += this.TopLeftPos.x;
@@ -110,6 +110,42 @@ class Word {
   public void disalignParticles(int force, float conversionFactor) {
     // TO-DO: Disarm the word. Kill the particles when they are not visible anymore (probably should be inside Particle).
     // When completely disaligned: this.IsAligned = false;
+    int nParticlesToDisalign = (int) (force * conversionFactor);
+    /*print("Word: ");
+    print(this.Text);
+    print(" - Particles to disalign: ");
+    println(nParticlesToDisalign);*/
+    /*for (Particle p : this.ComponentParticles) {
+      if (p.isAligned()) {
+        if (nParticlesToDisalign > 0) {
+          p.disalign();
+          nParticlesToDisalign -= 1;
+        }
+      } else {
+        if (!p.isKilled) { // if killed do nothing, else continue disaligning
+          p.disalign();
+        }
+      }
+    }*/
+    ArrayList<Particle> particlesDisaligning = new ArrayList<Particle>();
+    ArrayList<Particle> particlesToDisalign = new ArrayList<Particle>();
+    for (Particle p : this.ComponentParticles) {
+      if (p.isDisaligning())
+        particlesDisaligning.add(p);
+      if (!p.isKilled)
+        particlesToDisalign.add(p);
+    }
+    while (nParticlesToDisalign > 0 && particlesToDisalign.size() > 0) {
+      int randomIndex = 0;
+      if (particlesToDisalign.size() > 1)
+        randomIndex = (int) random(0, particlesToDisalign.size() - 1);
+      particlesDisaligning.add(particlesToDisalign.get(randomIndex));
+      particlesToDisalign.remove(randomIndex);
+      nParticlesToDisalign -= 1;
+    }
+    for (Particle p : particlesDisaligning) {
+      p.disalign();
+    }
   }
   
   private PVector calculateSizeVector() {
@@ -129,5 +165,26 @@ class Word {
     for (Particle p : this.ComponentParticles) {
       p.draw();
     }
+  }
+  
+  public boolean allParticlesAligned() {
+    boolean allAligned = true;
+    for (Particle p : this.ComponentParticles) {
+      if (!p.isAligned()) return false;
+    }
+    return allAligned;
+  }
+  
+  public boolean isCompletelyDisaligned() {
+    boolean completelyDisaligned = false;
+    int disalignedParticles = 0;
+    int totalParticles = this.ComponentParticles.size();
+    for (Particle p : this.ComponentParticles) {
+      if (p.isKilled)
+        disalignedParticles += 1;
+    }
+    if (disalignedParticles >= totalParticles)
+      completelyDisaligned = true;
+    return completelyDisaligned;
   }
 }
