@@ -7,7 +7,7 @@ class Particle {
   public PVector target = new PVector(0, 0);
 
   float closeEnoughTarget = 50;
-  float maxSpeed = 4.0;
+  float maxSpeed = 5.0;
   float maxForce = 0.1;
   float particleSize = 5;
   public boolean isKilled = false;
@@ -111,20 +111,32 @@ class Particle {
   
   boolean isTargetOutOfBoundaries() {
     if (this.target == null) return false;
-    return ((this.target.x < 0 || this.target.x > width) && (this.target.y < 0 || this.target.y > height));
+    return ((this.target.x <= 0 || this.target.x >= width) && (this.target.y <= 0 || this.target.y >= height));
   }
   
   public void disalign() {
     // Set target out of screen boundaries
     if (!this.isTargetOutOfBoundaries()) {
-      if (random(0,1) <= 0.5) // Left
-        this.target.x = -random(0, 10);
-      else // Right
-        this.target.x = random(width, width + 10);
-      if (random(0,1) <= 0.5) // Top
-        this.target.y = -random(0,10);
-      else // Bot
-        this.target.y = random(height, height + 10);
+      // Find nearest border
+      boolean left = true;
+      boolean top = true;
+      if (this.pos.x >= width / 2) left = false;
+      if (this.pos.y >= height / 2) top = false;
+      
+      if (top && left) {
+        this.target.x = 0 - random(1, 10);
+        this.target.y = 0 - random(1, 10);
+      } else if (top && !left) {
+        this.target.x = width + random(1, 10);
+        this.target.y = 0 - random(1, 10);
+      } else if (!top && left) {
+        this.target.x = 0 - random(1, 10);
+        this.target.y = height + random(1, 10);
+      } else if (!top && !left) {
+        this.target.x = width + random(1, 10);
+        this.target.y = height + random(1, 10);
+      }
+      
     }
     this.move();
     if (this.isAligned()) this.kill();
