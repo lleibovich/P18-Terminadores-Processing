@@ -29,6 +29,8 @@ void setup() {
   aligningStrengths = false;
 }
 
+  int msPreviousDisalign = 0;
+
 
 void draw() {
   // Background & motion blur
@@ -53,7 +55,11 @@ void draw() {
   
   if (disaligningFears) {
     background(bgColor);
-    int force = (int)random(0, 6); // TODO: Get from sensor
+    int force = 0;
+    if ((millis() - msPreviousDisalign) > this.cfg.DisalignIntervalMs) {
+      msPreviousDisalign = millis();
+      force = (int)random(0, 6); // TODO: Get from sensor
+    }
     if (!board.disalignWord(force)) {
       disaligningFears = false;
       aligningStrengths = true;

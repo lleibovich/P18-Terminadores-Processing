@@ -9,7 +9,8 @@ class Configuration {
   public String ProjectorName = "";
   public String FontName = "Arial";
   public int FontSize = 48;
-  public float DisalignConversionFactor = 5.5;
+  public float DisalignConversionFactor = 55.5;
+  public int DisalignIntervalMs = 500;
   
   public Configuration() {
     File[] files = listFiles(sketchPath());

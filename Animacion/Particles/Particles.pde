@@ -11,6 +11,7 @@ class Particle {
   float maxForce = 0.1;
   float particleSize = 5;
   public boolean isKilled = false;
+  public boolean isDisaligning = false;
 
   color startColor = color(0);
   color targetColor = color(0);
@@ -97,12 +98,12 @@ class Particle {
     return false;
   }
   
-  public boolean isDisaligning() {
+  /*public boolean isDisaligning() {
     if (!this.isKilled && this.pos.x != this.target.x && this.pos.y != this.target.y)
       return true;
     else
       return false;
-  }
+  }*/
   
   boolean isOutOfBoundaries() {
     if (this.pos == null) return false;
@@ -117,6 +118,7 @@ class Particle {
   public void disalign() {
     // Set target out of screen boundaries
     if (!this.isTargetOutOfBoundaries()) {
+      isDisaligning = true;
       // Find nearest border
       boolean left = true;
       boolean top = true;

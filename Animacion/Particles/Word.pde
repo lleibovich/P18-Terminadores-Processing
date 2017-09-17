@@ -101,20 +101,20 @@ class Word {
   }
   
   public void alignParticles() {
-    // TO-DO: Align particles to show the word.
+    // Align particles to show the word.
     for (Particle p : this.ComponentParticles) {
       p.move();
     }
   }
   
   public void disalignParticles(int force, float conversionFactor) {
-    // TO-DO: Disarm the word. Kill the particles when they are not visible anymore (probably should be inside Particle).
+    // Disarm the word. Kill the particles when they are not visible anymore (probably should be inside Particle).
     // When completely disaligned: this.IsAligned = false;
     int nParticlesToDisalign = (int) (force * conversionFactor);
     ArrayList<Particle> particlesDisaligning = new ArrayList<Particle>();
     ArrayList<Particle> particlesToDisalign = new ArrayList<Particle>();
     for (Particle p : this.ComponentParticles) {
-      if (p.isDisaligning())
+      if (p.isDisaligning)
         particlesDisaligning.add(p);
       if (!p.isKilled)
         particlesToDisalign.add(p);
