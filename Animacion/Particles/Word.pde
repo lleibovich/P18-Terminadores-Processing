@@ -111,22 +111,6 @@ class Word {
     // TO-DO: Disarm the word. Kill the particles when they are not visible anymore (probably should be inside Particle).
     // When completely disaligned: this.IsAligned = false;
     int nParticlesToDisalign = (int) (force * conversionFactor);
-    /*print("Word: ");
-    print(this.Text);
-    print(" - Particles to disalign: ");
-    println(nParticlesToDisalign);*/
-    /*for (Particle p : this.ComponentParticles) {
-      if (p.isAligned()) {
-        if (nParticlesToDisalign > 0) {
-          p.disalign();
-          nParticlesToDisalign -= 1;
-        }
-      } else {
-        if (!p.isKilled) { // if killed do nothing, else continue disaligning
-          p.disalign();
-        }
-      }
-    }*/
     ArrayList<Particle> particlesDisaligning = new ArrayList<Particle>();
     ArrayList<Particle> particlesToDisalign = new ArrayList<Particle>();
     for (Particle p : this.ComponentParticles) {

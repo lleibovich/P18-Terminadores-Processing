@@ -111,7 +111,7 @@ class Particle {
   
   boolean isTargetOutOfBoundaries() {
     if (this.target == null) return false;
-    return ((this.target.x <= 0 || this.target.x >= width) && (this.target.y <= 0 || this.target.y >= height));
+    return ((this.target.x <= 0 || this.target.x >= width) || (this.target.y <= 0 || this.target.y >= height));
   }
   
   public void disalign() {
@@ -123,20 +123,22 @@ class Particle {
       if (this.pos.x >= width / 2) left = false;
       if (this.pos.y >= height / 2) top = false;
       
-      if (top && left) {
-        this.target.x = 0 - random(1, 10);
-        this.target.y = 0 - random(1, 10);
-      } else if (top && !left) {
-        this.target.x = width + random(1, 10);
-        this.target.y = 0 - random(1, 10);
-      } else if (!top && left) {
-        this.target.x = 0 - random(1, 10);
-        this.target.y = height + random(1, 10);
-      } else if (!top && !left) {
-        this.target.x = width + random(1, 10);
-        this.target.y = height + random(1, 10);
-      }
+      float dx = this.pos.x - (width / 2); // <0 => left, >0 => right
+      float dy = this.pos.y - (height / 2); // <0=> top, >0 => bot
       
+      if (sqrt(pow(dx, 2)) >= sqrt(pow(dy, 2))) { // Nearer x border than y border
+        if (dx <= 0) // left
+          this.target.x = -random(1, 10);
+        else // right
+          this.target.x = width + random(1,10);
+        this.target.y = random(this.pos.y - 25, this.pos.y + 25);
+      } else {
+        this.target.x = random(this.pos.x - 25, this.pos.x + 25);
+        if (dy <= 0) // top
+          this.target.y = -random(1, 10);
+        else // bot
+          this.target.y = height + random(1, 10);
+      }      
     }
     this.move();
     if (this.isAligned()) this.kill();
