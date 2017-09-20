@@ -126,7 +126,7 @@ class Particle {
   
   public void disalign() {
     // Set target out of screen boundaries
-    if (!this.isTargetOutOfBoundaries()) {
+    if (!this.isTargetOutOfBoundaries() && !isDisaligning) {
       isDisaligning = true;
       // Find nearest border
       boolean left = true;
@@ -134,22 +134,49 @@ class Particle {
       if (this.pos.x >= width / 2) left = false;
       if (this.pos.y >= height / 2) top = false;
       
-      float dx = this.pos.x - (width / 2); // <0 => left, >0 => right
-      float dy = this.pos.y - (height / 2); // <0=> top, >0 => bot
-      
-      if (sqrt(pow(dx, 2)) >= sqrt(pow(dy, 2))) { // Nearer x border than y border
-        if (dx <= 0) // left
-          this.target.x = -random(1, 10);
-        else // right
-          this.target.x = width + random(1,10);
-        this.target.y = random(this.pos.y - 25, this.pos.y + 25);
-      } else {
-        this.target.x = random(this.pos.x - 25, this.pos.x + 25);
-        if (dy <= 0) // top
-          this.target.y = -random(1, 10);
-        else // bot
-          this.target.y = height + random(1, 10);
-      }      
+      float dx = 0;
+      float dy = 0;
+      if (left && top) {
+        dx = this.pos.x;
+        dy = this.pos.y;
+        if (dx <= dy) {
+          this.target.x = -random(0, 25);
+          this.target.y = this.pos.y + random(-25, 25);
+        } else {
+          this.target.x = this.pos.x + random(-25, 25);
+          this.target.y = -random(0, 25);
+        }
+      } else if (left && !top) {
+        dx = this.pos.x;
+        dy = height - this.pos.y;
+        if (dx <= dy) {
+          this.target.x = -random(0, 25);
+          this.target.y = this.pos.y + random(-25, 25);
+        } else {
+          this.target.x = this.pos.x + random(-25, 25);
+          this.target.y = height + random(0, 25);
+        }
+      } else if (!left && top) {
+        dx = width - this.pos.x;
+        dy = this.pos.y;
+        if (dx <= dy) {
+          this.target.x = width + random(0, 25);
+          this.target.y = this.pos.y + random(-25, 25);
+        } else {
+          this.target.x = this.pos.x + random(-25, 25);
+          this.target.y = -random(0, 25);
+        }
+      } else if (!left && !top) {
+        dx = width - this.pos.x;
+        dy = height - this.pos.y;
+        if (dx <= dy) {
+          this.target.x = width + random(0, 25);
+          this.target.y = this.pos.y + random(-25, 25);
+        } else {
+          this.target.x = this.pos.x + random(-25, 25);
+          this.target.y = height + random(0, 25);
+        }
+      }
     }
     this.move();
     if (this.isAligned()) this.kill();
