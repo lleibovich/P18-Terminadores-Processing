@@ -4,7 +4,7 @@ ArrayList <SkeletonData> bodies;
 
 Kinect kinect;
 
-int time = 0;
+int time = 0, cons = 0;
 int[] skely = new int[20];
 int[] skelx = new int[20];
 
@@ -13,16 +13,16 @@ void setup() {
   kinect = new Kinect(this);
   smooth();
   bodies = new ArrayList<SkeletonData>();
-  
+  thread("total");
 }
 
 void draw() {
   textSize(72);
   image(kinect.GetImage(),0,0);
-  text(total(),width/2,height/2);
+  text(cons,width/2,height/2);
 }
 
-int total() {
+void total() {
   int todo = 0;
   int fmov;
   for (int i=0; i<bodies.size (); i++) {
@@ -31,8 +31,8 @@ int total() {
     todo = todo + fmov;
     println(fmov);
   }
-  if (todo != 0) {noLoop();}
-  return todo;
+  if (todo != 0) {cons = todo;}
+  thread("total");
 }
 
 int auxiliar(SkeletonData _s) {
