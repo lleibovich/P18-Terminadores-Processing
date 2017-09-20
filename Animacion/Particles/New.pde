@@ -27,6 +27,7 @@ void setup() {
   aligningFears = true;
   disaligningFears = false;
   aligningStrengths = false;
+  this.bgColor = this.cfg.BackgroundColor;
 }
 
   int msPreviousDisalign = 0;
@@ -54,7 +55,7 @@ void draw() {
   }
   
   if (disaligningFears) {
-    background(bgColor);
+    background(this.cfg.BackgroundColor);
     int force = 0;
     if ((millis() - msPreviousDisalign) > this.cfg.DisalignIntervalMs) {
       msPreviousDisalign = millis();

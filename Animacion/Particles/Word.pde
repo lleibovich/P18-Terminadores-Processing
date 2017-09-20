@@ -15,11 +15,13 @@ class Word {
   Rectangle rectangle;
   int locX;
   int locY;
+  color wordColor;
   
-  public Word(String wordText, String wordFontName, int wordFontSize, ArrayList<Word> sharingBoardWords) {
+  public Word(String wordText, String wordFontName, int wordFontSize, ArrayList<Word> sharingBoardWords, color pWordColor) {
     this.Text = wordText;
     this.FontName = wordFontName;
     this.FontSize = wordFontSize;
+    this.wordColor = pWordColor;
     
     // Fill particles ArrayList
     //// Draw word in memory
@@ -47,7 +49,7 @@ class Word {
         int x = coordIndex % width;
         int y = coordIndex / width;
         //println("Adding particle");
-        this.ComponentParticles.add(new Particle(true, x, y));
+        this.ComponentParticles.add(new Particle(true, x, y, this.wordColor));
       }
     }
     int x0 = width;

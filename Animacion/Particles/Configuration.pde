@@ -1,6 +1,7 @@
 class Configuration {
   public String AnimationType = "ANIMACION1";
   public String SensorType = "KINECT";
+  public Integer BackgroundColor = color(220, 230, 240);
   public ArrayList<String> Fears = new ArrayList<String>();
   public ArrayList<Integer> FearsColors = new ArrayList<Integer>(); // colors are integers, add new item with color(r,g,b)
   public ArrayList<String> Strengths = new ArrayList<String>();
@@ -42,6 +43,12 @@ class Configuration {
     this.Strengths.add("Strength eight");
     this.Strengths.add("Strength nine");
     this.Strengths.add("Strength ten");
-    
+    this.FearsColors.add(color(255, 0, 0));
+    this.FearsColors.add(color(255, 70, 0));
+    this.FearsColors.add(color(255, 0, 70));
+    this.StrengthsColors.add(color(0, 255, 0));
+    this.StrengthsColors.add(color(10, 255, 10));
+    this.StrengthsColors.add(color(20, 255, 20));
+    this.BackgroundColor = color(255, 255, 255);
   }
 }

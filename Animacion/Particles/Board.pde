@@ -10,10 +10,16 @@ class Board {
     this.Strengths = new ArrayList<Word>();
     this.Config = config;
     for (String fear : config.Fears) {
-      this.Fears.add(new Word(fear, this.Config.FontName, this.Config.FontSize, this.Fears));
+      int rndm = (int)random(0, this.Config.FearsColors.size());
+      if (rndm >= this.Config.FearsColors.size()) rndm = this.Config.FearsColors.size() - 1;
+      color wColor = color(this.Config.FearsColors.get(rndm));
+      this.Fears.add(new Word(fear, this.Config.FontName, this.Config.FontSize, this.Fears, wColor));
     }
     for (String strength : config.Strengths) {
-      this.Strengths.add(new Word(strength, this.Config.FontName, this.Config.FontSize, this.Strengths));
+      int rndm = (int)random(0, this.Config.StrengthsColors.size());
+      if (rndm >= this.Config.FearsColors.size()) rndm = this.Config.StrengthsColors.size() - 1;
+      color wColor = color(this.Config.FearsColors.get(rndm));
+      this.Strengths.add(new Word(strength, this.Config.FontName, this.Config.FontSize, this.Strengths, wColor));
     }
   }
   

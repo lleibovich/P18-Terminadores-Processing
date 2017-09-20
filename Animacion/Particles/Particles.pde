@@ -29,6 +29,15 @@ class Particle {
     this.pos.x = width/2;
     this.pos.y = height/2;
   }
+  
+  Particle(boolean pDrawAsPoints, int x, int y, color particleColor) {
+    this.drawAsPoints = pDrawAsPoints;
+    this.target.x = x;
+    this.target.y = y;
+    this.pos.x = width/2;
+    this.pos.y = height/2;
+    this.targetColor = particleColor;
+  }
 
   void move() {
     // Check if particle is close enough to its target to slow down
