@@ -2,7 +2,7 @@ class Rectangle {
   private PVector TopLeftPos;
   private PVector Size;
   private String col;//izq der
-  public float Longitud(){
+  public float Largo(){
     return this.Size.x;
   }
   public float Altura(){

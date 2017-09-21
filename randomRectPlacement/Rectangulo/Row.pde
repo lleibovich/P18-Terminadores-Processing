@@ -1,12 +1,12 @@
 class Row {
   protected ArrayList<Rectangle> rectangles = new ArrayList<Rectangle>();//serian 2 por row por ahora
-  protected int espacioVacioIzquierda=(width/2 );//cantidad de espacio disponible para variar randomente
-  protected int espacioVacioDerecha = (width/2);
-  
+  protected float espacioVacioIzquierda=(width/2);//cantidad de espacio disponible para variar randomente
+  protected float espacioVacioDerecha = (width/2);//deberia ser entero pero por mantener tipos
   public int CantidadDePalabras(){
    return this.rectangles.size();
   }
-  public void AgregarPalabra(Rectangle r){
+  public void AgregarPalabra(Rectangle r){//un poco largo se debe poder mejorar
+  Rectangle aux ;
    
    if(this.rectangles.size()==0){
      r.PonerEnColumna(ColumnaRandom());
@@ -14,9 +14,8 @@ class Row {
      this.rectangles.add(r);
    }
    else if(this.rectangles.size()==1){
-     Rectangle aux = new Rectangle;
      aux=rectangles.get(0);
-     if(aux.Columna.equals("der")){
+     if(aux.Columna().equals("der")){
        r.PonerEnColumna("izq");
        this.VaciarEspacio(r);
        this.rectangles.add(r);
@@ -31,7 +30,7 @@ class Row {
        println("Error AgregarPalabra");
    }
  }
- public String ColumnaRandom(){//deberia estar en main pra ser mas gral
+ public String ColumnaRandom(){//podria estar en main para ser mas gral
    float i= random(1);
    if(i>0.5){
      return "der";
@@ -40,16 +39,27 @@ class Row {
      return "izq";
    } 
  }
- public void VaciarEspacio(Rectangle r){
-   if(r.Columna.equals("der")){
-     this.espacioVacioDerecha=this.espacioVacioDerecha-r.Largo;
+ public void VaciarEspacio(Rectangle r){//saca la cantidad de espacio que ocupa la palabra
+   if(r.Columna().equals("der")){
+     this.espacioVacioDerecha=this.espacioVacioDerecha-r.Largo();
    }
-   else if(r.Columna.equals("izq")){
-     this.espacioVacioIzquierda=this.espacioVacioIzquierda-r.Largo;
+   else if(r.Columna().equals("izq")){
+     this.espacioVacioIzquierda=this.espacioVacioIzquierda-r.Largo();
    }
    else{
      println("Error VaciarEspacio");
    }
+ }
+ public int CantidadDeRectangles(){
+     return this.rectangles.size();
+ }
+ public void Dibujar(){
+    for( ){}
+ }
+ protected void RandomizarPal(){
+    for(){
+    }
+    
  }
 }
   
