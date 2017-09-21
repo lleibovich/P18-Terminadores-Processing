@@ -107,13 +107,6 @@ class Particle {
     return false;
   }
   
-  /*public boolean isDisaligning() {
-    if (!this.isKilled && this.pos.x != this.target.x && this.pos.y != this.target.y)
-      return true;
-    else
-      return false;
-  }*/
-  
   boolean isOutOfBoundaries() {
     if (this.pos == null) return false;
     return ((this.pos.x < 0 || this.pos.x > width) && (this.pos.y < 0 || this.pos.y > height));

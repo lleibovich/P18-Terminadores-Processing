@@ -1,5 +1,5 @@
 AnimationType=ANIMACION1
-SensorType=KINECT
+SensorType=RANDOM
 CameraName=ABC
 Fears=Fear one;Fear two;Fear three;Fear four;Fear five;Fear six;Fear seven;Fear eight;Fear nine;Fear ten
 FearsColors=255;0;0|255;70;0|255;0;70
@@ -12,3 +12,4 @@ FontSize=48
 DisalignConversionFactor=55.5
 DisalignIntervalMs=500
 BackgroundColor=0;0;0
+LocationType=RANDOM

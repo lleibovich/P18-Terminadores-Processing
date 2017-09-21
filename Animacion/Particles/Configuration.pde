@@ -13,14 +13,13 @@ class Configuration {
   public int FontSize = 48;
   public float DisalignConversionFactor = 55.5;
   public int DisalignIntervalMs = 500;
+  public String LocationType = "RANDOM";
   
   public Configuration() {
     File[] files = listFiles(sketchPath());
     for (int i = 0; i < files.length; i++) {
       File f = files[i];
-      println(f.getName());
       if (f.getName().equals("cfg.txt")) {
-        // TO-DO: Read config from file and fill properties
         BufferedReader reader = createReader(f.getName());
         boolean read = true;
         while (read) {
@@ -93,6 +92,9 @@ class Configuration {
               case "BackgroundColor":
                 String[] backgroundColorComps = keyValue[1].split(";");
                 this.BackgroundColor = color(int(backgroundColorComps[0]), int(backgroundColorComps[1]), int(backgroundColorComps[2]));
+                break;
+              case "LocationType":
+                this.LocationType = keyValue[1];
                 break;
             }
           }
