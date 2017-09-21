@@ -21,8 +21,13 @@ void draw() {
   }
   if(debug){println("Fin init rect");}
   for (int i=0; i<height/altoPalabra; i++) {//agrego rows
+<<<<<<< HEAD
     Row r=new Row(i);
     rows.add(r);
+=======
+    Row r=new Row();
+    Rows.add(r);
+>>>>>>> parent of 500397c... Mucho mejor(1.1)
   }
   if(debug){println("Fin init rows ");}
   if(debug){println("con " + rows.size()+" rows");}

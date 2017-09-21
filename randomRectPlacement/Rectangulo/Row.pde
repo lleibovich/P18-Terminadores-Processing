@@ -2,6 +2,7 @@ class Row {
   protected ArrayList<Rectangle> rectangles = new ArrayList<Rectangle>();//serian 2 por row por ahora
   //  protected float espacioVacioIzquierda=(width/2);//cantidad de espacio disponible para variar randomente
   // protected float espacioVacioDerecha = (width/2);//deberia ser entero pero por mantener tipos
+<<<<<<< HEAD
   public int numeroDeRow;
   public Row(int n){//contructor
     this.numeroDeRow=n;
@@ -25,6 +26,35 @@ class Row {
        if(debug){print("Size = 1 ");}
        if(debug){println(" Agregar a la derecha ");}
        agregarRectangulo(r,"der");
+=======
+  public int CantidadDePalabras() {
+    return this.rectangles.size();
+  }
+  public void AgregarPalabra(Rectangle r) {//un poco largo se debe poder mejorar
+    Rectangle aux ;
+    if(debug){println("AgregarPalabra ");}
+    if (this.rectangles.size()==0) {
+      if(debug){print("Size = 0 ");}
+      r.PonerEnColumna(ColumnaRandom());
+      this.SacarEspacio(r);
+      this.rectangles.add(r);
+    } else if (this.rectangles.size()==1) {
+      if(debug){print("Size = 1 ");}
+      aux=rectangles.get(0);
+      if (aux.Columna().equals("der")) {
+        if(debug){println(" Add a la izq ");}
+        r.PonerEnColumna("izq");
+        this.SacarEspacio(r);
+        this.rectangles.add(r);
+      } else {//izq (ya chequeado)
+        if(debug){println(" Add a la der ");}
+        r.PonerEnColumna("der");
+        this.SacarEspacio(r);
+        this.rectangles.add(r);
+      }
+    } else {
+      println("Error AgregarPalabra");
+>>>>>>> parent of 500397c... Mucho mejor(1.1)
     }
     else{println("Error agregarPalabra");}
   }
@@ -36,6 +66,7 @@ class Row {
       return "izq";
     }
   }
+<<<<<<< HEAD
   public String contenido() {//returns "izq" "der" "dos" "nada"
     if(this.rectangles.size()==0){
       return "nada";
@@ -54,12 +85,21 @@ class Row {
       println("error columnaRandom");
     }
     return"error";
+=======
+  public void SacarEspacio(Rectangle r) {//saca la cantidad de espacio que ocupa la palabra
+    r.DarEspacioParaRandom(0-int(r.Largo()), 0);
+  }
+  public int CantidadDeRectangles() {
+    //println(width/2);
+    return this.rectangles.size();
+>>>>>>> parent of 500397c... Mucho mejor(1.1)
   }
   public void dibujar() {
     for (Rectangle r : rectangles) {
       r.mostrar();
     }
   }
+<<<<<<< HEAD
   public void agregarRectangulo(Rectangle rec ,String pos){
      if(pos.equals("rnd")){
        rec.ponerEncolumna(columnaRandom());
@@ -71,4 +111,6 @@ class Row {
      rec.posicionarEnRow(this.numeroDeRow);
      this.rectangles.add(rec);
   }
+=======
+>>>>>>> parent of 500397c... Mucho mejor(1.1)
 }
