@@ -33,7 +33,9 @@ void draw() {
     RowCandidato.agregarPalabra(initRectangles.get(i));
   }
   if(debug){println("Fin rect to rows");}
-  //aca irian los merge para mas randomizidad(merge colums, merge rows)
+  for (Row r : Rows) {//merge colums
+    r.mergeColumn();
+  }
   for (Row r : Rows) {//printeo los rect develop only
     r.dibujar();
   }

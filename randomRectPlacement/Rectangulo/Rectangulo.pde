@@ -2,7 +2,13 @@ class Rectangle {
   private PVector TopLeftPos;
   private PVector Size;
   private String col;//izq der
-  private PVector EspacioRandomizable; 
+  private PVector EspacioRandomizable;
+
+  public Rectangle(PVector size, PVector espacioRandomizable) {//constructor
+    this.Size=size;
+    this.EspacioRandomizable=espacioRandomizable;
+    this.TopLeftPos=new PVector(0,0);
+  }
   public float Largo() {
     return this.Size.x;
   }
@@ -18,20 +24,24 @@ class Rectangle {
   public String columna() {
     return col;
   }
-  public Rectangle(PVector size, PVector espacioRandomizable) {//constructor
-    this.Size=size;
-    this.EspacioRandomizable=espacioRandomizable;
-    this.TopLeftPos=new PVector(0,0);
-  }
-  public void randomizar() {
-    this.TopLeftPos.x=this.TopLeftPos.x+(random(EspacioRandomizable.x));//x
-    this.TopLeftPos.y=this.TopLeftPos.y+(random(EspacioRandomizable.y));//y
+  public void randomizar(String direccion) {
+    if(direccion.equals("der")){
+      this.TopLeftPos.x=this.TopLeftPos.x+(random(EspacioRandomizable.x));//x
+      this.TopLeftPos.y=this.TopLeftPos.y+(random(EspacioRandomizable.y));//y
+    }
+    else if(direccion.equals("izq")){
+      this.TopLeftPos.x=this.TopLeftPos.x-(random(EspacioRandomizable.x));//x
+      this.TopLeftPos.y=this.TopLeftPos.y-(random(EspacioRandomizable.y));//y
+    }
+    else{
+      println("Error randomizar");
+    }
     this.EspacioRandomizable.set(0, 0);
   }
-  public void darEspacioParaRandom(int x, int y) {
+  public void darEspacioParaRandom(int x, int y,String direccion) {
     this.EspacioRandomizable.x=this.EspacioRandomizable.x+x;
     this.EspacioRandomizable.y=this.EspacioRandomizable.y+y;
-    this.randomizar();
+    this.randomizar(direccion);
   }
   public void mostrar() {
     fill(random(240), random(240), random(240));

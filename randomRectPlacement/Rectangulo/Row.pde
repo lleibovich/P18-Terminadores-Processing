@@ -48,9 +48,21 @@ class Row {
      else{
        rec.ponerEnColumna(pos);
      }
-     rec.darEspacioParaRandom(0-int(rec.Largo()), 0);
+     rec.darEspacioParaRandom(0-int(rec.Largo()), 0,"der");
      rec.posicionarEnRow(this.numeroDeRow);
      this.rectangles.add(rec);
   }
-  
+  public void mergeColumn(){
+    if(this.cantidadDeRectangles()==1){
+      Rectangle rectangulo=this.rectangles.get(0);
+      if (rectangulo.columna().equals("der")) {//si esta a la derecha
+        rectangulo.darEspacioParaRandom(height/altoPalabra, 0,"izq");//le doy el espacio de la otra columna
+      }
+      else{
+        rectangulo.darEspacioParaRandom(height/altoPalabra, 0,"der");
+      }
+    }
+    else{
+    }
+  }
 }
