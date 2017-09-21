@@ -26,9 +26,9 @@ void draw() {
   if(debug){println("Fin init rows ");}
   if(debug){println("con " + Rows.size()+" Rows");}
   for (int i=0; i<cantRectangles; i++) {//agrego los rect a los row
-    Row RowCandidato = Rows.get(int(random( (Rows.size()-0.01))));//un row al azar
-    while (RowCandidato.cantidadDeRectangles()>1) {//si mas de la cantidad por row
-      RowCandidato = Rows.get(int(random( (Rows.size()-0.01))));
+    Row RowCandidato = Rows.get(int(random( (Rows.size()))));//un row al azar
+    while (RowCandidato.cantidadDeRectangles()==2) {//si mas de la cantidad por row
+      RowCandidato = Rows.get(int(random( (Rows.size()))));
     }
     RowCandidato.agregarPalabra(initRectangles.get(i));
   }

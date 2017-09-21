@@ -1,10 +1,8 @@
 class Row {
   protected ArrayList<Rectangle> rectangles = new ArrayList<Rectangle>();//serian 2 por row por ahora
-  //  protected float espacioVacioIzquierda=(width/2);//cantidad de espacio disponible para variar randomente
-  // protected float espacioVacioDerecha = (width/2);//deberia ser entero pero por mantener tipos
-  public int NumeroDeRow;
+  public int numeroDeRow;
   public Row(int n){//contructor
-    this.NumeroDeRow=n;
+    this.numeroDeRow=n;
   }
   public void agregarPalabra(Rectangle r) {//un poco largo se debe poder mejorar
     Rectangle aux ;
@@ -12,7 +10,8 @@ class Row {
     if (this.rectangles.size()==0) {
       if(debug){print("Size = 0 ");}
       agregarRectangulo(r,"rnd");
-    } else if (this.rectangles.size()==1) {
+    } 
+    else if (this.rectangles.size()==1) {
       if(debug){print("Size = 1 ");}
       aux=rectangles.get(0);
       if (aux.columna().equals("der")) {
@@ -35,7 +34,6 @@ class Row {
     }
   }
   public int cantidadDeRectangles() {
-    //println(width/2);
     return this.rectangles.size();
   }
   public void dibujar() {
@@ -51,7 +49,8 @@ class Row {
        rec.ponerEnColumna(pos);
      }
      rec.darEspacioParaRandom(0-int(rec.Largo()), 0);
-     rec.posicionarEnRow(this.NumeroDeRow);
+     rec.posicionarEnRow(this.numeroDeRow);
      this.rectangles.add(rec);
   }
+  
 }
