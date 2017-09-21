@@ -27,15 +27,15 @@ void draw() {
   if(debug){println("con " + Rows.size()+" Rows");}
   for (int i=0; i<cantRectangles; i++) {//agrego los rect a los row
     Row RowCandidato = Rows.get(int(random( (Rows.size()-0.01))));//un row al azar
-    while (RowCandidato.CantidadDeRectangles()>1) {//si mas de la cantidad por row
+    while (RowCandidato.cantidadDeRectangles()>1) {//si mas de la cantidad por row
       RowCandidato = Rows.get(int(random( (Rows.size()-0.01))));
     }
-    RowCandidato.AgregarPalabra(initRectangles.get(i));
+    RowCandidato.agregarPalabra(initRectangles.get(i));
   }
   if(debug){println("Fin rect to rows");}
   //aca irian los merge para mas randomizidad(merge colums, merge rows)
   for (Row r : Rows) {//printeo los rect develop only
-    r.Dibujar();
+    r.dibujar();
   }
   noLoop();
 }

@@ -6,30 +6,27 @@ class Row {
   public Row(int n){//contructor
     this.NumeroDeRow=n;
   }
-  public int CantidadDePalabras() {
-    return this.rectangles.size();
-  } 
-  public void AgregarPalabra(Rectangle r) {//un poco largo se debe poder mejorar
+  public void agregarPalabra(Rectangle r) {//un poco largo se debe poder mejorar
     Rectangle aux ;
     if(debug){println("AgregarPalabra ");}
     if (this.rectangles.size()==0) {
       if(debug){print("Size = 0 ");}
-      AgregarRectangulo(r,"rnd");
+      agregarRectangulo(r,"rnd");
     } else if (this.rectangles.size()==1) {
       if(debug){print("Size = 1 ");}
       aux=rectangles.get(0);
-      if (aux.Columna().equals("der")) {
+      if (aux.columna().equals("der")) {
         if(debug){println(" Agregar a la izquierda ");}
-        AgregarRectangulo(r,"izq");
+        agregarRectangulo(r,"izq");
       } else {//izq (ya chequeado)
         if(debug){println(" Agregar a la derecha ");}
-        AgregarRectangulo(r,"der");
+        agregarRectangulo(r,"der");
       }
     } else {
       println("Error AgregarPalabra");
     }
   }
-  public String ColumnaRandom() {//podria estar en main para ser mas gral
+  public String columnaRandom() {//podria estar en main para ser mas gral
     float i= random(1.99);//0 o 1(1.99 por las dudas no sea cosa que tire un 2)
     if (i>0.5) {
       return "der";
@@ -37,24 +34,24 @@ class Row {
       return "izq";
     }
   }
-  public int CantidadDeRectangles() {
+  public int cantidadDeRectangles() {
     //println(width/2);
     return this.rectangles.size();
   }
-  public void Dibujar() {
+  public void dibujar() {
     for (Rectangle r : rectangles) {
-      r.Mostrar();
+      r.mostrar();
     }
   }
-  public void AgregarRectangulo(Rectangle rec ,String pos){
+  public void agregarRectangulo(Rectangle rec ,String pos){
      if(pos.equals("rnd")){
-       rec.PonerEnColumna(ColumnaRandom());
+       rec.ponerEnColumna(columnaRandom());
      }
      else{
-       rec.PonerEnColumna(pos);
+       rec.ponerEnColumna(pos);
      }
-     rec.DarEspacioParaRandom(0-int(rec.Largo()), 0);
-     rec.PosicionarEnRow(this.NumeroDeRow);
+     rec.darEspacioParaRandom(0-int(rec.Largo()), 0);
+     rec.posicionarEnRow(this.NumeroDeRow);
      this.rectangles.add(rec);
   }
 }
