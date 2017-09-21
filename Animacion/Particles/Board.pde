@@ -17,8 +17,8 @@ class Board {
     }
     for (String strength : config.Strengths) {
       int rndm = (int)random(0, this.Config.StrengthsColors.size());
-      if (rndm >= this.Config.FearsColors.size()) rndm = this.Config.StrengthsColors.size() - 1;
-      color wColor = color(this.Config.FearsColors.get(rndm));
+      if (rndm >= this.Config.StrengthsColors.size()) rndm = this.Config.StrengthsColors.size() - 1;
+      color wColor = color(this.Config.StrengthsColors.get(rndm));
       this.Strengths.add(new Word(strength, this.Config.FontName, this.Config.FontSize, this.Strengths, wColor, this.Config.LocationType));
     }
   }
