@@ -24,20 +24,20 @@ class Rectangle {
     this.TopLeftPos=new PVector(0,0);
   }
   public void Randomizar() {
-    for (int i=0; i<=this.EspacioRandomizable.x; i++) {//x
-      this.TopLeftPos.x=this.TopLeftPos.x+(random(1.99));
-    }
-    for (int i=0; i<=EspacioRandomizable.y; i++) {//y
-      this.TopLeftPos.y=this.TopLeftPos.y+(random(1.99));
-    }
+    this.TopLeftPos.x=this.TopLeftPos.x+(random(EspacioRandomizable.x));//x
+    this.TopLeftPos.y=this.TopLeftPos.y+(random(EspacioRandomizable.y));//y
     this.EspacioRandomizable.set(0, 0);
   }
   public void DarEspacioParaRandom(int x, int y) {
     this.EspacioRandomizable.x=this.EspacioRandomizable.x+x;
     this.EspacioRandomizable.y=this.EspacioRandomizable.y+y;
+    this.Randomizar();
   }
   public void Mostrar() {
     fill(random(240), random(240), random(240));
     rect(this.TopLeftPos.x, this.TopLeftPos.y, this.Size.x, this.Size.y);
+  }
+  public void PosicionarEnRow(int row) {
+    this.TopLeftPos.y=(this.Size.y)*row;
   }
 }

@@ -21,7 +21,7 @@ void draw() {
   }
   if(debug){println("Fin init rect");}
   for (int i=0; i<height/altoPalabra; i++) {//agrego rows
-    Row r=new Row();
+    Row r=new Row(i);
     Rows.add(r);
   }
   if(debug){println("Fin init rows ");}
