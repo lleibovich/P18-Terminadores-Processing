@@ -1,7 +1,7 @@
 class Row {
   protected ArrayList<Rectangle> rectangles = new ArrayList<Rectangle>();//serian 2 por row por ahora
-  protected float espacioVacioIzquierda=(width/2);//cantidad de espacio disponible para variar randomente
-  protected float espacioVacioDerecha = (width/2);//deberia ser entero pero por mantener tipos
+//  protected float espacioVacioIzquierda=(width/2);//cantidad de espacio disponible para variar randomente
+ // protected float espacioVacioDerecha = (width/2);//deberia ser entero pero por mantener tipos
   public int CantidadDePalabras(){
    return this.rectangles.size();
   }
@@ -10,19 +10,19 @@ class Row {
    
    if(this.rectangles.size()==0){
      r.PonerEnColumna(ColumnaRandom());
-     this.VaciarEspacio(r);
+     this.DarEspacio(r);
      this.rectangles.add(r);
    }
    else if(this.rectangles.size()==1){
      aux=rectangles.get(0);
      if(aux.Columna().equals("der")){
        r.PonerEnColumna("izq");
-       this.VaciarEspacio(r);
+       this.DarEspacio(r);
        this.rectangles.add(r);
      }
      else{//izq (ya chequeado)
        r.PonerEnColumna("der");
-       this.VaciarEspacio(r);
+       this.DarEspacio(r);
        this.rectangles.add(r);
      }
    }
@@ -31,7 +31,7 @@ class Row {
    }
  }
  public String ColumnaRandom(){//podria estar en main para ser mas gral
-   float i= random(1);
+   float i= random(1.99);//0 o 1(1.99 por las dudas no sea cosa que tire un 2)
    if(i>0.5){
      return "der";
    }
@@ -39,27 +39,15 @@ class Row {
      return "izq";
    } 
  }
- public void VaciarEspacio(Rectangle r){//saca la cantidad de espacio que ocupa la palabra
-   if(r.Columna().equals("der")){
-     this.espacioVacioDerecha=this.espacioVacioDerecha-r.Largo();
-   }
-   else if(r.Columna().equals("izq")){
-     this.espacioVacioIzquierda=this.espacioVacioIzquierda-r.Largo();
-   }
-   else{
-     println("Error VaciarEspacio");
-   }
+ public void DarEspacio(Rectangle r){//saca la cantidad de espacio que ocupa la palabra
+   r.DarEspacioParaRandom(0-int(r.Largo()),0);
  }
  public int CantidadDeRectangles(){
      return this.rectangles.size();
  }
  public void Dibujar(){
-    for( ){}
- }
- protected void RandomizarPal(){
-    for(){
+     for (Rectangle r : rectangles) {
+      r.Mostrar();
     }
-    
  }
 }
-  
