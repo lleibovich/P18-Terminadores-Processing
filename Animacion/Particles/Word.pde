@@ -11,18 +11,28 @@ class Word {
   public Boolean IsAligned = true;
   int AlignPercentage = 100;
   int buffer = 20;
-  boolean acceptedCoords = false;
   Rectangle rectangle;
-  int locX;
-  int locY;
   color wordColor;
   
-  public Word(String wordText, String wordFontName, int wordFontSize, ArrayList<Word> sharingBoardWords, color pWordColor) {
+  public Word(String wordText, String wordFontName, int wordFontSize, ArrayList<Word> sharingBoardWords, color pWordColor, String locationType) {
     this.Text = wordText;
     this.FontName = wordFontName;
     this.FontSize = wordFontSize;
     this.wordColor = pWordColor;
     
+    calculateParticles(wordText);
+    
+    switch (locationType) {
+      case "RANDOM":
+        calculateRandomPosition(sharingBoardWords);
+        break;
+      case "FIXED":
+        // TODO
+        break;
+    }
+  }
+  
+  private void calculateParticles(String wordText) {
     // Fill particles ArrayList
     //// Draw word in memory
     PGraphics pg = createGraphics(width, height);
@@ -42,13 +52,11 @@ class Word {
     }
     for (int i = 0; i < coordsIndexes.size (); i++) {
       int coordIndex = coordsIndexes.get(i);
-      
       // Only continue if the pixel is not blank
       if (pg.pixels[coordIndex] != 0) {
         // Convert index to its coordinates
         int x = coordIndex % width;
         int y = coordIndex / width;
-        //println("Adding particle");
         this.ComponentParticles.add(new Particle(true, x, y, this.wordColor));
       }
     }
@@ -64,9 +72,13 @@ class Word {
       p.target.x = p.target.x - x0;
       p.target.y = p.target.y - y0;
     }
-    
     this.Size = this.calculateSizeVector();
-    
+  }
+  
+  private void calculateRandomPosition(ArrayList<Word> sharingBoardWords) {
+    boolean acceptedCoords = false;
+    int locX;
+    int locY;
     while (!acceptedCoords) {
       // choose location
       locX = int(random(buffer,width-buffer*8));
@@ -88,7 +100,6 @@ class Word {
           break;
         }
       }
-
       if (checkWords)
       {
         acceptedCoords = true;
@@ -110,7 +121,7 @@ class Word {
   }
   
   public void disalignParticles(int force, float conversionFactor) {
-    // Disarm the word. Kill the particles when they are not visible anymore (probably should be inside Particle).
+    // Disarm the word. Kill the particles when they are not visible anymore.
     // When completely disaligned: this.IsAligned = false;
     int nParticlesToDisalign = (int) (force * conversionFactor);
     ArrayList<Particle> particlesDisaligning = new ArrayList<Particle>();

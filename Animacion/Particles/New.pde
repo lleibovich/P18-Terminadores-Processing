@@ -35,7 +35,6 @@ void setup() {
 
 void draw() {
   // Background & motion blur
-  //background(bgColor);
   fill(0);
   noStroke();
   
@@ -49,7 +48,6 @@ void draw() {
     board.alignAllFears();
     if (board.allFearsAligned()) {
       aligningFears = false;
-      println("All fears aligned"); // DEBUG: Know when all fears have been aligned.
       disaligningFears = true;
     }
   }
@@ -59,12 +57,11 @@ void draw() {
     int force = 0;
     if ((millis() - msPreviousDisalign) > this.cfg.DisalignIntervalMs) {
       msPreviousDisalign = millis();
-      force = (int)random(0, 6); // TODO: Get from sensor
+      force = getForce();
     }
     if (!board.disalignWord(force)) {
       disaligningFears = false;
       aligningStrengths = true;
-      println("All fears disaligned");
     }
     board.drawAllFears();
   }
@@ -74,27 +71,23 @@ void draw() {
     board.alignAllStrengths();
     if (board.allStrengthsAligned()) {
       aligningStrengths = false;
-      println("All strengths aligned"); // DEBUG: Know when all fears have been aligned.
     }
   }
   
 }
 
-// Show next word
-void mousePressed() {
-  if (mouseButton == LEFT) {
-    println("Mouse pressed");
+int getForce() {
+  int force = 0;
+  switch(this.cfg.SensorType) {
+    case "RANDOM":
+      force = (int)random(0, 6);
+      break;
+    case "KINECT":
+      // TODO
+      break;
+    case "CAMERA":
+      // TODO
+      break;
   }
-}
-
-// Kill pixels that are in range
-void mouseDragged() {
-  if (mouseButton == RIGHT) {
-    println("Mouse dragged");
-  }
-}
-
-// Toggle draw modes
-void keyPressed() {
-  println("keyPressed");
+  return force;
 }
