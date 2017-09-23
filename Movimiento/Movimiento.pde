@@ -4,21 +4,26 @@ ArrayList <SkeletonData> bodies;
 
 Kinect kinect;
 
+int time = 0, cons = 0;
+final int[] partes = {7,11,13,17};
+int[] skely = new int[24];
+int[] skelx = new int[24];
+
 void setup() {
   size(640, 480);
   kinect = new Kinect(this);
   smooth();
   bodies = new ArrayList<SkeletonData>();
-  
+  thread("total");
 }
 
 void draw() {
   textSize(72);
   image(kinect.GetImage(),0,0);
-  text(total(),width/2,height/2);
+  text(cons,width/2,height/2);
 }
 
-int total() {
+void total() {
   int todo = 0;
   int fmov;
   for (int i=0; i<bodies.size (); i++) {
@@ -27,39 +32,12 @@ int total() {
     todo = todo + fmov;
     println(fmov);
   }
-  return todo;
+  if (todo != 0) {cons = todo;}
+  thread("total");
 }
 
-int movimiento(SkeletonData _s) {
-  // Variables locales para puntos x e y de todo el cuerpo
-  int[] skely = new int[20];
-  int[] skelx = new int[20];
-  
-  // Guardar posición de cada parte del cuerpo
+int auxiliar(SkeletonData _s) {
   for(int l = 0;l < 20;l++) {
-    skelx[l]=(int)pos(_s,l,'x');
-    skely[l]=(int)pos(_s,l,'y');
-  }
-  //int time = millis();
-  //while (time+1000 < millis()){};// Espera un segundo
-  
-  // Detecta si el usuario se movio de la posición indicada con cada parte del cuerpo
-  for(int l = 0;l < 20;l++) {
-    //if (!det(_s,l,skelx[l],skely[l],20)){
-    //  return 2;
-    //}
-    //if (!det(_s,l,skelx[l],skely[l],30)){
-    //  return 3;
-    //}
-    //if (!det(_s,l,skelx[l],skely[l],40)){
-    //  return 4;
-    //}
-    //if (!det(_s,l,skelx[l],skely[l],50)){
-    //  return 5;
-    //}
-    //if (!det(_s,l,skelx[l],skely[l],60)){
-    //  return 6;
-    //}
     if (det(_s,l,skelx[l],skely[l],60)) {
       if (det(_s,l,skelx[l],skely[l],50)) {
         if (det(_s,l,skelx[l],skely[l],40)) {
@@ -75,6 +53,24 @@ int movimiento(SkeletonData _s) {
   return (int)random(0,2);
 }
 
+
+int movimiento(SkeletonData _s) {
+  if (time <= millis()-1000 && time != 0) {time = 0; return auxiliar(_s);}
+  
+  // Guardar posición de cada parte del cuerpo
+  while (time == 0) {
+    for(int l = 0;l < 20;l++) {
+      skelx[l]=(int)pos(_s,l,'x');
+      skely[l]=(int)pos(_s,l,'y');
+    }
+    time = millis();
+  }
+  //int time = millis();
+  //while (time+1000 < millis()){};// Espera un segundo
+  return 0;
+ } // Detecta si el usuario se movio de la posición indicada con cada parte del cuerpo
+  
+
 float pos(SkeletonData _s, int b, char c) { // Toma la posición del cuerpo en cuestion
   if (c == 'x') {return _s.skeletonPositions[b].x*width;}
   if (c == 'y') {return _s.skeletonPositions[b].y*height;}
@@ -84,9 +80,7 @@ float pos(SkeletonData _s, int b, char c) { // Toma la posición del cuerpo en c
 
 boolean det(SkeletonData _s, int s, int x, int y, int d) { // Detecta si el cuerpo está en un lugar especifíco, o en un radio
   if (pos(_s, s, 'x') >= x-d && pos(_s, s, 'x') <= x+d) {
-    println("En rango de x");
         if (pos(_s, s, 'y') >= y-d && pos(_s, s, 'y') <= y+d) {
-          println("En rango de i");
           return true;
         } else {return false;}
       } else {return false;}
