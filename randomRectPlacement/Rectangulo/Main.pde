@@ -1,6 +1,6 @@
 ArrayList<Row> Rows= new ArrayList<Row>(); //<>//
 ArrayList<Rectangle> initRectangles = new ArrayList<Rectangle>();//se usa para simular las "words"
-final boolean debug = true;
+final boolean debug = false;
 final int cantRectangles=30;//para test
 final int altoPalabra=32;//en pixeles
 final float largoPalabra=100;//float por pvector

@@ -4,6 +4,7 @@ class Board {
   ArrayList<Word> Strengths;
   Word currentWord;
   Configuration Config;
+  ArrayList<Row> Rows = new ArrayList<Row>();
   
   public Board(Configuration config) {
     this.Fears = new ArrayList<Word>();
@@ -20,6 +21,14 @@ class Board {
       if (rndm >= this.Config.StrengthsColors.size()) rndm = this.Config.StrengthsColors.size() - 1;
       color wColor = color(this.Config.StrengthsColors.get(rndm));
       this.Strengths.add(new Word(strength, this.Config.FontName, this.Config.FontSize, this.Strengths, wColor, this.Config.LocationType));
+    }
+    
+    switch (this.Config.LocationType) {
+      case "RANDOM":
+        break;
+      case "FIXED":
+        // TODO Call random rect placement
+        break;
     }
   }
   
@@ -87,4 +96,24 @@ class Board {
       strength.draw();
     }
   }
+  private void alignInRows (ArrayList<Word> wordsToAlign){
+  float wordHeight = 0;
+  for (Word w : wordsToAlign) {
+    if (w.Size.y > wordHeight) wordHeight = w.Size.y;
+  }
+  for (int i = 0; i < height/wordHeight; i++) {
+    this.Rows.add(new Row(i));
+  }
+  for (int i=0; i<wordsToAlign.size(); i++) {//agrego los rect a los row
+    Row rowCandidato = Rows.get(int(random((Rows.size()))));//un row al azar
+    while (rowCandidato.cantidadDeWords() == 2) {//si mas de la cantidad por row
+      rowCandidato = Rows.get(int(random( (Rows.size()))));
+    }
+    rowCandidato.agregarPalabra(wordsToAlign.get(i));
+  }
+  for (Row r : Rows) {//merge colums
+    r.mergeColumn(wordHeight);
+  } 
+  }
+  
 }

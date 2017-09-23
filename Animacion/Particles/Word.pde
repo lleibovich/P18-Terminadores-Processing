@@ -9,6 +9,8 @@ class Word {
   public String FontName;
   public ArrayList<Particle> ComponentParticles = new ArrayList<Particle>();
   public Boolean IsAligned = true;
+  private String col;//izq der
+  private PVector EspacioRandomizable;
   int AlignPercentage = 100;
   int buffer = 20;
   Rectangle rectangle;
@@ -19,7 +21,7 @@ class Word {
     this.FontName = wordFontName;
     this.FontSize = wordFontSize;
     this.wordColor = pWordColor;
-    
+    this.EspacioRandomizable = new PVector(width/2, 0);
     calculateParticles(wordText);
     
     switch (locationType) {
@@ -184,4 +186,48 @@ class Word {
       completelyDisaligned = true;
     return completelyDisaligned;
   }
+  //ex rectangle
+  public float Largo() {
+    return this.Size.x;
+  }
+  public float altura() {//no esta en uso
+    return this.Size.x;
+  }
+  public void ponerEnColumna(String column) {
+    this.col=column;
+    if (this.col.equals("der")) { 
+      TopLeftPos.x=(width/2);
+    }
+  }
+  public String columna() {
+    return col;
+  }
+  public void randomizar(String direccion) {
+    if(direccion.equals("der")){
+      this.TopLeftPos.x=this.TopLeftPos.x+(random(EspacioRandomizable.x));//x
+      this.TopLeftPos.y=this.TopLeftPos.y+(random(EspacioRandomizable.y));//y
+    }
+    else if(direccion.equals("izq")){
+      this.TopLeftPos.x=this.TopLeftPos.x-(random(EspacioRandomizable.x));//x
+      this.TopLeftPos.y=this.TopLeftPos.y-(random(EspacioRandomizable.y));//y
+    }
+    else{
+      println("Error randomizar");
+    }
+    this.EspacioRandomizable.set(0, 0);
+  }
+  public void darEspacioParaRandom(int x, int y,String direccion) {
+    this.EspacioRandomizable.x=this.EspacioRandomizable.x+x;
+    this.EspacioRandomizable.y=this.EspacioRandomizable.y+y;
+    this.randomizar(direccion);
+  }
+  public void mostrar() {
+    fill(random(240), random(240), random(240));
+    rect(this.TopLeftPos.x, this.TopLeftPos.y, this.Size.x, this.Size.y);
+  }
+  public void posicionarEnRow(int row) {
+    this.TopLeftPos.y=(this.Size.y)*row;
+  }
+  
+  
 }
