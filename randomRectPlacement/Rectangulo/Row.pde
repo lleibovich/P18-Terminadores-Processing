@@ -4,30 +4,30 @@ class Row {
   public Row(int n){//contructor
     this.numeroDeRow=n;
   }
-  public void agregarPalabra(Rectangle r) {//un poco largo se debe poder mejorar
+  public void agregarPalabra(Rectangle r) {
     Rectangle aux ;
-    if(debug){println("AgregarPalabra ");}
-    if (this.rectangles.size()==0) {
-      if(debug){print("Size = 0 ");}
+    if (debug) println("AgregarPalabra ");
+    if (this.rectangles.size() == 0) {
+      if (debug) print("Size = 0 ");
       agregarRectangulo(r,"rnd");
     } 
-    else if (this.rectangles.size()==1) {
-      if(debug){print("Size = 1 ");}
-      aux=rectangles.get(0);
+    else if (this.rectangles.size() == 1) {
+      if (debug) print("Size = 1 ");
+      aux = rectangles.get(0);
       if (aux.columna().equals("der")) {
-        if(debug){println(" Agregar a la izquierda ");}
-        agregarRectangulo(r,"izq");
-      } else {//izq (ya chequeado)
+        if (debug) println(" Agregar a la izquierda ");
+        agregarRectangulo(r, "izq");
+      } else {
         if(debug){println(" Agregar a la derecha ");}
-        agregarRectangulo(r,"der");
+        agregarRectangulo(r, "der");
       }
     } else {
       println("Error AgregarPalabra");
     }
   }
-  public String columnaRandom() {//podria estar en main para ser mas gral
+  public String columnaRandom() {
     float i= random(1.99);//0 o 1(1.99 por las dudas no sea cosa que tire un 2)
-    if (i>0.5) {
+    if (i > 0.5) {
       return "der";
     } else {
       return "izq";
@@ -41,7 +41,7 @@ class Row {
       r.mostrar();
     }
   }
-  public void agregarRectangulo(Rectangle rec ,String pos){
+  private void agregarRectangulo(Rectangle rec, String pos) {
      if(pos.equals("rnd")){
        rec.ponerEnColumna(columnaRandom());
      }
@@ -52,17 +52,12 @@ class Row {
      rec.posicionarEnRow(this.numeroDeRow);
      this.rectangles.add(rec);
   }
-  public void mergeColumn(){
-    if(this.cantidadDeRectangles()==1){
+  public void mergeColumn() {
+    if (this.cantidadDeRectangles() == 1) {
       Rectangle rectangulo=this.rectangles.get(0);
-      if (rectangulo.columna().equals("der")) {//si esta a la derecha
-        rectangulo.darEspacioParaRandom(height/altoPalabra, 0,"izq");//le doy el espacio de la otra columna
-      }
-      else{
-        rectangulo.darEspacioParaRandom(height/altoPalabra, 0,"der");
-      }
-    }
-    else{
+      String posFinal = "der";
+      if (rectangulo.columna().equals("der")) posFinal = "izq";
+      rectangulo.darEspacioParaRandom(height / altoPalabra, 0, posFinal);
     }
   }
 }
