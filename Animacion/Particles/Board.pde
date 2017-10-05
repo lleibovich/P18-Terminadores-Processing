@@ -10,13 +10,13 @@ class Board {
     this.Fears = new ArrayList<Word>();
     this.Strengths = new ArrayList<Word>();
     this.Config = config;
-    for (String fear : config.Fears) {//fears creation to be replaced with data input
+    for (String fear : config.Fears) {//fears loading
       int rndm = (int)random(0, this.Config.FearsColors.size());
       if (rndm >= this.Config.FearsColors.size()) rndm = this.Config.FearsColors.size() - 1;
       color wColor = color(this.Config.FearsColors.get(rndm));
       this.Fears.add(new Word(fear, this.Config.FontName, this.Config.FontSize, this.Fears, wColor, this.Config.LocationType));
     }
-    for (String strength : config.Strengths) {//same with strenghts
+    for (String strength : config.Strengths) {
       int rndm = (int)random(0, this.Config.StrengthsColors.size());
       if (rndm >= this.Config.StrengthsColors.size()) rndm = this.Config.StrengthsColors.size() - 1;
       color wColor = color(this.Config.StrengthsColors.get(rndm));
@@ -47,18 +47,11 @@ class Board {
     }
   }
   
-  private void alignAllFears() {
-    for (Word fear : this.Fears) {
-      fear.alignParticles();
+  private void alignAll(ArrayList<Word> wordList) {
+    for (Word current : wordList) {
+      current.alignParticles();
     }
-    this.drawAllFears();
-  }
-  
-  private void alignAllStrengths() {
-    for (Word strength : this.Strengths) {
-      strength.alignParticles();
-    }
-    this.drawAllStrengths();
+    this.drawAll(wordList);
   }
   
   // Returns true when it can continue disaligning, else false (if currentWord is null after getNextAlignedWord, there are no more available words to disalign).
@@ -69,33 +62,20 @@ class Board {
     return true;
   }
     
-  public boolean allFearsAligned() {
+  public boolean wordsAligned(ArrayList<Word> wordList) {
     boolean allAligned = true;
-    for (Word w : this.Fears) {
-      if (!w.allParticlesAligned()) return false;
+    for (Word word : wordList) {
+      if (!word.allParticlesAligned()) return false;
     }
     return allAligned;
   }
   
-  public boolean allStrengthsAligned() {
-    boolean allAligned = true;
-    for (Word w : this.Strengths) {
-      if (!w.allParticlesAligned()) return false;
-    }
-    return allAligned;
-  }
-  
-  public void drawAllFears() {
-    for (Word fear : this.Fears) {
-      fear.draw();
+  public void drawAll(ArrayList<Word> wordList) {
+    for (Word current : wordList) {
+      current.draw();
     }
   }
   
-  public void drawAllStrengths() {
-    for (Word strength : this.Strengths) {
-      strength.draw();
-    }
-  }
   private void alignInRows (ArrayList<Word> wordsToAlign){//new words positioning algorithmn
     float wordHeight = 0;
     for (Word w : wordsToAlign) {
