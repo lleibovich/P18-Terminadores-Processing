@@ -10,13 +10,13 @@ class Board {
     this.Fears = new ArrayList<Word>();
     this.Strengths = new ArrayList<Word>();
     this.Config = config;
-    for (String fear : config.Fears) {
+    for (String fear : config.Fears) {//fears creation to be replaced with data input
       int rndm = (int)random(0, this.Config.FearsColors.size());
       if (rndm >= this.Config.FearsColors.size()) rndm = this.Config.FearsColors.size() - 1;
       color wColor = color(this.Config.FearsColors.get(rndm));
       this.Fears.add(new Word(fear, this.Config.FontName, this.Config.FontSize, this.Fears, wColor, this.Config.LocationType));
     }
-    for (String strength : config.Strengths) {
+    for (String strength : config.Strengths) {//same with strenghts
       int rndm = (int)random(0, this.Config.StrengthsColors.size());
       if (rndm >= this.Config.StrengthsColors.size()) rndm = this.Config.StrengthsColors.size() - 1;
       color wColor = color(this.Config.StrengthsColors.get(rndm));
@@ -27,7 +27,7 @@ class Board {
       case "RANDOM":
         break;
       case "FIXED":
-        // TODO Call random rect placement
+        //alignInRows();
         break;
     }
   }
@@ -96,24 +96,23 @@ class Board {
       strength.draw();
     }
   }
-  private void alignInRows (ArrayList<Word> wordsToAlign){
-  float wordHeight = 0;
-  for (Word w : wordsToAlign) {
-    if (w.Size.y > wordHeight) wordHeight = w.Size.y;
-  }
-  for (int i = 0; i < height/wordHeight; i++) {
-    this.Rows.add(new Row(i));
-  }
-  for (int i=0; i<wordsToAlign.size(); i++) {//agrego los rect a los row
-    Row rowCandidato = Rows.get(int(random((Rows.size()))));//un row al azar
-    while (rowCandidato.cantidadDeWords() == 2) {//si mas de la cantidad por row
-      rowCandidato = Rows.get(int(random( (Rows.size()))));
+  private void alignInRows (ArrayList<Word> wordsToAlign){//new words positioning algorithmn
+    float wordHeight = 0;
+    for (Word w : wordsToAlign) {
+      if (w.Size.y > wordHeight) wordHeight = w.Size.y;
     }
-    rowCandidato.agregarPalabra(wordsToAlign.get(i));
+    for (int i = 0; i < height/wordHeight; i++) {
+      this.Rows.add(new Row(i));
+    }
+    for (int i=0; i<wordsToAlign.size(); i++) {//agrego los rect a los row
+      Row rowCandidato = Rows.get(int(random((Rows.size()))));
+      while (rowCandidato.cantidadDeWords() == 2) {//max 2 por row
+        rowCandidato = Rows.get(int(random( (Rows.size()))));
+      }
+      rowCandidato.agregarPalabra(wordsToAlign.get(i));
+    }
+    for (Row r : Rows) {
+      r.mergeColumn(wordHeight);
+    } 
   }
-  for (Row r : Rows) {//merge colums
-    r.mergeColumn(wordHeight);
-  } 
-  }
-  
 }
