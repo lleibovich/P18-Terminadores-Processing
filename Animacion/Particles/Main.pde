@@ -1,4 +1,10 @@
 import processing.opengl.*;
+import kinect4WinSDK.Kinect;
+import kinect4WinSDK.SkeletonData;
+ArrayList <SkeletonData> bodies;
+
+Kinect kinect;
+KinectMov kinectmov;
 
 color bgColor = color(255, 100, 50);
 Configuration cfg;
@@ -29,6 +35,12 @@ void setup() {
   disaligningFears = false;
   aligningStrengths = false;
   this.bgColor = this.cfg.BackgroundColor;
+  if (this.cfg.SensorType == "KINECT") {
+    kinect = new Kinect(this);
+    kinectmov = new KinectMov();
+    bodies = new ArrayList<SkeletonData>();
+    total();
+  }
 }
 
   int msPreviousDisalign = 0;
@@ -84,11 +96,58 @@ int getForce() {
       force = (int)random(0, 6);
       break;
     case "KINECT":
-      // TODO
+      force = kinectmov.cons;
       break;
     case "CAMERA":
       // TODO
       break;
   }
   return force;
+}
+
+void total() {
+  kinectmov.total();
+  thread("total"); 
+}
+
+void appearEvent(SkeletonData _s) 
+{
+  if (_s.trackingState == Kinect.NUI_SKELETON_NOT_TRACKED) 
+  {
+    return;
+  }
+  synchronized(bodies) {
+    bodies.add(_s);
+  }
+}
+
+void disappearEvent(SkeletonData _s) 
+{
+  synchronized(bodies) {
+    for (int i=bodies.size ()-1; i>=0; i--) 
+    {
+      if (_s.dwTrackingID == bodies.get(i).dwTrackingID || 0 == bodies.get(i).dwTrackingID) 
+      {
+        bodies.remove(i);
+      }
+    }
+  }
+}
+
+void moveEvent(SkeletonData _b, SkeletonData _a)
+{
+  if (_a.trackingState == Kinect.NUI_SKELETON_NOT_TRACKED) 
+  {
+    return;
+  }
+  synchronized(bodies) {
+    for (int i=bodies.size ()-1; i>=0; i--) 
+    {
+      if (_b.dwTrackingID == bodies.get(i).dwTrackingID) 
+      {
+        bodies.get(i).copy(_a);
+        break;
+      }
+    }
+  }
 }
