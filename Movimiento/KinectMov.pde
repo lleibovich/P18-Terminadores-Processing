@@ -7,10 +7,9 @@ public class KinectMov {
   private int[] skely = new int[24];
   private int[] skelx = new int[24];
 
-  public void total() {
+  public final void total() {
     int todo = movimiento();
     if (todo != 0) {cons = todo;}
-    thread("total");
   }
   
   private int auxiliar() {
@@ -23,11 +22,11 @@ public class KinectMov {
             if (det(_s, partes[p],skelx[l*4+p],skely[l*4+p],40)) {
               if (det(_s, partes[p],skelx[l*4+p],skely[l*4+p],30)) {
                 if (det(_s, partes[p],skelx[l*4+p],skely[l*4+p],20)) {
-                } else {todo = todo + 2;}
-              } else {todo = todo + 3;}
-            } else {todo = todo + 4;}
-          } else {todo = todo + 5;}
-        } else {todo = todo + 6;}
+                } else {todo = todo + 2; p = 5;}
+              } else {todo = todo + 3; p = 5;}
+            } else {todo = todo + 4; p = 5;}
+          } else {todo = todo + 5; p = 5;}
+        } else {todo = todo + 6; p = 5;}
       }
       randomSeed(hour()*10000+minute()*100+second());
       todo = todo + (int)random(0,2);
@@ -43,10 +42,10 @@ public class KinectMov {
     while (time == 0) {
       for (int l = 0; l<bodies.size(); l++) {
       SkeletonData _s = bodies.get(l);
-      skelx[l*4]=(int)pos(_s,partes[1],'x'); skely[l*4]=(int)pos(_s,partes[1],'y');
-      skelx[l*4+1]=(int)pos(_s,partes[2],'x'); skely[l*4+1]=(int)pos(_s,partes[2],'y');
-      skelx[l*4+2]=(int)pos(_s,partes[3],'x'); skely[l*4+2]=(int)pos(_s,partes[3],'y');
-      skelx[l*4+3]=(int)pos(_s,partes[4],'x'); skely[l*4+3]=(int)pos(_s,partes[4],'y');
+      skelx[l*4]=(int)pos(_s,partes[0],'x'); skely[l*4]=(int)pos(_s,partes[0],'y');
+      skelx[l*4+1]=(int)pos(_s,partes[1],'x'); skely[l*4+1]=(int)pos(_s,partes[1],'y');
+      skelx[l*4+2]=(int)pos(_s,partes[2],'x'); skely[l*4+2]=(int)pos(_s,partes[2],'y');
+      skelx[l*4+3]=(int)pos(_s,partes[3],'x'); skely[l*4+3]=(int)pos(_s,partes[3],'y');
       }
       time = millis();
     }

@@ -11,13 +11,18 @@ void setup() {
   kinectmov = new KinectMov();
   smooth();
   bodies = new ArrayList<SkeletonData>();
-  kinectmov.total();
+  total();
 }
 
 void draw() {
   textSize(72);
   image(kinect.GetImage(),0,0);
   text(kinectmov.cons,width/2,height/2);
+}
+
+void total() {
+  kinectmov.total();
+  thread("total"); 
 }
 
 void appearEvent(SkeletonData _s) 
