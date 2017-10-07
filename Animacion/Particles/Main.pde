@@ -13,6 +13,7 @@ boolean aligningStrengths;
 
 void settings() {
   fullScreen(P2D);
+  //size(1024,768,P2D);
 }
 
 void setup() {
@@ -70,7 +71,7 @@ void draw() {
     background(bgColor);
     board.alignAllStrengths();
     if (board.allStrengthsAligned()) {
-      aligningStrengths = false;
+      //aligningStrengths = false;
     }
   }
   

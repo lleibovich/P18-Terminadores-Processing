@@ -107,12 +107,20 @@ class Word {
         acceptedCoords = true;
         //rect(locX, locY, (int)this.Size.x, (int)this.Size.y);
         this.TopLeftPos = new PVector(locX, locY);
-        for (Particle p : this.ComponentParticles) {
+        /*for (Particle p : this.ComponentParticles) {
+          p.target.x += this.TopLeftPos.x;
+          p.target.y += this.TopLeftPos.y;
+        }*/
+        updateParticlesTarget();
+      }
+    }
+  }
+  
+  public void updateParticlesTarget() {
+            for (Particle p : this.ComponentParticles) {
           p.target.x += this.TopLeftPos.x;
           p.target.y += this.TopLeftPos.y;
         }
-      }
-    }
   }
   
   public void alignParticles() {
@@ -220,10 +228,6 @@ class Word {
     this.EspacioRandomizable.x=this.EspacioRandomizable.x+x;
     this.EspacioRandomizable.y=this.EspacioRandomizable.y+y;
     this.randomizar(direccion);
-  }
-  public void mostrar() {
-    fill(random(240), random(240), random(240));
-    rect(this.TopLeftPos.x, this.TopLeftPos.y, this.Size.x, this.Size.y);
   }
   public void posicionarEnRow(int row) {
     this.TopLeftPos.y=(this.Size.y)*row;

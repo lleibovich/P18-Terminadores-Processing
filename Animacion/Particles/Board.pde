@@ -4,7 +4,6 @@ class Board {
   ArrayList<Word> Strengths;
   Word currentWord;
   Configuration Config;
-  ArrayList<Row> Rows = new ArrayList<Row>();
   
   public Board(Configuration config) {
     this.Fears = new ArrayList<Word>();
@@ -27,7 +26,8 @@ class Board {
       case "RANDOM":
         break;
       case "FIXED":
-        //alignInRows();
+        alignInRows(this.Fears);
+        alignInRows(this.Strengths);
         break;
     }
   }
@@ -98,20 +98,22 @@ class Board {
   }
   private void alignInRows (ArrayList<Word> wordsToAlign){//new words positioning algorithmn
     float wordHeight = 0;
+    ArrayList<Row> rows = new ArrayList<Row>();
     for (Word w : wordsToAlign) {
       if (w.Size.y > wordHeight) wordHeight = w.Size.y;
     }
     for (int i = 0; i < height/wordHeight; i++) {
-      this.Rows.add(new Row(i));
+      rows.add(new Row(i));
     }
+    
     for (int i=0; i<wordsToAlign.size(); i++) {//agrego los rect a los row
-      Row rowCandidato = Rows.get(int(random((Rows.size()))));
+      Row rowCandidato = rows.get(int(random((rows.size()))));
       while (rowCandidato.cantidadDeWords() == 2) {//max 2 por row
-        rowCandidato = Rows.get(int(random( (Rows.size()))));
+        rowCandidato = rows.get(int(random( (rows.size()))));
       }
-      rowCandidato.agregarPalabra(wordsToAlign.get(i));
+       rowCandidato.agregarPalabra(wordsToAlign.get(i)); //<>//
     }
-    for (Row r : Rows) {
+    for (Row r : rows) {
       r.mergeColumn(wordHeight);
     } 
   }

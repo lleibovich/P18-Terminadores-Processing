@@ -31,11 +31,7 @@ class Row {
   public int cantidadDeWords() {
     return this.Words.size();
   }
-  public void dibujar() {
-    for (Word r : Words) {
-      r.mostrar();
-    }
-  }
+  
   private void agregarRectangulo(Word rec, String pos) {
      if(pos.equals("rnd")){
        rec.ponerEnColumna(columnaRandom());
@@ -45,6 +41,8 @@ class Row {
      }
      rec.darEspacioParaRandom(0-int(rec.Largo()), 0,"der");
      rec.posicionarEnRow(this.numeroDeRow);
+     
+     rec.updateParticlesTarget();
      this.Words.add(rec);
   }
   public void mergeColumn(float wordHeight) {
