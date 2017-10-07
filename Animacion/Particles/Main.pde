@@ -45,8 +45,8 @@ void draw() {
   
   if (aligningFears) {
     background(bgColor);
-    board.alignAll(board.Fears);
-    if (board.wordsAligned(board.Fears)) {
+    board.alignAllFears();
+    if (board.allFearsAligned()) {
       aligningFears = false;
       disaligningFears = true;
     }
@@ -63,13 +63,13 @@ void draw() {
       disaligningFears = false;
       aligningStrengths = true;
     }
-    board.drawAll(board.Fears);
+    board.drawAllFears();
   }
   
   if (aligningStrengths) {
     background(bgColor);
-    board.alignAll(board.Strengths);
-    if (board.wordsAligned(board.Strengths)) {
+    board.alignAllStrengths();
+    if (board.allStrengthsAligned()) {
       aligningStrengths = false;
     }
   }
