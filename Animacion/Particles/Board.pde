@@ -10,8 +10,18 @@ class Board {
     this.Fears = new ArrayList<Word>();
     this.Strengths = new ArrayList<Word>();
     this.Config = config;
-    initialize(this.config.Fears,this.Fears,this.Config);
-    initialize(this.config.Strengths,this.Strengths,this.Config);
+    for (String fear : config.Fears) {//fears loading
+      int rndm = (int)random(0, this.Config.FearsColors.size());
+      if (rndm >= this.Config.FearsColors.size()) rndm = this.Config.FearsColors.size() - 1;
+      color wColor = color(this.Config.FearsColors.get(rndm));
+      this.Fears.add(new Word(fear, this.Config.FontName, this.Config.FontSize, this.Fears, wColor, this.Config.LocationType));
+    }
+    for (String strength : config.Strengths) {
+      int rndm = (int)random(0, this.Config.StrengthsColors.size());
+      if (rndm >= this.Config.StrengthsColors.size()) rndm = this.Config.StrengthsColors.size() - 1;
+      color wColor = color(this.Config.StrengthsColors.get(rndm));
+      this.Strengths.add(new Word(strength, this.Config.FontName, this.Config.FontSize, this.Strengths, wColor, this.Config.LocationType));
+    }
     
     switch (this.Config.LocationType) {
       case "RANDOM":
@@ -19,14 +29,6 @@ class Board {
       case "FIXED":
         //alignInRows();
         break;
-    }
-  }
-  private void initialize(ArrayList<Word> from,ArrayList<Word> to,Configuration config ){
-    for (String word : from) {
-      int rndm = (int)random(0, this.config.StrengthsColors.size());
-      if (rndm >= this.config.StrengthsColors.size()) rndm = this.config.StrengthsColors.size() - 1;
-      color wColor = color(this.config.StrengthsColors.get(rndm));
-      to.add(new Word(word, this.config.FontName, this.config.FontSize, to, wColor, this.config.LocationType));
     }
   }
   
