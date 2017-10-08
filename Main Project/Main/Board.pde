@@ -106,12 +106,12 @@ class Board {
       rows.add(new Row(i));
     }
     
-    for (int i=0; i<wordsToAlign.size(); i++) {//agrego los rect a los row
-      Row rowCandidato = rows.get(int(random((rows.size()))));
-      while (rowCandidato.cantidadDeWords() == 2) {//max 2 por row
-        rowCandidato = rows.get(int(random( (rows.size()))));
+    for (Word wordToAdd : wordsToAlign) {
+      Row potentialRow = rows.get(int(random((rows.size()))));
+      while (potentialRow.wordAmount() == 2) {//max 2 por row
+        potentialRow = rows.get(int(random( (rows.size()))));
       }
-       rowCandidato.agregarPalabra(wordsToAlign.get(i)); //<>//
+       potentialRow.addWord(wordToAdd);
     }
     for (Row r : rows) {
       r.mergeColumn(wordHeight);
