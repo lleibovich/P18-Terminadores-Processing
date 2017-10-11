@@ -4,7 +4,7 @@ class Row {
   public Row(int n){//contructor
     this.numeroDeRow=n;
   }
-  public void agregarPalabra(Word r) {
+  public void addWord(Word r) {
     Word aux ;
     if (this.Words.size() == 0) {
       agregarRectangulo(r,"rnd");
@@ -28,7 +28,7 @@ class Row {
       return "izq";
     }
   }
-  public int cantidadDeWords() {
+  public int wordAmount() {
     return this.Words.size();
   }
   
@@ -46,7 +46,7 @@ class Row {
      this.Words.add(rec);
   }
   public void mergeColumn(float wordHeight) {
-    if (this.cantidadDeWords() == 1) {
+    if (this.wordAmount() == 1) {
       Word rectangulo=this.Words.get(0);
       String posFinal = "der";
       if (rectangulo.columna().equals("der")) posFinal = "izq";
