@@ -35,7 +35,9 @@ void setup() {
   disaligningFears = false;
   aligningStrengths = false;
   this.bgColor = this.cfg.BackgroundColor;
-  if (this.cfg.SensorType == "KINECT") {
+ println(this.cfg.SensorType);
+  if (this.cfg.SensorType.equals("KINECT")) {
+    println("inicializar kinect");
     kinect = new Kinect(this);
     kinectmov = new KinectMov();
     bodies = new ArrayList<SkeletonData>();
@@ -50,6 +52,7 @@ void draw() {
   // Background & motion blur
   fill(0);
   noStroke();
+  
   
   if (creatingBoard) {
     board = new Board(cfg);
@@ -87,6 +90,11 @@ void draw() {
     }
   }
   
+  if (this.cfg.SensorType.equals("KINECT")) {
+    //println("print kn");
+    textSize(72);
+    text(kinectmov.cons,width/2,height/2);
+  }
 }
 
 int getForce() {
@@ -97,6 +105,8 @@ int getForce() {
       break;
     case "KINECT":
       force = kinectmov.cons;
+      print("Force ");
+      println(force);
       break;
     case "CAMERA":
       // TODO

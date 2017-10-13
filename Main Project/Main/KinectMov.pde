@@ -2,6 +2,10 @@ public class KinectMov {
   private int time = 0;
   public int cons = 0;
   
+  public KinectMov() {
+    
+  println("KINECTMOV ");
+  }
   private final int[] partes = {7,11,13,17};
   
   private int[] skely = new int[24];
@@ -10,6 +14,7 @@ public class KinectMov {
   public final void total() {
     int todo = movimiento();
     if (todo != 0) {cons = todo;}
+    if (bodies.size() == 0) {cons = 0;}
   }
   
   private int auxiliar() {
@@ -29,7 +34,7 @@ public class KinectMov {
         } else {todo = todo + 6; p = 5;}
       }
       randomSeed(hour()*10000+minute()*100+second());
-      todo = todo + (int)random(0,2);
+      todo = todo + 0;  //(int)random(0,2);
     }
     return todo;
   }
