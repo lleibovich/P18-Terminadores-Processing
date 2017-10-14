@@ -117,11 +117,22 @@ class Word {
   }
   
   public void updateParticlesTarget() {
-            for (Particle p : this.ComponentParticles) {
+        for (Particle p : this.ComponentParticles) {
           p.target.x += this.TopLeftPos.x;
           p.target.y += this.TopLeftPos.y;
         }
   }
+  public void updateParticlesTargetNoAnim() {
+        for (Particle p : this.ComponentParticles) {
+          p.target.x += this.TopLeftPos.x;
+          p.target.y += this.TopLeftPos.y;
+          p.pos = new PVector(p.target.x, p.target.y);
+          p.vel = new PVector(0, 0);
+          p.acc = new PVector(0, 0);
+        }
+  }  
+
+  
   
   public void alignParticles() {
     // Align particles to show the word.
