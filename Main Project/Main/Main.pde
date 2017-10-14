@@ -1,10 +1,13 @@
 import processing.opengl.*;
+import processing.video.*;
 import kinect4WinSDK.Kinect;
 import kinect4WinSDK.SkeletonData;
 ArrayList <SkeletonData> bodies;
 
 Kinect kinect;
 KinectMov kinectmov;
+Capture video;
+Cameras cameras;
 
 color bgColor = color(255, 100, 50);
 Configuration cfg;
@@ -42,6 +45,12 @@ void setup() {
     kinectmov = new KinectMov();
     bodies = new ArrayList<SkeletonData>();
     total();
+  } else if (this.cfg.SensorType.equals("CAMERA")) {
+    video = new Capture(this, 640, 480);
+    video.start();
+    video.loadPixels();
+    cameras = new Cameras();
+    cameras.cameras();
   }
 }
 
@@ -109,7 +118,9 @@ int getForce() {
       println(force);
       break;
     case "CAMERA":
-      // TODO
+      cameras.cameras();
+      force = cameras.cons;
+      println("Force : " + force);
       break;
   }
   return force;
