@@ -215,19 +215,25 @@
           addStrengthColor($(this).val());
         });
         $("#btnPlay").on("click", function(e) {
+          const remote = require('electron').remote
+          const dialog = remote.dialog;
+
           var fs = require("fs");
           console.log(buildCfgString());
-          fs.writeFile("app/cfg.txt", buildCfgString(), (err) => {
+          var child = require('child_process').exec;
+          const appL = require('electron').remote.app;
+          var executablePath = appL.getAppPath() + "\\app\\";
+          fs.writeFile(executablePath + "cfg.txt", buildCfgString(), (err) => {
             if(err){
-              alert("No se pudo guardar la configuración: "+ err.message)
+              alert("No se pudo guardar la configuración: "+ err.message);
+              dialog.showErrorBox("No se pudo guardar la configuración", err.message);
             } else {
               //alert("The file has been succesfully saved");
-              var child = require('child_process').exec;
-              const appL = require('electron').remote.app;
-              var executablePath = appL.getAppPath() + "\\app\\";
               child("start /d \"" + executablePath + "\" Main.exe", function(err, data) {
                 if(err){
                   console.error(err);
+
+                  dialog.showErrorBox("No se pudo guardar la configuración", err);
                   return;
                 }
                 console.log(data.toString());
