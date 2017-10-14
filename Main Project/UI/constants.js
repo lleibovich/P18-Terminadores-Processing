@@ -1,0 +1,3 @@
+// Constants
+var MAX_WORDS_FEARS = 15;
+var MAX_WORDS_STRENGTHS = 15;

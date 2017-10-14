@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>P18-Terminadores-Processing!</title>
+    <!--Import Google Icon Font-->
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style type="text/css">
+      .row.slim {
+        margin-bottom: 2px;
+      }
+      .btn.slim {
+        height: 22px;
+        line-height: 22px;
+      }
+      .col.s10.border {
+        border: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav-extended">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo left">P18 - Terminadores - Processing</a>
+      </div>
+      <div class="nav-content">
+        <ul class="tabs tabs-transparent">
+          <li class="tab"><a href="#vars_words">Palabras</a></li>
+          <li class="tab"><a href="#vars_colors">Colores</a></li>
+          <li class="tab"><a href="#cfgs">Configuración</a></li>
+        </ul>
+        <a href="#" id="btnPlay" class="brand-logo right waves-effect waves-light- btn">Jugar!</a>
+      </div>
+    </nav>
+    <div id="vars_words" class="col s12">
+      <div class="row">
+        <div class="col s6">
+          <h2>Miedos</h2>
+          <div class="row slim">
+            <div class="col s2">Palabra:</div>
+            <div class="col s8"><input id="txtAddFear" type="text" style="width: 100%"/></div>
+            <div class="col s2"><a id="btnAddFear" class="waves-effect waves-light- btn">+</a></div>
+          </div>
+          <div class="row slim">
+            <div class="col s2">Ingresadas:</div>
+            <div class="col s10">
+              <ul id="ulFearsWords" style="max-height: 250px; overflow-y: auto;"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="col s6">
+          <h2>Fortalezas</h2>
+          <div class="row slim">
+            <div class="col s2">Palabra:</div>
+            <div class="col s8"><input id="txtAddStrength" type="text" style="width: 100%"/></div>
+            <div class="col s2"><a id="btnAddStrength" class="waves-effect waves-light- btn">+</a></div>
+          </div>
+          <div class="row slim">
+            <div class="col s2">Ingresadas:</div>
+            <div class="col s10" style="max-height: 250px; overflow-y: auto;">
+              <ul id="ulStrengthsWords"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="vars_colors" class="col s12">
+      <div class="row slim">
+        <div class="col s12">
+          <h2>Color de Fondo</h2>
+          <input id="colBackground" type="color" style="width: 25%" value="#000000"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6">
+          <h2>Miedos</h2>
+          <div class="row">
+            <div class="col s2">Color:</div>
+            <div class="col s10"><input id="colAddFear" type="color" style="width: 100%" value="#ff0000"/></div>
+          </div>
+          <div class="row">
+            <div class="col s2">Seleccionados:</div>
+            <div class="col s10">
+              <ul id="ulFearsColors"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="col s6">
+          <h2>Fortalezas</h2>
+          <div class="row">
+            <div class="col s2">Color:</div>
+            <div class="col s10"><input id="colAddStrength" type="color" style="width: 100%" value="#00ff00"/></div>
+          </div>
+          <div class="row">
+            <div class="col s2">Seleccionados:</div>
+            <div class="col s10">
+              <ul id="ulStrengthsColors"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="cfgs" class="col s12">
+      <div class="row">
+        <div class="row"><div class="col s12"><h2>Configuraciones</h2></div></div>
+        <div class="input-field col s2">
+          <select id="selSensorType">
+            <option value="KINECT">Kinect</option>
+            <option value="RANDOM">Aleatorio</option>
+          </select>
+          <label>Sensor:</label>
+        </div>
+        <div class="input-field col s2">
+          <input id="txtFontName" type="text" value="Arial" />
+          <label>Fuente</label>
+        </div>
+        <div class="input-field col s2">
+          <input id="txtFontSize" type="number" step="1" value="48" />
+          <label>Tamaño de Fuente</label>
+        </div>
+        <div class="input-field col s2">
+          <input id="txtDisalignConversionFactor" type="number" value="100" />
+          <label>Sensibilidad sensor</label>
+        </div>
+        <div class="input-field col s2">
+          <input id="txtDisalignIntervalMs" type="number" value="50" />
+          <label>Intervalo sensado (ms)
+        </div>
+        <div class="input-field col s2">
+          <select id="selLocationType">
+            <option value="FIXED">Organizado</option>
+            <option value="RANDOM">Aleatorio</option>
+          </select>
+          <label>Ubicación</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s2">
+          <select id="selProjectorName" disabled></select>
+          <label>Proyector</label>
+        </div>
+        <div class="input-field col s2">
+          <select id="selProjectorResolution" disabled></select>
+          <label>Resolución proyector</label>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/hammerjs/hammer.min.js"></script>
+    <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <script type="text/javascript" src="constants.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="events.js"></script>
+    <script type="text/javascript" src="functions.js"></script>
+  </body>
+</html>
