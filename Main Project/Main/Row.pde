@@ -4,17 +4,17 @@ class Row {
   public Row(int n){//contructor
     this.numeroDeRow=n;
   }
-  public void addWord(Word r) {
+  public void addWord(Word r,String animation) {
     Word aux ;
     if (this.Words.size() == 0) {
-      agregarRectangulo(r,"rnd");
+      agregarRectangulo(r,"rnd",animation);
     } 
     else if (this.Words.size() == 1) {
       aux = Words.get(0);
       if (aux.columna().equals("der")) {
-        agregarRectangulo(r, "izq");
+        agregarRectangulo(r, "izq",animation);
       } else {
-        agregarRectangulo(r, "der");
+        agregarRectangulo(r, "der",animation);
       }
     } else {
       println("Error AgregarPalabra");
@@ -32,7 +32,7 @@ class Row {
     return this.Words.size();
   }
   
-  private void agregarRectangulo(Word rec, String pos) {
+  private void agregarRectangulo(Word rec, String pos,String anim) {
      if(pos.equals("rnd")){
        rec.ponerEnColumna(columnaRandom());
      }
@@ -42,7 +42,10 @@ class Row {
      rec.darEspacioParaRandom(0-int(rec.Largo()), 0,"der");
      rec.posicionarEnRow(this.numeroDeRow);
      
-     rec.updateParticlesTarget();
+     if(anim.equals("ANIMACION2")){
+       rec.updateParticlesTargetNoAnim();
+     }
+     else{rec.updateParticlesTarget();};
      this.Words.add(rec);
   }
   public void mergeColumn(float wordHeight) {

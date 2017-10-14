@@ -1,4 +1,4 @@
-AnimationType=ANIMACION1
+AnimationType=ANIMACION2
 SensorType=RANDOM
 CameraName=ABC
 Fears=Fear one;Fear two;Fear three;Fear four;Fear five;Fear six;Fear seven;Fear eight;Fear nine;Fear ten

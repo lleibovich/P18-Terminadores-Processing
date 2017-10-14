@@ -111,6 +111,8 @@ class Board {
       while (potentialRow.wordAmount() == 2) {//max 2 por row
         potentialRow = rows.get(int(random( (rows.size()))));
       }
+       if(this.Config.AnimationType.equals("ANIMACION2"))
+       else{potentialRow.addWord(wordToAdd,ANIMACION1);}
        potentialRow.addWord(wordToAdd);
     }
     for (Row r : rows) {
