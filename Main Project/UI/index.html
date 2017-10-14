@@ -207,16 +207,82 @@
           $("#txtAddStrength").val("");
         });
         $("#colAddFear").on("change", function(e) {
-          console.log(getRgbArray($(this)));
+          console.log(getRgbArrayFromElement($(this)));
           addFearColor($(this).val());
         });
         $("#colAddStrength").on("change", function(e) {
-          console.log(getRgbArray($(this)));
+          console.log(getRgbArrayFromElement($(this)));
           addStrengthColor($(this).val());
         });
+        $("#btnPlay").on("click", function(e) {
+          var fs = require("fs");
+          console.log(buildCfgString());
+          fs.writeFile("app/cfg.txt", buildCfgString(), (err) => {
+            if(err){
+              alert("No se pudo guardar la configuración: "+ err.message)
+            } else {
+              //alert("The file has been succesfully saved");
+              var child = require('child_process').exec;
+              const appL = require('electron').remote.app;
+              var executablePath = appL.getAppPath() + "\\app\\";
+              child("start /d \"" + executablePath + "\" Main.exe", function(err, data) {
+                if(err){
+                  console.error(err);
+                  return;
+                }
+                console.log(data.toString());
+              });
+            }
+          });
+        })
       });
     </script>
     <script type="text/javascript">
+      function getColorString(rgbArray) {
+        return rgbArray[0] + ";" + rgbArray[1] + ";" + rgbArray[2];
+      }
+      function getUlColorsString(ulName) {
+        var str = "";
+        $("#" + ulName + " li .s10").each(function(i) {
+          str += getColorString(getRgbArrayFromHex($(this).html())) + "|";
+        });
+        str = str.replace(/\|\s*$/, "");
+        return str;
+      }
+      function getUlWordsString(ulName) {
+        var str = "";
+        $("#" + ulName + " li .s10").each(function(i) {
+          str += $(this).html() + ";";
+        });
+        str = str.replace(/\;\s*$/, "");
+        return str;
+      }
+      function buildCfgString() {
+        var os = require("os");
+        var fearsWordsString = getUlWordsString("ulFearsWords");
+        var strengthWordsString = getUlWordsString("ulStrengthsWords");
+        var fearsColorsStrnig = getUlColorsString("ulFearsColors");
+        var strengthColorsString = getUlColorsString("ulStrengthsColors");
+        var backgroundColorString = getColorString(getRgbArrayFromElement($("#colBackground")));
+        var cfgString = "";
+        cfgString += "AnimationType=" + $("#selAnimationType").val() + os.EOL;
+        cfgString += "SensorType=" + $("#selSensorType").val() + os.EOL;
+        cfgString += "CameraName=" + "ABC" + os.EOL;
+        cfgString += "Fears=" + fearsWordsString + os.EOL;
+        cfgString += "FearsColors=" + fearsColorsStrnig + os.EOL;
+        cfgString += "Strengths=" + strengthWordsString + os.EOL;
+        cfgString += "StrengthsColors=" + fearsColorsStrnig + os.EOL;
+        cfgString += "ProjectorResolution=" + "x,y" + os.EOL;
+        cfgString += "ProjectorName=" + "ABC" + os.EOL;
+        cfgString += "FontName=" + $("#txtFontName").val() + os.EOL;
+        cfgString += "FontSize=" + $("#txtFontSize").val() + os.EOL;
+        cfgString += "DisalignConversionFactor=" + $("#txtDisalignConversionFactor").val() + os.EOL;
+        cfgString += "DisalignIntervalMs=" + $("#txtDisalignIntervalMs").val() + os.EOL;
+        cfgString += "BackgroundColor=" + backgroundColorString + os.EOL;
+        cfgString += "LocationType=" + $("#selLocationType").val() + os.EOL;
+
+        return cfgString;
+      }
       function deleteItemList(item) {
         $(item).closest('li').remove();
       }
@@ -245,8 +311,11 @@
         var item = getHtmlAddColor(color);
         $("#ulStrengthsColors").append(item);
       }
-      function getRgbArray(input) {
+      function getRgbArrayFromElement(input) {
         var hex = $(input).val();
+        return getRgbArrayFromHex(hex);
+      }
+      function getRgbArrayFromHex(hex) {
         hex = hex.substring(1, 7);
         var rgb = new Array();
         rgb.push(parseInt(hex.substring(0, 2), 16));

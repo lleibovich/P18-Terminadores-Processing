@@ -1,0 +1,15 @@
+AnimationType=undefined
+SensorType=RANDOM
+CameraName=ABC
+Fears=asd;qwe
+FearsColors=244;99;11|255;13;0
+Strengths=rty;hgj
+StrengthsColors=244;99;11|255;13;0
+ProjectorResolution=x,y
+ProjectorName=ABC
+FontName=Arial
+FontSize=48
+DisalignConversionFactor=100
+DisalignIntervalMs=50
+BackgroundColor=0;0;0
+LocationType=FIXED
