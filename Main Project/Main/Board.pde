@@ -102,7 +102,7 @@ class Board {
     for (Word w : wordsToAlign) {
       if (w.Size.y > wordHeight) wordHeight = w.Size.y;
     }
-    for (int i = 0; i < height/wordHeight; i++) {
+    for (int i = 0; i < int(height/wordHeight); i++) {
       rows.add(new Row(i));
     }
     
@@ -115,6 +115,7 @@ class Board {
     }
     for (Row r : rows) {
       r.mergeColumn(wordHeight);
+     // r.draw();
     } 
   }
 }
