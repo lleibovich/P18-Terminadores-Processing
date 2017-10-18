@@ -1,12 +1,11 @@
 public class Cameras {
   public int cons = 0;
-  public int[] xMov = new int[10];
-  public int[] yMov = new int[10];
+  public PVector[] movement = new PVector[10];
   
   private boolean init = false;
   private int aux = 0;
   private color[][] previousColors = new color[640][480];
-  
+  private final int sensibility = (100 - 10) *10000; // El 10 tiene que ser reemplazado por el valor del confg
   
   public void cameras() {
     if (video.available()) {
@@ -35,16 +34,22 @@ public class Cameras {
           previousColors[x][y] = currColor;
           
           if (diffR + diffG + diffB > 300 && init) {
-            if (aux < 10) {xMov[aux] = x; yMov[aux] = y; aux++;}
+            if (aux == 0 || aux < 10 && movement[aux-1].x+20 < x && movement[aux-1].y+20 < y) {
+              movement[aux].x = x; movement[aux].y = y; aux++;
+            }
           }
         }
       }
       init = true;
       
       if (movementSum > 1500000) {
-        updatePixels();
-        cons = round((movementSum - 1500000)/900000);
+        cons = round((movementSum - 1500000)/sensibility);
       }
     }
+  }
+  public void clvar() {
+    aux = 0;
+    init = false;
+    movement = new PVector[10];
   }
 }
