@@ -14,6 +14,7 @@ class Configuration {
   public float DisalignConversionFactor = 55.5;
   public int DisalignIntervalMs = 500;
   public String LocationType = "RANDOM";
+  public float CameraSensibility = 1;
   
   public Configuration() {
     File[] files = listFiles(sketchPath());
@@ -95,6 +96,9 @@ class Configuration {
                 break;
               case "LocationType":
                 this.LocationType = keyValue[1];
+                break;
+              case "CameraSensibility":
+                this.CameraSensibility = float(keyValue[1]);
                 break;
             }
           }

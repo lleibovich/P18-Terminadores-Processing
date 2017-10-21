@@ -68,6 +68,16 @@ class Board {
     this.currentWord.disalignParticles(force, Config.DisalignConversionFactor);
     return true;
   }
+  
+  public boolean disalignWord(int force, ArrayList<MovementExtrapolated> movements) {
+    boolean canContinueDisaligning = false;
+    for (Word fear : this.Fears) {
+      if (fear.isCompletelyDisaligned()) continue;
+      fear.disalignParticles(force, movements, Config.DisalignConversionFactor);
+      if (!fear.isCompletelyDisaligned()) canContinueDisaligning = true;
+    }
+    return canContinueDisaligning;
+  }
     
   public boolean allFearsAligned() {
     boolean allAligned = true;

@@ -4,8 +4,16 @@ public class Cameras {
   
   private boolean init = false;
   private int aux = 0;
-  private color[][] previousColors = new color[640][480];
-  private final int sensibility = (100 - 10) *10000; // El 10 tiene que ser reemplazado por el valor del confg
+  private final int camWidth = 640;
+  private final int camHeight = 480;
+  private color[][] previousColors = new color[camWidth][camHeight];
+  private Configuration config;
+  private float sensibility = (100 - 10) * 10000; // El 10 tiene que ser reemplazado por el valor del config
+  
+  public Cameras(Configuration cfg) {
+    this.config = cfg;
+    sensibility = (100 - this.config.CameraSensibility) * 10000;
+  }
   
   public void cameras() {
     if (video.available()) {
@@ -13,9 +21,9 @@ public class Cameras {
       video.loadPixels();
       
       int movementSum = 0;
-      for (int x = 0; x < 640; x++) {
-        for (int y = 0; y < 480; y++) {
-          color currColor = video.pixels[y*640+x];
+      for (int x = 0; x < camWidth; x++) {
+        for (int y = 0; y < camHeight; y++) {
+          color currColor = video.pixels[y*camWidth+x];
           color prevColor = previousColors[x][y];
           int currR = (currColor >> 16) & 0xFF;
           int currG = (currColor >> 8) & 0xFF;
@@ -35,7 +43,9 @@ public class Cameras {
           
           if (diffR + diffG + diffB > 300 && init) {
             if (aux == 0 || aux < 10 && movement[aux-1].x+20 < x && movement[aux-1].y+20 < y) {
-              movement[aux].x = x; movement[aux].y = y; aux++;
+              println(aux);
+              movement[aux] = new PVector(x, y);
+              aux++;
             }
           }
         }
