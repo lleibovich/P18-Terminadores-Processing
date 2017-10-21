@@ -53,7 +53,7 @@ class Row {
       Word word=this.Words.get(0);
       String posFinal = "der";
       if (word.columna().equals("der")) posFinal = "izq";
-      word.darEspacioParaRandom(word.lenght(), 0, posFinal);
+      word.darEspacioParaRandom(int(word.lenght()), 0, posFinal);
     }
   }
 }
