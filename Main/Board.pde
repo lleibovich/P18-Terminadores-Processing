@@ -120,7 +120,7 @@ class Board {
        //potentialRow.addWord(wordToAdd);
     }
     for (Row r : rows) {
-      r.mergeColumn();
+      r.mergeColumn(percentToleaveBetweenWords);
      // r.draw();
     } 
   }
