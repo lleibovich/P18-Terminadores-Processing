@@ -54,6 +54,12 @@ class Row {
       String posFinal = "der";
       if (word.columna().equals("der")) posFinal = "izq";
       word.darEspacioParaRandom(int(word.lenght()), 0, posFinal);
+      if(word.TopLeftPos.x<percentToleaveBetweenWords/100){
+        word.darEspacioParaRandom(percentToleaveBetweenWords/100, 0, "der");
+      }
+      elseif(word.TopLeftPos.x>width-(percentToleaveBetweenWords/100)){
+        word.darEspacioParaRandom(percentToleaveBetweenWords/100, 0, "izq");
+      }
     }
   }
 }
