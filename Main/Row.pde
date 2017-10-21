@@ -7,14 +7,14 @@ class Row {
   public void addWord(Word r,String animation) {
     Word aux ;
     if (this.Words.size() == 0) {
-      asignSpace(r,"rnd",animation);
+      agregarRectangulo(r,"rnd",animation);
     } 
     else if (this.Words.size() == 1) {
       aux = Words.get(0);
       if (aux.columna().equals("der")) {
-        asignSpace(r, "izq",animation);
+        agregarRectangulo(r, "izq",animation);
       } else {
-        asignSpace(r, "der",animation);
+        agregarRectangulo(r, "der",animation);
       }
     } else {
       println("Error AgregarPalabra");
@@ -32,14 +32,14 @@ class Row {
     return this.Words.size();
   }
   
-  private void asignSpace(Word rec, String pos,String anim) {
+  private void agregarRectangulo(Word rec, String pos,String anim) {
      if(pos.equals("rnd")){
        rec.ponerEnColumna(columnaRandom());
      }
      else{
        rec.ponerEnColumna(pos);
      }
-     rec.darEspacioParaRandom(0-int(rec.lenght()), 0,"der");
+     rec.darEspacioParaRandom(0-int(rec.Largo()), 0,"der");
      rec.posicionarEnRow(this.numeroDeRow);
      
      if(anim.equals("ANIMACION2")){
@@ -48,12 +48,12 @@ class Row {
      else{rec.updateParticlesTarget();};
      this.Words.add(rec);
   }
-  public void mergeColumn() {
+  public void mergeColumn(float wordHeight) {
     if (this.wordAmount() == 1) {
-      Word word=this.Words.get(0);
+      Word rectangulo=this.Words.get(0);
       String posFinal = "der";
-      if (word.columna().equals("der")) posFinal = "izq";
-      word.darEspacioParaRandom(word.lenght(), 0, posFinal);
+      if (rectangulo.columna().equals("der")) posFinal = "izq";
+      rectangulo.darEspacioParaRandom(int(wordHeight), 0, posFinal);
     }
   }
 }
