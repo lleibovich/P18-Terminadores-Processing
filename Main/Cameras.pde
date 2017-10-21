@@ -41,9 +41,10 @@ public class Cameras {
           
           previousColors[x][y] = currColor;
           
+          //print("init: " + init);
           if (diffR + diffG + diffB > 300 && init) {
-            if (aux == 0 || aux < 10 && movement[aux-1].x+20 < x && movement[aux-1].y+20 < y) {
-              println(aux);
+            if (aux == 0 || aux < 10 && movement[aux-1].x+20 < x && movement[aux-1].y+20 < y) { //<>//
+              //println(aux);
               movement[aux] = new PVector(x, y);
               aux++;
             }
@@ -59,7 +60,7 @@ public class Cameras {
   }
   public void clvar() {
     aux = 0;
-    init = false;
+    //init = false;
     movement = new PVector[10];
   }
 }

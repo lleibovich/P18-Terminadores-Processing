@@ -22,7 +22,7 @@ boolean aligningStrengths;
 
 void settings() {
   //fullScreen(P2D);
-  size(1024,768,P2D);
+  size(800,600,P2D);
 }
 
 void setup() {
@@ -44,14 +44,13 @@ void setup() {
     kinect = new Kinect(this);
     kinectmov = new KinectMov();
     bodies = new ArrayList<SkeletonData>();
-    total();
   } else if (this.cfg.SensorType.equals("CAMERA") || this.cfg.SensorType.equals("CAMERAMOVEMENT")) {
     video = new Capture(this, 640, 480);
     video.start();
     video.loadPixels();
     cameras = new Cameras(this.cfg);
-    cameras.cameras();
   }
+  total();
 }
 
   int msPreviousDisalign = 0;
@@ -134,7 +133,6 @@ int getForce() {
       println("Force : " + force);
       break;
     case "CAMERAMOVEMENT":
-      cameras.cameras();
       force = cameras.cons;
       break;
   }
@@ -149,7 +147,8 @@ ArrayList<MovementExtrapolated> getMovements() {
       float widthDivisions = width / (float) 640;
       float heightDivisions = height / (float) 480;
       //print("WidthDivisions: "); print(widthDivisions); print(" - HeightDivisions: "); println(heightDivisions);
-      cameras.cameras();
+      //cameras.clvar();
+      //cameras.cameras();
       print("Cameras (t=" + millis() + ": ");
       println(cameras.movement);
       for(PVector movement : cameras.movement) {
@@ -181,7 +180,15 @@ ArrayList<MovementExtrapolated> getMovements() {
 }
 
 void total() {
-  kinectmov.total();
+  switch(this.cfg.SensorType) {
+    case "KINECT":
+      kinectmov.total();
+      break;
+    case "CAMERAMOVEMENT":
+      cameras.clvar();
+      cameras.cameras();
+      break;
+  }
   thread("total"); 
 }
 
