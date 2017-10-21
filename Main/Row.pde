@@ -48,7 +48,7 @@ class Row {
      else{rec.updateParticlesTarget();};
      this.Words.add(rec);
   }
-  public void mergeColumn() {
+  public void mergeColumn(int percentToleaveBetweenWords) {
     if (this.wordAmount() == 1) {
       Word word=this.Words.get(0);
       String posFinal = "der";
