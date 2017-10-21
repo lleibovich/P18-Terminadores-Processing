@@ -118,7 +118,7 @@ class Board {
        //potentialRow.addWord(wordToAdd);
     }
     for (Row r : rows) {
-      r.mergeColumn(wordHeight);
+      r.mergeColumn();
      // r.draw();
     } 
   }
