@@ -1,23 +1,23 @@
-  function getColorString(rgbArray) {
+function getColorString(rgbArray) {
 	return rgbArray[0] + ";" + rgbArray[1] + ";" + rgbArray[2];
-  }
-  function getUlColorsString(ulName) {
+}
+function getUlColorsString(ulName) {
 	var str = "";
-	$("#" + ulName + " li .s10").each(function(i) {
-	  str += getColorString(getRgbArrayFromHex($(this).html())) + "|";
+	$("#" + ulName + " li .s10").each(function (i) {
+		str += getColorString(getRgbArrayFromHex($(this).html())) + "|";
 	});
 	str = str.replace(/\|\s*$/, "");
 	return str;
-  }
-  function getUlWordsString(ulName) {
+}
+function getUlWordsString(ulName) {
 	var str = "";
-	$("#" + ulName + " li .s10").each(function(i) {
-	  str += $(this).html() + ";";
+	$("#" + ulName + " li .s10").each(function (i) {
+		str += $(this).html() + ";";
 	});
 	str = str.replace(/\;\s*$/, "");
 	return str;
-  }
-  function buildCfgString() {
+}
+function buildCfgString() {
 	var os = require("os");
 	var fearsWordsString = getUlWordsString("ulFearsWords");
 	var strengthWordsString = getUlWordsString("ulStrengthsWords");
@@ -42,44 +42,44 @@
 	cfgString += "LocationType=" + $("#selLocationType").val() + os.EOL;
 
 	return cfgString;
-  }
-  function deleteItemList(item) {
+}
+function deleteItemList(item) {
 	$(item).closest('li').remove();
-  }
-  function getHtmlAddWord(word) {
+}
+function getHtmlAddWord(word) {
 	var item = "<li><div class='row slim'><div class='col s10'>" + word + "</div><div class='col s2'><a class='waves-effect waves-light- btn slim' onClick='deleteItemList($(this));'>-</a></div></div></li>";
 	return item;
-  }
-  function getHtmlAddColor(colorHex) {
+}
+function getHtmlAddColor(colorHex) {
 	//
-	var item = "<li><div class='row slim'><div class='col s10' style='color: " + colorHex + ";background-color:" + colorHex +";'>" + colorHex + "</div><div class='col s2'><a class='waves-effect waves-light- btn slim' onClick='deleteItemList($(this));'>-</a></div></div></li>";
+	var item = "<li><div class='row slim'><div class='col s10' style='color: " + colorHex + ";background-color:" + colorHex + ";'>" + colorHex + "</div><div class='col s2'><a class='waves-effect waves-light- btn slim' onClick='deleteItemList($(this));'>-</a></div></div></li>";
 	return item;
-  }
-  function addFearWord(word) {
+}
+function addFearWord(word) {
 	var item = getHtmlAddWord(word);
 	$("#ulFearsWords").append(item);
-  }
-  function addStrengthWord(word) {
+}
+function addStrengthWord(word) {
 	var item = getHtmlAddWord(word);
 	$("#ulStrengthsWords").append(item);
-  }
-  function addFearColor(color) {
+}
+function addFearColor(color) {
 	var item = getHtmlAddColor(color);
 	$("#ulFearsColors").append(item);
-  }
-  function addStrengthColor(color) {
+}
+function addStrengthColor(color) {
 	var item = getHtmlAddColor(color);
 	$("#ulStrengthsColors").append(item);
-  }
-  function getRgbArrayFromElement(input) {
+}
+function getRgbArrayFromElement(input) {
 	var hex = $(input).val();
 	return getRgbArrayFromHex(hex);
-  }
-  function getRgbArrayFromHex(hex) {
+}
+function getRgbArrayFromHex(hex) {
 	hex = hex.substring(1, 7);
 	var rgb = new Array();
 	rgb.push(parseInt(hex.substring(0, 2), 16));
 	rgb.push(parseInt(hex.substring(2, 4), 16));
 	rgb.push(parseInt(hex.substring(4, 6), 16));
 	return rgb;
-  }
+}
