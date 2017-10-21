@@ -73,7 +73,37 @@ class Board {
     boolean canContinueDisaligning = false;
     for (Word fear : this.Fears) {
       if (fear.isCompletelyDisaligned()) continue;
-      fear.disalignParticles(force, movements, Config.DisalignConversionFactor);
+      ArrayList<MovementExtrapolated> movementsToWord = new ArrayList<MovementExtrapolated>();
+      boolean movementWord = false;
+      for (MovementExtrapolated movement : movements) {
+        PVector fearStart = new PVector(fear.TopLeftPos.x, fear.TopLeftPos.y);
+        PVector fearEnd = new PVector(fear.TopLeftPos.x + fear.Size.x, fear.TopLeftPos.y + fear.Size.y);
+        boolean movementX = false;
+        boolean movementY = false;
+        
+        if (
+          (movement.from.x >= fearStart.x && movement.from.x <= fearEnd.x)
+          ||
+          (movement.to.x >= fearStart.x && movement.to.x <= fearEnd.x)
+        ) movementX = true;
+        
+        if (
+          (movement.from.y >= fearStart.y && movement.from.y <= fearEnd.y)
+          ||
+          (movement.to.y >= fearStart.y && movement.to.y <= fearEnd.y)
+        ) movementY = true;
+        
+        if (movementX && movementY) {
+          //movementsToWord.add(movement);
+          movementWord = true;
+          break;
+        }
+      }
+      //fear.disalignParticles(force, movementsToWord, Config.DisalignConversionFactor);
+      force = 1000;
+      if (!movementWord) force = 0;
+      else println("Word: " + fear.Text + " - Move: " + movementWord);
+      fear.disalignParticles(force, Config.DisalignConversionFactor);
       if (!fear.isCompletelyDisaligned()) canContinueDisaligning = true;
     }
     return canContinueDisaligning;

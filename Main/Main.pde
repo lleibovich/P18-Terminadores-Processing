@@ -38,7 +38,7 @@ void setup() {
   disaligningFears = false;
   aligningStrengths = false;
   this.bgColor = this.cfg.BackgroundColor;
- println(this.cfg.SensorType);
+ //println(this.cfg.SensorType);
   if (this.cfg.SensorType.equals("KINECT")) {
     println("inicializar kinect");
     kinect = new Kinect(this);
@@ -149,8 +149,8 @@ ArrayList<MovementExtrapolated> getMovements() {
       //print("WidthDivisions: "); print(widthDivisions); print(" - HeightDivisions: "); println(heightDivisions);
       //cameras.clvar();
       //cameras.cameras();
-      print("Cameras (t=" + millis() + ": ");
-      println(cameras.movement);
+      //print("Cameras (t=" + millis() + ": ");
+      //println(cameras.movement);
       for(PVector movement : cameras.movement) {
         if (movement == null) break;
         if (movements == null) movements = new ArrayList<MovementExtrapolated>();
