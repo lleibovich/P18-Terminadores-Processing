@@ -98,10 +98,12 @@ class Board {
   }
   private void alignInRows (ArrayList<Word> wordsToAlign){//new words positioning algorithmn
     float wordHeight = 0;
+    final int percentToleaveBetweenWords =10 ;
     ArrayList<Row> rows = new ArrayList<Row>();
     for (Word w : wordsToAlign) {
-      if (w.Size.y > wordHeight) wordHeight = w.Size.y;
+      if (w.Size.y > wordHeight) wordHeight = w.Size.y+(w.Size.y*(percentToleaveBetweenWords/100));
     }
+    
     for (int i = 0; i < int(height/wordHeight); i++) {
       rows.add(new Row(i));
     }
