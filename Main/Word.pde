@@ -206,11 +206,11 @@ class Word {
     return completelyDisaligned;
   }
   //ex rectangle
-  public float Largo() {
+  public float lenght() {
     return this.Size.x;
   }
   public float altura() {//no esta en uso
-    return this.Size.x;
+    return this.Size.y;
   }
   public void ponerEnColumna(String column) {
     this.col=column;
