@@ -21,8 +21,8 @@ boolean disaligningFears;
 boolean aligningStrengths;
 
 void settings() {
-  fullScreen(P2D);
-  //size(1024,768,P2D);
+  //fullScreen(P2D);
+  size(1024,768,P2D);
 }
 
 void setup() {
@@ -45,11 +45,11 @@ void setup() {
     kinectmov = new KinectMov();
     bodies = new ArrayList<SkeletonData>();
     total();
-  } else if (this.cfg.SensorType.equals("CAMERA")) {
+  } else if (this.cfg.SensorType.equals("CAMERA") || this.cfg.SensorType.equals("CAMERAMOVEMENT")) {
     video = new Capture(this, 640, 480);
     video.start();
     video.loadPixels();
-    cameras = new Cameras();
+    cameras = new Cameras(this.cfg);
     cameras.cameras();
   }
 }
@@ -80,14 +80,25 @@ void draw() {
   if (disaligningFears) {
     background(this.cfg.BackgroundColor);
     int force = 0;
+    ArrayList<MovementExtrapolated> movements = new ArrayList<MovementExtrapolated>();
     if ((millis() - msPreviousDisalign) > this.cfg.DisalignIntervalMs) {
       msPreviousDisalign = millis();
       force = getForce();
+      movements = getMovements();
+      //movements = new PVector[]{};
     }
-    if (!board.disalignWord(force)) {
-      disaligningFears = false;
-      aligningStrengths = true;
+    if (this.cfg.SensorType.equals("CAMERAMOVEMENT")) {
+      if (movements != null && movements.size() > 0 && !board.disalignWord(force, movements)) {
+        disaligningFears = false;
+        aligningStrengths = true;
+      }  
+    } else {
+      if (!board.disalignWord(force)) {
+        disaligningFears = false;
+        aligningStrengths = true;
+      }
     }
+    
     board.drawAllFears();
   }
   
@@ -122,8 +133,51 @@ int getForce() {
       force = cameras.cons;
       println("Force : " + force);
       break;
+    case "CAMERAMOVEMENT":
+      cameras.cameras();
+      force = cameras.cons;
+      break;
   }
   return force;
+}
+
+ArrayList<MovementExtrapolated> getMovements() {
+  ArrayList<MovementExtrapolated> movements = null;
+  switch(this.cfg.SensorType) {
+    case "CAMERAMOVEMENT":
+      // (float) to ensure float result.
+      float widthDivisions = width / (float) 640;
+      float heightDivisions = height / (float) 480;
+      //print("WidthDivisions: "); print(widthDivisions); print(" - HeightDivisions: "); println(heightDivisions);
+      cameras.cameras();
+      print("Cameras (t=" + millis() + ": ");
+      println(cameras.movement);
+      for(PVector movement : cameras.movement) {
+        if (movement == null) break;
+        if (movements == null) movements = new ArrayList<MovementExtrapolated>();
+        
+        PVector movementExtrapolatedFrom = new PVector();
+        PVector movementExtrapolatedTo = new PVector();
+        
+        movementExtrapolatedFrom.x = widthDivisions * movement.x;
+        movementExtrapolatedTo.x = widthDivisions * (movement.x + 1);
+        movementExtrapolatedFrom.y = heightDivisions * movement.y;
+        movementExtrapolatedTo.y = heightDivisions * (movement.y + 1);
+        
+        movements.add(new MovementExtrapolated(movementExtrapolatedFrom, movementExtrapolatedTo));
+        //print("Movement: "); print(movement);
+        //print(" - From: "); print(movementExtrapolatedFrom);
+        //print(" - To: "); println(movementExtrapolatedTo);
+        fill(255);
+        rect(movementExtrapolatedFrom.x, movementExtrapolatedFrom.y, movementExtrapolatedTo.x - movementExtrapolatedFrom.x, movementExtrapolatedTo.y - movementExtrapolatedFrom.y); 
+        //fill(0);
+      }
+      //println(movements);
+      break;
+    default:
+      break;
+  }
+  return movements;
 }
 
 void total() {

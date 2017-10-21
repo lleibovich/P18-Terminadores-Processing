@@ -101,6 +101,15 @@ class Particle {
     }
   }
   
+  public boolean isInMovement(MovementExtrapolated movement) { // movement: 0=From - 1=To
+    boolean isInMovement = false;
+    if (movement != null) {
+      if ((movement.from.x - 10 <= this.pos.x && this.pos.x <= movement.to.x + 10) && (movement.from.y - 10 <= this.pos.y && this.pos.y <= movement.to.y + 10))
+        isInMovement = true;
+    }
+    return isInMovement;
+  }
+  
   public boolean isAligned() {
     if (Math.abs(this.pos.x - this.target.x) < 2 && Math.abs(this.pos.y - this.target.y) < 2)
       return true;

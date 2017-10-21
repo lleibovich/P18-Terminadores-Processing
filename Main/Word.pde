@@ -141,6 +141,21 @@ class Word {
     }
   }
   
+  private boolean particleInDetectedMovements(Particle p, ArrayList<MovementExtrapolated> movements) {
+    boolean isInMovement = false;
+    if (movements == null) {
+      isInMovement = false;
+    } else {
+      for (MovementExtrapolated movement : movements) {
+        if (p.isInMovement(movement)) {
+          isInMovement = true;
+          break;
+        }
+      }
+    }
+    return isInMovement;
+  }
+  
   public void disalignParticles(int force, float conversionFactor) {
     // Disarm the word. Kill the particles when they are not visible anymore.
     // When completely disaligned: this.IsAligned = false;
@@ -151,6 +166,31 @@ class Word {
       if (p.isDisaligning)
         particlesDisaligning.add(p);
       if (!p.isKilled)
+        particlesToDisalign.add(p);
+    }
+    while (nParticlesToDisalign > 0 && particlesToDisalign.size() > 0) {
+      int randomIndex = 0;
+      if (particlesToDisalign.size() > 1)
+        randomIndex = (int) random(0, particlesToDisalign.size() - 1);
+      particlesDisaligning.add(particlesToDisalign.get(randomIndex));
+      particlesToDisalign.remove(randomIndex);
+      nParticlesToDisalign -= 1;
+    }
+    for (Particle p : particlesDisaligning) {
+      p.disalign();
+    }
+  }
+  
+  public void disalignParticles(int force, ArrayList<MovementExtrapolated> movements, float conversionFactor) {
+    // Disarm the word. Kill the particles when they are not visible anymore.
+    // When completely disaligned: this.IsAligned = false;
+    int nParticlesToDisalign = (int) (force * conversionFactor);
+    ArrayList<Particle> particlesDisaligning = new ArrayList<Particle>();
+    ArrayList<Particle> particlesToDisalign = new ArrayList<Particle>();
+    for (Particle p : this.ComponentParticles) {
+      if (p.isDisaligning)
+        particlesDisaligning.add(p);
+      if ((!p.isKilled) && (particleInDetectedMovements(p, movements)))
         particlesToDisalign.add(p);
     }
     while (nParticlesToDisalign > 0 && particlesToDisalign.size() > 0) {

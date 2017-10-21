@@ -1,5 +1,5 @@
 AnimationType=ANIMACION2
-SensorType=RANDOM
+SensorType=CAMERAMOVEMENT
 CameraName=ABC
 Fears=Fear one;Fear two;Fear three;Fear four;Fear five;Fear six;Fear seven;Fear eight;Fear nine;Fear ten
 FearsColors=255;0;0|255;70;0|255;0;70
@@ -13,3 +13,4 @@ DisalignConversionFactor=100
 DisalignIntervalMs=50
 BackgroundColor=0;0;0
 LocationType=FIXED
+CameraSensibility=10
