@@ -57,7 +57,7 @@ class Row {
       if(word.TopLeftPos.x<percentToleaveBetweenWords/100){
         word.darEspacioParaRandom(percentToleaveBetweenWords/100, 0, "der");
       }
-      elseif(word.TopLeftPos.x>width-(percentToleaveBetweenWords/100)){
+      else if(word.TopLeftPos.x>width-(percentToleaveBetweenWords/100)){
         word.darEspacioParaRandom(percentToleaveBetweenWords/100, 0, "izq");
       }
     }
