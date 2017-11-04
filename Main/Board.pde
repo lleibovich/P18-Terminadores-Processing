@@ -137,29 +137,17 @@ class Board {
     }
   }
   private void alignInRows (ArrayList<Word> wordsToAlign){//new words positioning algorithmn
-    float wordHeight = 0;
+    float rowHeight = 0;
+    int softPercent = 5;
     ArrayList<Row> rows = new ArrayList<Row>();
     for (Word w : wordsToAlign) {
-      if (w.Size.y > wordHeight) wordHeight = w.Size.y;
+      if (w.Size.y > rowHeight) rowHeight = w.Size.y;
     }
-    for (int i = 0; i < int(height/wordHeight); i++) {
-      rows.add(new Row(i));
+    rowHeight+=(height*softPercent)/100;//para que no queden pegadas
+    Zone[][] zoneMatrix= new Zone[3][int(height/rowHeight)];
+    //foreach init
+    //foreach draw
     }
     
-    for (Word wordToAdd : wordsToAlign) {
-      Row potentialRow = rows.get(int(random((rows.size()))));
-      while (potentialRow.wordAmount() == 2) {//max 2 por row
-        potentialRow = rows.get(int(random( (rows.size()))));
-      }
-       if(this.Config.AnimationType.equals("ANIMACION2")){
-         potentialRow.addWord(wordToAdd,"ANIMACION2");
-       }
-       else{potentialRow.addWord(wordToAdd,"ANIMACION1");}
-       //potentialRow.addWord(wordToAdd);
-    }
-    for (Row r : rows) {
-      r.mergeColumn(wordHeight);
-     // r.draw();
-    } 
   }
 }
