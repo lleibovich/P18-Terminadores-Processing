@@ -41,11 +41,6 @@ class Row {
      }
      rec.darEspacioParaRandom(0-int(rec.Largo()), 0,"der");
      rec.posicionarEnRow(this.numeroDeRow);
-     
-     if(anim.equals("ANIMACION2")){
-       rec.updateParticlesTargetNoAnim();
-     }
-     else{rec.updateParticlesTarget();};
      this.Words.add(rec);
   }
   public void mergeColumn(float wordHeight) {

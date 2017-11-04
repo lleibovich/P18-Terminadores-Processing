@@ -48,16 +48,10 @@ class Board {
   }
   
   private void alignAllFears() {
-    for (Word fear : this.Fears) {
-      fear.alignParticles();
-    }
     this.drawAllFears();
   }
   
   private void alignAllStrengths() {
-    for (Word strength : this.Strengths) {
-      strength.alignParticles();
-    }
     this.drawAllStrengths();
   }
   
@@ -65,7 +59,7 @@ class Board {
   public boolean disalignWord(int force) {
     if (this.currentWord == null || this.currentWord.isCompletelyDisaligned()) this.getNextAlignedWord();
     if (this.currentWord == null) return false;
-    this.currentWord.disalignParticles(force, Config.DisalignConversionFactor);
+    this.currentWord.disalign(force);
     return true;
   }
   
@@ -94,7 +88,6 @@ class Board {
         ) movementY = true;
         
         if (movementX && movementY) {
-          //movementsToWord.add(movement);
           movementWord = true;
           break;
         }
@@ -103,7 +96,7 @@ class Board {
       force = 1000;
       if (!movementWord) force = 0;
       else println("Word: " + fear.Text + " - Move: " + movementWord);
-      fear.disalignParticles(force, Config.DisalignConversionFactor);
+      fear.disalign(force);
       if (!fear.isCompletelyDisaligned()) canContinueDisaligning = true;
     }
     return canContinueDisaligning;
@@ -112,7 +105,7 @@ class Board {
   public boolean allFearsAligned() {
     boolean allAligned = true;
     for (Word w : this.Fears) {
-      if (!w.allParticlesAligned()) return false;
+      
     }
     return allAligned;
   }
@@ -120,7 +113,7 @@ class Board {
   public boolean allStrengthsAligned() {
     boolean allAligned = true;
     for (Word w : this.Strengths) {
-      if (!w.allParticlesAligned()) return false;
+      
     }
     return allAligned;
   }

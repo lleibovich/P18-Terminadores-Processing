@@ -21,8 +21,8 @@ boolean disaligningFears;
 boolean aligningStrengths;
 
 void settings() {
-  //fullScreen(P2D);
-  size(800,600,P2D);
+  fullScreen();
+  //size(800,600,P2D);
 }
 
 void setup() {
