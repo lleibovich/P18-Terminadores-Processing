@@ -127,16 +127,50 @@ class Board {
       strength.draw();
     }
   }
-  private void alignInRows (ArrayList<Word> wordsToAlign) {//new words positioning algorithmn
-    float rowHeight = 0;
-    int softPercent = 5;
+  private void alignInRows () {//new words positioning algorithmn
+  
     ArrayList<Row> rows = new ArrayList<Row>();
-    for (Word w : wordsToAlign) {
-      if (w.Size.y > rowHeight) rowHeight = w.Size.y;
-    }
-    rowHeight+=(height*softPercent)/100;//para que no queden pegadas
-    Zone[][] zoneMatrix= new Zone[3][int(height/rowHeight)];
-    //foreach init
+    int rowAmount=Config.RowsQuantity;
+    int columnAmount=Config.ColsQuantity;
+    Zone[][] zoneMatrix= new Zone[columnAmount][rowAmount];
+    asignTopLeftPos(zoneMatrix,rowAmount,columnAmount);
+    addWordsToZones(zoneMatrix,rowAmount,columnAmount);
+    initialDrawAll(zoneMatrix,rowAmount,columnAmount);
+ }
+ 
+ private void addWordsToZones(Zone[][] zoneMatrix,int rowAmount,int columnAmount){
+   int contadorWordsAAgregar =0;
+   while(contadorWordsAAgregar<Fears.size()-1){
+      for(int c=0;c<columnAmount;c++){
+          if(c==1){
+            
+          }
+          else{
+            for(int f=0;f<rowAmount;f++){
+              if(contadorWordsAAgregar<Fears.size()-1)break;
+              zoneMatrix[c][f].addFear(Fears.get(contadorWordsAAgregar));
+              zoneMatrix[c][f].addStrenght(Strengths.get(contadorWordsAAgregar));
+            }
+          }
+      }
     //foreach draw
-  }
+    }
+ }
+ 
+ private void asignTopLeftPos(Zone[][] zoneMatrix,int rowAmount,int columnAmount){
+   for(int c=0;c<columnAmount;c++){
+      for(int f=0;f<rowAmount;f++){
+        zoneMatrix[c][f].TopLeftPos.x=(int(width/3))*c;
+        zoneMatrix[c][f].TopLeftPos.y=(int(height/rowAmount))*f;
+      }
+   }
+ }
+ private void initialDrawAll(Zone[][]zoneMatrix,int rowAmount,int columnAmount){
+    for(int c=0;c<columnAmount;c++){
+      for(int f=0;f<rowAmount;f++){
+        zoneMatrix[c][f].firstDraw();
+      }
+    }
+ }
+ 
 }
