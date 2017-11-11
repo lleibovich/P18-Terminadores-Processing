@@ -1,9 +1,9 @@
 AnimationType=ANIMACION2
 SensorType=CAMERAMOVEMENT
 CameraName=ABC
-Fears=Fear one;Fear two;Fear three;Fear four;Fear five;Fear six;Fear seven;Fear eight;Fear nine;Fear ten
+Fears=Fear one;Fear two;Fear three;Fear four;Fear five;Fear six;Fear seven;Fear eight
 FearsColors=255;0;0|255;70;0|255;0;70
-Strengths=Strength one;Strength two;Strength three;Strength four;Strength five;Strength six;Strength seven;Strength eight;Strength nine;Strength ten
+Strengths=Strength one;Strength two;Strength three;Strength four;Strength five;Strength six;Strength seven;Strength eight
 StrengthsColors=0;255;0|0;0;255|255;255;255
 ProjectorResolution=x,y
 ProjectorName=ABC

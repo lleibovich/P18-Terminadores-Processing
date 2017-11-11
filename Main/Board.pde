@@ -4,7 +4,7 @@ class Board {
   ArrayList<Word> Strengths;
   Word currentWord;
   Configuration Config;
-
+  public Zone[][]zoneMatrix;
   public Board(Configuration config) {
     this.Fears = new ArrayList<Word>();
     this.Strengths = new ArrayList<Word>();
@@ -130,7 +130,7 @@ class Board {
 
     int rowAmount=Config.RowsQuantity;
     int columnAmount=Config.ColsQuantity;
-    Zone[][] zoneMatrix= new Zone[columnAmount][rowAmount];
+    zoneMatrix= new Zone[columnAmount][rowAmount];
     initZones(zoneMatrix, rowAmount, columnAmount);
     addWordsToZones(zoneMatrix, rowAmount, columnAmount);
     initialDrawAll(zoneMatrix, rowAmount, columnAmount);
@@ -139,22 +139,25 @@ class Board {
   private void initZones(Zone[][] zoneMatrix, int rowAmount, int columnAmount) {
     for (int c=0; c<columnAmount; c++) {
       for (int f=0; f<rowAmount; f++) {
-        zoneMatrix[c][f]=new Zone((int(width/columnAmount))*c,(int(height/rowAmount))*f);
+        zoneMatrix[c][f]=new Zone((int(width/columnAmount))*c,(int(height/rowAmount))*f, this.Config);
       }
     }
   }
 
   private void addWordsToZones(Zone[][] zoneMatrix, int rowAmount, int columnAmount) {
-    for (int i=0;i<Fears.size();i++) {
+    int i=0;
+    while(i<Fears.size()) {
       for (int c=0; c<columnAmount; c++) {
-        if (c==1) {
+        if (c==1) {//harcoded ver changear this
         } else {
           for (int f=0; f<rowAmount; f++) {
-            if (i<Fears.size())break;
+            if(i==Fears.size())break;
             zoneMatrix[c][f].addFear(Fears.get(i));
             zoneMatrix[c][f].addStrength(Strengths.get(i));
+            i++;
           }
         }
+        if(i==Fears.size())break;
       }
       //foreach draw
     }

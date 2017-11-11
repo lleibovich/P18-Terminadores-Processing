@@ -88,7 +88,7 @@ class Word {
   }
   
   public void setTopLeftPos(PVector tlPos) {
-    println("Word: " + Text + " - TopLeftPos: " + this.TopLeftPos + " -> " + tlPos);
+    //println("Word: " + Text + " - TopLeftPos: " + this.TopLeftPos + " -> " + tlPos);
     this.TopLeftPos = tlPos;
   }
   
