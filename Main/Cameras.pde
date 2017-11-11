@@ -1,7 +1,7 @@
 public class Cameras {
   public int cons = 0;
   public PVector[] movement = new PVector[10];
-  public boolean[][] movementMap;
+  public boolean[][] movementMap;// = new boolean[2][this.config.RowsQuantity];
   
   private boolean init = false;
   private int aux = 0;
@@ -14,6 +14,7 @@ public class Cameras {
   public Cameras(Configuration cfg) {
     this.config = cfg;
     sensibility = (100 - this.config.CameraSensibility) * 10000;
+    movementMap = new boolean[this.config.ColsQuantity][this.config.RowsQuantity];
   }
   
   public void cameras() {
@@ -57,12 +58,21 @@ public class Cameras {
       if (movementSum > 1500000) {
         cons = round((movementSum - 1500000)/sensibility);
       }
+      float zoneWidth = camWidth / this.config.ColsQuantity;
+      float zoneHeight = camHeight / this.config.RowsQuantity;
+      //println("CamZoneWidth: " + zoneWidth + " - CamZoneHeight: " + zoneHeight);
+      for (int i = 0; i < movement.length; i++) {
+        if (movement[i] == null) continue;
+        int colNumber = int(movement[i].x / zoneWidth);
+        int rowNumber = int(movement[i].y / zoneHeight);
+        movementMap[colNumber][rowNumber] = true;
+      }
     }
   }
   public void clvar() {
     aux = 0;
     //init = false;
     movement = new PVector[10];
-    movementMap = new boolean[2][this.config.RowsQuantity];
+    movementMap = new boolean[this.config.ColsQuantity][this.config.RowsQuantity];
   }
 }

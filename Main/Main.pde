@@ -147,12 +147,29 @@ ArrayList<MovementExtrapolated> getMovements() {
       // (float) to ensure float result.
       float widthDivisions = width / (float) 640;
       float heightDivisions = height / (float) 480;
+      float zoneWidth = width / this.cfg.ColsQuantity;
+      float zoneHeight = height / this.cfg.RowsQuantity;
+      /*for (int i = 0; i < cameras.movement.length; i++) {
+        int colNumber = int(movement[i].x / zoneWidth);
+        int rowNumber = int(movement[i].y / zoneHeight);
+        movementMap[colNumber][rowNumber] = true;
+      }*/
+      for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < this.cfg.RowsQuantity; j++) {
+          if (cameras.movementMap[i][j] == true) {
+            color(125, 100, 150, 50);
+            println("rect(" + zoneWidth * i + ", " + zoneHeight * j + ", " + zoneWidth + ", " + zoneHeight + ");");
+            rect(zoneWidth * i, zoneHeight * j, zoneWidth, zoneHeight);
+          }
+        }
+      }
+      
       //print("WidthDivisions: "); print(widthDivisions); print(" - HeightDivisions: "); println(heightDivisions);
       //cameras.clvar();
       //cameras.cameras();
       //print("Cameras (t=" + millis() + ": ");
       //println(cameras.movement);
-      for(PVector movement : cameras.movement) {
+      /*for(PVector movement : cameras.movement) {
         if (movement == null) break;
         if (movements == null) movements = new ArrayList<MovementExtrapolated>();
         
@@ -171,7 +188,7 @@ ArrayList<MovementExtrapolated> getMovements() {
         fill(255);
         rect(movementExtrapolatedFrom.x, movementExtrapolatedFrom.y, movementExtrapolatedTo.x - movementExtrapolatedFrom.x, movementExtrapolatedTo.y - movementExtrapolatedFrom.y); 
         //fill(0);
-      }
+      }*/
       //println(movements);
       break;
     default:

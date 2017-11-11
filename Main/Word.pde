@@ -20,7 +20,6 @@ class Word {
     this.FontName = wordFontName;
     this.FontSize = wordFontSize;
     this.wordColor = pWordColor;
-    println("Text: " + Text + " - color: " + wordColor);
     this.EspacioRandomizable = new PVector(width/2, 0);
     this.Size.x = textWidth(this.Text);
     this.Size.y = this.FontSize;
