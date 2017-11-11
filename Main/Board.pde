@@ -26,8 +26,7 @@ class Board {
     case "RANDOM":
       break;
     case "FIXED":
-      alignInRows(this.Fears);
-      alignInRows(this.Strengths);
+      alignInRows();
       break;
     }
   }
@@ -160,7 +159,7 @@ class Board {
  private void asignTopLeftPos(Zone[][] zoneMatrix,int rowAmount,int columnAmount){
    for(int c=0;c<columnAmount;c++){
       for(int f=0;f<rowAmount;f++){
-        zoneMatrix[c][f].TopLeftPos.x=(int(width/3))*c;
+        zoneMatrix[c][f].TopLeftPos.x=(int(width/columnAmount))*c;
         zoneMatrix[c][f].TopLeftPos.y=(int(height/rowAmount))*f;
       }
    }
