@@ -14,8 +14,9 @@ class Word {
   int buffer = 20;
   Rectangle rectangle;
   color wordColor;
+  private PFont font;
   
-  public Word(String wordText, String wordFontName, int wordFontSize, ArrayList<Word> sharingBoardWords, color pWordColor, String locationType) {
+  public Word(String wordText, String wordFontName, int wordFontSize, ArrayList<Word> sharingBoardWords, color pWordColor, String locationType, float pAlignPercentage) {
     this.Text = wordText;
     this.FontName = wordFontName;
     this.FontSize = wordFontSize;
@@ -23,6 +24,8 @@ class Word {
     this.EspacioRandomizable = new PVector(width/2, 0);
     this.Size.x = textWidth(this.Text);
     this.Size.y = this.FontSize;
+    this.alignPercentage = pAlignPercentage;
+    this.font = createFont(wordFontName, wordFontSize);
     
     switch (locationType) {
       case "RANDOM":
@@ -77,6 +80,7 @@ class Word {
   
   public void draw() {
     // Update color with alpha from alingment.
+    textFont(this.font);
     this.wordColor = color(red(this.wordColor), green(this.wordColor), blue(this.wordColor), alignPercentage);
     fill(this.wordColor);
     text(Text, TopLeftPos.x, TopLeftPos.y);
@@ -99,7 +103,7 @@ class Word {
     return this.Size.x;
   }
   public void ponerEnColumna(String column) {
-    this.col=column;
+    this.col = column;
     if (this.col.equals("der")) { 
       TopLeftPos.x=(width/2);
     }

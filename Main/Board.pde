@@ -13,13 +13,13 @@ class Board {
       int rndm = (int)random(0, this.Config.FearsColors.size());
       if (rndm >= this.Config.FearsColors.size()) rndm = this.Config.FearsColors.size() - 1;
       color wColor = color(this.Config.FearsColors.get(rndm));
-      this.Fears.add(new Word(fear, this.Config.FontName, this.Config.FontSize, this.Fears, wColor, this.Config.LocationType));
+      this.Fears.add(new Word(fear, this.Config.FontName, this.Config.FontSize, this.Fears, wColor, this.Config.LocationType, 100));
     }
     for (String strength : config.Strengths) {//same with strenghts
       int rndm = (int)random(0, this.Config.StrengthsColors.size());
       if (rndm >= this.Config.StrengthsColors.size()) rndm = this.Config.StrengthsColors.size() - 1;
       color wColor = color(this.Config.StrengthsColors.get(rndm));
-      this.Strengths.add(new Word(strength, this.Config.FontName, this.Config.FontSize, this.Strengths, wColor, this.Config.LocationType));
+      this.Strengths.add(new Word(strength, this.Config.FontName, this.Config.FontSize, this.Strengths, wColor, this.Config.LocationType, 0));
     }
 
     switch (this.Config.LocationType) {
