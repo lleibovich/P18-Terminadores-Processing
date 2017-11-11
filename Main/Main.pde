@@ -70,7 +70,7 @@ void draw() {
   
   if (aligningFears) {
     background(bgColor);
-    board.alignAllFears();
+    //board.alignAllFears();
     if (board.allFearsAligned()) {
       aligningFears = false;
       disaligningFears = true;

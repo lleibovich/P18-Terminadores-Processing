@@ -145,15 +145,14 @@ class Board {
   }
 
   private void addWordsToZones(Zone[][] zoneMatrix, int rowAmount, int columnAmount) {
-    int contadorWordsAAgregar =0;
-    while (contadorWordsAAgregar<Fears.size()-1) {
+    for (int i=0;i<Fears.size();i++) {
       for (int c=0; c<columnAmount; c++) {
         if (c==1) {
         } else {
           for (int f=0; f<rowAmount; f++) {
-            if (contadorWordsAAgregar<Fears.size()-1)break;
-            zoneMatrix[c][f].addFear(Fears.get(contadorWordsAAgregar));
-            zoneMatrix[c][f].addStrenght(Strengths.get(contadorWordsAAgregar));
+            if (i<Fears.size())break;
+            zoneMatrix[c][f].addFear(Fears.get(i));
+            zoneMatrix[c][f].addStrength(Strengths.get(i));
           }
         }
       }

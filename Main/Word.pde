@@ -83,7 +83,13 @@ class Word {
     textFont(this.font);
     this.wordColor = color(red(this.wordColor), green(this.wordColor), blue(this.wordColor), alignPercentage);
     fill(this.wordColor);
+    //println("Word: " + Text + " - TopLeftPos: " + this.TopLeftPos);
     text(Text, TopLeftPos.x, TopLeftPos.y);
+  }
+  
+  public void setTopLeftPos(PVector tlPos) {
+    println("Word: " + Text + " - TopLeftPos: " + this.TopLeftPos + " -> " + tlPos);
+    this.TopLeftPos = tlPos;
   }
   
   public boolean isCompletelyDisaligned() {
