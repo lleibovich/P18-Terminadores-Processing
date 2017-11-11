@@ -9,6 +9,7 @@ class Zone{
 	public PVector TopLeftPos;
 	public Zone(int pWidth,int pHeight ){
     pg = createGraphics(pWidth, pHeight);
+    TopLeftPos=new PVector();
     TopLeftPos.x=pWidth;
     TopLeftPos.y=pHeight;
 	}
