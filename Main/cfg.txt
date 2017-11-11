@@ -12,5 +12,5 @@ FontSize=72
 DisalignConversionFactor=100
 DisalignIntervalMs=50
 BackgroundColor=0;0;0
-LocationType=FIXED
+LocationType=RANDOM
 CameraSensibility=10

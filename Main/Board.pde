@@ -4,7 +4,7 @@ class Board {
   ArrayList<Word> Strengths;
   Word currentWord;
   Configuration Config;
-  
+
   public Board(Configuration config) {
     this.Fears = new ArrayList<Word>();
     this.Strengths = new ArrayList<Word>();
@@ -21,17 +21,17 @@ class Board {
       color wColor = color(this.Config.StrengthsColors.get(rndm));
       this.Strengths.add(new Word(strength, this.Config.FontName, this.Config.FontSize, this.Strengths, wColor, this.Config.LocationType));
     }
-    
+
     switch (this.Config.LocationType) {
-      case "RANDOM":
-        break;
-      case "FIXED":
-        alignInRows(this.Fears);
-        alignInRows(this.Strengths);
-        break;
+    case "RANDOM":
+      break;
+    case "FIXED":
+      alignInRows(this.Fears);
+      alignInRows(this.Strengths);
+      break;
     }
   }
-  
+
   private void getNextAlignedWord() {
     if (this.currentWord != null)
       this.Fears.remove(this.currentWord);
@@ -46,15 +46,15 @@ class Board {
       }
     }
   }
-  
+
   private void alignAllFears() {
     this.drawAllFears();
   }
-  
+
   private void alignAllStrengths() {
     this.drawAllStrengths();
   }
-  
+
   // Returns true when it can continue disaligning, else false (if currentWord is null after getNextAlignedWord, there are no more available words to disalign).
   public boolean disalignWord(int force) {
     if (this.currentWord == null || this.currentWord.isCompletelyDisaligned()) this.getNextAlignedWord();
@@ -62,7 +62,7 @@ class Board {
     this.currentWord.disalign(force);
     return true;
   }
-  
+
   public boolean disalignWord(int force, ArrayList<MovementExtrapolated> movements) {
     boolean canContinueDisaligning = false;
     for (Word fear : this.Fears) {
@@ -74,19 +74,19 @@ class Board {
         PVector fearEnd = new PVector(fear.TopLeftPos.x + fear.Size.x, fear.TopLeftPos.y + fear.Size.y);
         boolean movementX = false;
         boolean movementY = false;
-        
+
         if (
           (movement.from.x >= fearStart.x && movement.from.x <= fearEnd.x)
           ||
           (movement.to.x >= fearStart.x && movement.to.x <= fearEnd.x)
-        ) movementX = true;
-        
+          ) movementX = true;
+
         if (
           (movement.from.y >= fearStart.y && movement.from.y <= fearEnd.y)
           ||
           (movement.to.y >= fearStart.y && movement.to.y <= fearEnd.y)
-        ) movementY = true;
-        
+          ) movementY = true;
+
         if (movementX && movementY) {
           movementWord = true;
           break;
@@ -101,35 +101,33 @@ class Board {
     }
     return canContinueDisaligning;
   }
-    
+
   public boolean allFearsAligned() {
     boolean allAligned = true;
     for (Word w : this.Fears) {
-      
     }
     return allAligned;
   }
-  
+
   public boolean allStrengthsAligned() {
     boolean allAligned = true;
     for (Word w : this.Strengths) {
-      
     }
     return allAligned;
   }
-  
+
   public void drawAllFears() {
     for (Word fear : this.Fears) {
       fear.draw();
     }
   }
-  
+
   public void drawAllStrengths() {
     for (Word strength : this.Strengths) {
       strength.draw();
     }
   }
-  private void alignInRows (ArrayList<Word> wordsToAlign){//new words positioning algorithmn
+  private void alignInRows (ArrayList<Word> wordsToAlign) {//new words positioning algorithmn
     float rowHeight = 0;
     int softPercent = 5;
     ArrayList<Row> rows = new ArrayList<Row>();
@@ -140,7 +138,5 @@ class Board {
     Zone[][] zoneMatrix= new Zone[3][int(height/rowHeight)];
     //foreach init
     //foreach draw
-    }
-    
   }
 }

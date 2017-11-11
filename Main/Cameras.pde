@@ -1,6 +1,7 @@
 public class Cameras {
   public int cons = 0;
   public PVector[] movement = new PVector[10];
+  public boolean[][] movementMap;
   
   private boolean init = false;
   private int aux = 0;
@@ -62,5 +63,6 @@ public class Cameras {
     aux = 0;
     //init = false;
     movement = new PVector[10];
+    movementMap = new boolean[2][this.config.RowsQuantity];
   }
 }

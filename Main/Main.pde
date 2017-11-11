@@ -26,6 +26,7 @@ void settings() {
 }
 
 void setup() {
+  colorMode(RGB, 255, 255, 255, 100);
   background(bgColor);
   
   centered = false;

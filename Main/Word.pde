@@ -10,7 +10,7 @@ class Word {
   public Boolean IsAligned = true;
   private String col;//izq der
   private PVector EspacioRandomizable;
-  int AlignPercentage = 100;
+  float alignPercentage = 100;
   int buffer = 20;
   Rectangle rectangle;
   color wordColor;
@@ -20,6 +20,7 @@ class Word {
     this.FontName = wordFontName;
     this.FontSize = wordFontSize;
     this.wordColor = pWordColor;
+    println("Text: " + Text + " - color: " + wordColor);
     this.EspacioRandomizable = new PVector(width/2, 0);
     this.Size.x = textWidth(this.Text);
     this.Size.y = this.FontSize;
@@ -76,6 +77,8 @@ class Word {
   }
   
   public void draw() {
+    // Update color with alpha from alingment.
+    this.wordColor = color(red(this.wordColor), green(this.wordColor), blue(this.wordColor), alignPercentage);
     fill(this.wordColor);
     text(Text, TopLeftPos.x, TopLeftPos.y);
   }
@@ -85,7 +88,8 @@ class Word {
     return completelyDisaligned;
   }
   
-  public void disalign(double force) {
+  public void disalign(float force) {
+    alignPercentage = alignPercentage - force;
   }
   
   //ex rectangle
