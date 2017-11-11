@@ -15,6 +15,8 @@ class Configuration {
   public int DisalignIntervalMs = 500;
   public String LocationType = "RANDOM";
   public float CameraSensibility = 1;
+  public final int RowsQuantity = 4;
+  public final int ColsQuantity = 3;
   
   public Configuration() {
     File[] files = listFiles(sketchPath());
