@@ -19,10 +19,10 @@ class Zone{
     this.fears.add(word);
   }
   public void addstrengths(ArrayList<Word> words ){
-    this.fears.addAll(words);
+    this.strengths.addAll(words);
   } 
   public void addStrength(Word word){
-    this.fears.add(word);
+    this.strengths.add(word);
   }
 	public void desarmar (double fuerza){
     //ToDo

@@ -72,8 +72,10 @@ void draw() {
     for (int i = 0; i < this.cfg.ColsQuantity; i++) {
       for (int j = 0; j < this.cfg.RowsQuantity; j++) {
         if (movements[i][j] == true) {
-          println("Disalign/align: " + i + " " + j);
+          //println("Disalign/align: " + i + " " + j);
           Zone zone = this.board.zoneMatrix[i][j];
+          println("Zone " + i + "," + j + " fears: " + zone.fears);
+          println("Zone " + i + "," + j + " strengths: " + zone.strengths);
           for (Word fear : zone.fears) {
             fear.disalign(force * this.cfg.DisalignConversionFactor);
           }

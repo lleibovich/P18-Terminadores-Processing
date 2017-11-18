@@ -79,6 +79,11 @@ class Word {
   }
   
   public void draw() {
+    /*if (this.Text.startsWith("Strength")) {
+        println("Palabra: " + this.Text + " - AlignPercentage: " + this.alignPercentage);
+      if (this.alignPercentage > 0)
+        println("Palabra: " + this.Text + " - AlignPercentage: " + this.alignPercentage);
+    }*/
     // Update color with alpha from alingment.
     textFont(this.font);
     this.wordColor = color(red(this.wordColor), green(this.wordColor), blue(this.wordColor), alignPercentage);
@@ -98,9 +103,17 @@ class Word {
   }
   
   public void disalign(float force) {
+    if (this.Text.startsWith("Strength")) {
+      //println("Palabra: " + this.Text + " - Disaligning. AlignPercentage: " + this.alignPercentage);
+      //Thread.dumpStack();
+    }
     alignPercentage = alignPercentage - force;
   }
   public void align(float force) {
+    if (this.Text.startsWith("Strength")) {
+      //println("Palabra: " + this.Text + " - Aligning. AlignPercentage: " + this.alignPercentage);
+      //Thread.dumpStack();
+    }
     alignPercentage = alignPercentage + force;
     if (alignPercentage > 100) alignPercentage = 100;
   }
