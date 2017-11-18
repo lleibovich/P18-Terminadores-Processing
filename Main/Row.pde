@@ -1,7 +1,7 @@
 class Row {
   protected ArrayList<Word> Words = new ArrayList<Word>();//serian 2 por row por ahora
   public int numeroDeRow;
-  public Row(int n){//contructor
+  public Row(int n) {//contructor
     this.numeroDeRow=n;
   }
   public void addWord(Word r,String animation) {

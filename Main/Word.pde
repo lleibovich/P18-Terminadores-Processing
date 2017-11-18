@@ -100,6 +100,10 @@ class Word {
   public void disalign(float force) {
     alignPercentage = alignPercentage - force;
   }
+  public void align(float force) {
+    alignPercentage = alignPercentage + force;
+    if (alignPercentage > 100) alignPercentage = 100;
+  }
   
   //ex rectangle
   public float Largo() {

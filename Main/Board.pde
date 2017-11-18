@@ -127,10 +127,9 @@ class Board {
     }
   }
   private void alignInRows () {//new words positioning algorithmn
-
-    int rowAmount=Config.RowsQuantity;
-    int columnAmount=Config.ColsQuantity;
-    zoneMatrix= new Zone[columnAmount][rowAmount];
+    int rowAmount = Config.RowsQuantity;
+    int columnAmount = Config.ColsQuantity;
+    zoneMatrix = new Zone[columnAmount][rowAmount];
     initZones(zoneMatrix, rowAmount, columnAmount);
     addWordsToZones(zoneMatrix, rowAmount, columnAmount);
     initialDrawAll(zoneMatrix, rowAmount, columnAmount);

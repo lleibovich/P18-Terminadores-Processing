@@ -44,6 +44,7 @@ public class Cameras {
           previousColors[x][y] = currColor;
           
           //print("init: " + init);
+          if (aux != 0 && movement[aux-1] == null) movement[aux-1] = new PVector();
           if (diffR + diffG + diffB > 300 && init) {
             if (aux == 0 || aux < 10 && movement[aux-1].x+20 < x && movement[aux-1].y+20 < y) { //<>//
               //println(aux);
@@ -65,6 +66,12 @@ public class Cameras {
         if (movement[i] == null) continue;
         int colNumber = int(movement[i].x / zoneWidth);
         int rowNumber = int(movement[i].y / zoneHeight);
+        if (colNumber == this.config.ColsQuantity) {
+          colNumber = this.config.ColsQuantity - 1;
+        }
+        if (rowNumber == this.config.RowsQuantity) {
+          rowNumber = this.config.RowsQuantity - 1;
+        }
         movementMap[colNumber][rowNumber] = true;
       }
     }
