@@ -71,9 +71,9 @@ class Word {
     }
   }
   
-  private PVector calculateSizeVector() {
+  public PVector calculateSizeVector() {
     PVector size = new PVector();
-    size.y = FontSize;
+    size.y = textAscent();
     size.x = textWidth(Text);
     return size;
   }

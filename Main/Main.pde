@@ -82,8 +82,15 @@ void draw() {
           for (Word strength : zone.strengths) {
             strength.align(force * this.cfg.DisalignConversionFactor);
           }
-          for (int k = 0; k < 10/*(int) force * this.cfg.DisalignConversionFactor*/; k++) {
-            ParticlesAlive.add(new Particle(new PVector((int)random(zone.TopLeftPos.x, zone.TopLeftPos.x + zone.Size.x), (int)random(zone.TopLeftPos.y, zone.TopLeftPos.y + zone.Size.y))));
+          if (!(zone.fears == null || zone.fears.size() == 0)) {
+            PVector wordTopLeft = zone.fears.get(0).TopLeftPos;
+            PVector wordSize = zone.fears.get(0).calculateSizeVector();
+            float xPos = wordTopLeft.x + (wordSize.x/2);
+            float yPos = wordTopLeft.y - (wordSize.y/2);
+            PVector position = new PVector(xPos, yPos);
+            for (int k = 0; k < 10/*(int) force * this.cfg.DisalignConversionFactor*/; k++) {
+              ParticlesAlive.add(new Particle(position));
+            }
           }
         }
       }
