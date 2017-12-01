@@ -82,8 +82,8 @@ void draw() {
           for (Word strength : zone.strengths) {
             strength.align(force * this.cfg.DisalignConversionFactor);
           }
-          for (int k = 0; k < (int) force * this.cfg.DisalignConversionFactor * this.cfg.CameraSensibility; k++) {
-            ParticlesAlive.add(new Particle(true, (int)random(zone.TopLeftPos.x, zone.Size.x), (int)random(zone.TopLeftPos.y, zone.Size.y), color(204, 153, 0)));
+          for (int k = 0; k < 10/*(int) force * this.cfg.DisalignConversionFactor*/; k++) {
+            ParticlesAlive.add(new Particle(new PVector((int)random(zone.TopLeftPos.x, zone.TopLeftPos.x + zone.Size.x), (int)random(zone.TopLeftPos.y, zone.TopLeftPos.y + zone.Size.y))));
           }
         }
       }
@@ -91,15 +91,12 @@ void draw() {
   }
   board.drawAllFears();
   board.drawAllStrengths();
-  ArrayList<Integer> IdsParticlesToDelete = new ArrayList<Integer>();
-  for (int i = 0; i < ParticlesAlive.size(); i++) {
-    Particle part = ParticlesAlive.get(i);
-    part.draw();
-    part.kill();
-    if (part.isOutOfBoundaries()) IdsParticlesToDelete.add(i);
-  }
-  for (int i = ParticlesAlive.size() - 1; i >= 0; i--) {
-    ParticlesAlive.remove(i);
+  for (int i = ParticlesAlive.size()-1; i >= 0; i--) {
+    Particle p = ParticlesAlive.get(i);
+    p.run();
+    if (p.isDead()) {
+      ParticlesAlive.remove(i);
+    }
   }
 }
 
