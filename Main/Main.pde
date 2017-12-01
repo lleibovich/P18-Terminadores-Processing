@@ -56,7 +56,7 @@ void setup() {
 }
 
 int msPreviousDisalign = 0;
-
+ArrayList<Particle> ParticlesAlive = new ArrayList<Particle>();
 
 void draw() {
   // Background & motion blur
@@ -74,13 +74,16 @@ void draw() {
         if (movements[i][j] == true) {
           //println("Disalign/align: " + i + " " + j);
           Zone zone = this.board.zoneMatrix[i][j];
-          println("Zone " + i + "," + j + " fears: " + zone.fears);
-          println("Zone " + i + "," + j + " strengths: " + zone.strengths);
+          //println("Zone " + i + "," + j + " fears: " + zone.fears);
+          //println("Zone " + i + "," + j + " strengths: " + zone.strengths);
           for (Word fear : zone.fears) {
             fear.disalign(force * this.cfg.DisalignConversionFactor);
           }
           for (Word strength : zone.strengths) {
             strength.align(force * this.cfg.DisalignConversionFactor);
+          }
+          for (int k = 0; k < (int) force * this.cfg.DisalignConversionFactor * this.cfg.CameraSensibility; k++) {
+            ParticlesAlive.add(new Particle(true, (int)random(zone.TopLeftPos.x, zone.Size.x), (int)random(zone.TopLeftPos.y, zone.Size.y), color(204, 153, 0)));
           }
         }
       }
@@ -88,6 +91,16 @@ void draw() {
   }
   board.drawAllFears();
   board.drawAllStrengths();
+  ArrayList<Integer> IdsParticlesToDelete = new ArrayList<Integer>();
+  for (int i = 0; i < ParticlesAlive.size(); i++) {
+    Particle part = ParticlesAlive.get(i);
+    part.draw();
+    part.kill();
+    if (part.isOutOfBoundaries()) IdsParticlesToDelete.add(i);
+  }
+  for (int i = ParticlesAlive.size() - 1; i >= 0; i--) {
+    ParticlesAlive.remove(i);
+  }
 }
 
 int getForce() {
