@@ -25,8 +25,13 @@ public class Cameras {
       int movementSum = 0;
       for (int x = 0; x < camWidth; x++) {
         for (int y = 0; y < camHeight; y++) {
-          color currColor = video.pixels[y*camWidth+x];
-          color prevColor = previousColors[x][y];
+          color currColor;
+          if (!this.config.Mirrored)
+            currColor = video.pixels[y*camWidth+x];
+          else
+            currColor = video.pixels[(camWidth - x - 1)+y*camWidth];
+          //color prevColor = previousColors[x][y];
+          color prevColor = previousColors[(camWidth - 1) - x][y];
           int currR = (currColor >> 16) & 0xFF;
           int currG = (currColor >> 8) & 0xFF;
           int currB = currColor & 0xFF;
@@ -41,7 +46,8 @@ public class Cameras {
           
           movementSum += diffR + diffG + diffB;
           
-          previousColors[x][y] = currColor;
+          //previousColors[x][y] = currColor;
+          previousColors[(camWidth - 1) - x][y] = currColor;
           
           if (aux != 0 && movement[aux-1] == null) movement[aux-1] = new PVector();
           if (diffR + diffG + diffB > 300 && init) {

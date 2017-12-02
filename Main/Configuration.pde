@@ -17,6 +17,7 @@ class Configuration {
   public float CameraSensibility = 1;
   public final int RowsQuantity = 4;
   public final int ColsQuantity = 3;
+  public final Boolean Mirrored = true;
   
   public Configuration() {
     File[] files = listFiles(sketchPath());
