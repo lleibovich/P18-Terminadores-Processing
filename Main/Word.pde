@@ -79,18 +79,23 @@ class Word {
   }
   
   public void draw() {
-    /*if (this.Text.startsWith("Strength")) {
-        println("Palabra: " + this.Text + " - AlignPercentage: " + this.alignPercentage);
-      if (this.alignPercentage > 0)
-        println("Palabra: " + this.Text + " - AlignPercentage: " + this.alignPercentage);
-    }*/
+    boolean alignLeft = true;
+    if (this.TopLeftPos.x > width / 2) alignLeft = false;
     // Update color with alpha from alingment.
     if (alignPercentage < 10) return;
+    float leftTopX = TopLeftPos.x;
+    if (alignLeft) {
+      textAlign(LEFT);
+      leftTopX = 10;
+    } else {
+      textAlign(RIGHT);
+      leftTopX = width - 20;
+    }
     textFont(this.font);
     this.wordColor = color(red(this.wordColor), green(this.wordColor), blue(this.wordColor), alignPercentage);
     fill(this.wordColor);
     //println("Word: " + Text + " - TopLeftPos: " + this.TopLeftPos);
-    text(Text, TopLeftPos.x, TopLeftPos.y);
+    text(Text, leftTopX, TopLeftPos.y);
   }
   
   public void setTopLeftPos(PVector tlPos) {
