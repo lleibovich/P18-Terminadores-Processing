@@ -94,7 +94,6 @@ class Board {
       //fear.disalignParticles(force, movementsToWord, Config.DisalignConversionFactor);
       force = 1000;
       if (!movementWord) force = 0;
-      else println("Word: " + fear.Text + " - Move: " + movementWord);
       fear.disalign(force);
       if (!fear.isCompletelyDisaligned()) canContinueDisaligning = true;
     }
@@ -103,15 +102,11 @@ class Board {
 
   public boolean allFearsAligned() {
     boolean allAligned = true;
-    for (Word w : this.Fears) {
-    }
     return allAligned;
   }
 
   public boolean allStrengthsAligned() {
     boolean allAligned = true;
-    for (Word w : this.Strengths) {
-    }
     return allAligned;
   }
 

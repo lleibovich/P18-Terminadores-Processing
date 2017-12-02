@@ -43,11 +43,9 @@ public class Cameras {
           
           previousColors[x][y] = currColor;
           
-          //print("init: " + init);
           if (aux != 0 && movement[aux-1] == null) movement[aux-1] = new PVector();
           if (diffR + diffG + diffB > 300 && init) {
             if (aux == 0 || aux < 10 && movement[aux-1].x+20 < x && movement[aux-1].y+20 < y) { //<>//
-              //println(aux);
               movement[aux] = new PVector(x, y);
               aux++;
             }
@@ -61,7 +59,6 @@ public class Cameras {
       }
       float zoneWidth = camWidth / this.config.ColsQuantity;
       float zoneHeight = camHeight / this.config.RowsQuantity;
-      //println("CamZoneWidth: " + zoneWidth + " - CamZoneHeight: " + zoneHeight);
       for (int i = 0; i < movement.length; i++) {
         if (movement[i] == null) continue;
         int colNumber = int(movement[i].x / zoneWidth);
@@ -72,13 +69,17 @@ public class Cameras {
         if (rowNumber == this.config.RowsQuantity) {
           rowNumber = this.config.RowsQuantity - 1;
         }
+        // Si detecta en el medio va a alguno de los dos costados
+        if (colNumber == 1) {
+          if (millis() % 2 == 0) colNumber = colNumber + 1;
+          else colNumber = colNumber - 1;
+        }
         movementMap[colNumber][rowNumber] = true;
       }
     }
   }
   public void clvar() {
     aux = 0;
-    //init = false;
     movement = new PVector[10];
     movementMap = new boolean[this.config.ColsQuantity][this.config.RowsQuantity];
   }
