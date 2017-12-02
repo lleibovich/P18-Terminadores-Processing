@@ -71,12 +71,6 @@ void draw() {
       for (int j = 0; j < this.cfg.RowsQuantity; j++) {
         if (movements[i][j] == true) {
           Zone zone = this.board.zoneMatrix[i][j];
-          for (Word fear : zone.fears) {
-            fear.disalign(force * this.cfg.DisalignConversionFactor);
-          }
-          for (Word strength : zone.strengths) {
-            strength.align(force * this.cfg.DisalignConversionFactor);
-          }
           if (!(zone.fears == null || zone.fears.size() == 0 || zone.fears.get(0).isCompletelyDisaligned())) {
             PVector wordTopLeft = zone.fears.get(0).TopLeftPos;
             PVector wordSize = zone.fears.get(0).calculateSizeVector();
@@ -87,6 +81,12 @@ void draw() {
             for (int k = 0; k < (int) force * this.cfg.DisalignConversionFactor; k++) {
               ParticlesAlive.add(new Particle(position, particleColor));
             }
+          }
+          for (Word fear : zone.fears) {
+            fear.disalign(force * this.cfg.DisalignConversionFactor);
+          }
+          for (Word strength : zone.strengths) {
+            strength.align(force * this.cfg.DisalignConversionFactor);
           }
         }
       }
