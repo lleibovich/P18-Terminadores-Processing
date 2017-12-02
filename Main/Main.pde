@@ -82,7 +82,7 @@ void draw() {
           for (Word strength : zone.strengths) {
             strength.align(force * this.cfg.DisalignConversionFactor);
           }
-          if (!(zone.fears == null || zone.fears.size() == 0)) {
+          if (!(zone.fears == null || zone.fears.size() == 0 || zone.fears.get(0).isCompletelyDisaligned())) {
             PVector wordTopLeft = zone.fears.get(0).TopLeftPos;
             PVector wordSize = zone.fears.get(0).calculateSizeVector();
             float xPos = wordTopLeft.x + (wordSize.x/2);

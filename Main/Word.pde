@@ -100,6 +100,7 @@ class Word {
   
   public boolean isCompletelyDisaligned() {
     boolean completelyDisaligned = false;
+    if (alignPercentage < 10) completelyDisaligned = true;
     return completelyDisaligned;
   }
   
