@@ -85,6 +85,7 @@ class Word {
         println("Palabra: " + this.Text + " - AlignPercentage: " + this.alignPercentage);
     }*/
     // Update color with alpha from alingment.
+    if (alignPercentage < 10) return;
     textFont(this.font);
     this.wordColor = color(red(this.wordColor), green(this.wordColor), blue(this.wordColor), alignPercentage);
     fill(this.wordColor);
