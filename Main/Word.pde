@@ -13,7 +13,7 @@ class Word {
   float alignPercentage = 100;
   int buffer = 20;
   Rectangle rectangle;
-  color wordColor;
+  public color wordColor;
   private PFont font;
   
   public Word(String wordText, String wordFontName, int wordFontSize, ArrayList<Word> sharingBoardWords, color pWordColor, String locationType, float pAlignPercentage) {

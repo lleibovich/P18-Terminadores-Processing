@@ -39,9 +39,7 @@ void setup() {
   disaligningFears = false;
   aligningStrengths = false;
   this.bgColor = this.cfg.BackgroundColor;
-  //println(this.cfg.SensorType);
   if (this.cfg.SensorType.equals("KINECT")) {
-    println("inicializar kinect");
     kinect = new Kinect(this);
     kinectmov = new KinectMov();
     bodies = new ArrayList<SkeletonData>();
@@ -85,8 +83,9 @@ void draw() {
             float xPos = wordTopLeft.x + (wordSize.x/2);
             float yPos = wordTopLeft.y - (wordSize.y/2);
             PVector position = new PVector(xPos, yPos);
-            for (int k = 0; k < 10/*(int) force * this.cfg.DisalignConversionFactor*/; k++) {
-              ParticlesAlive.add(new Particle(position));
+            color particleColor = zone.fears.get(0).wordColor;
+            for (int k = 0; k < (int) force * this.cfg.DisalignConversionFactor; k++) {
+              ParticlesAlive.add(new Particle(position, particleColor));
             }
           }
         }
