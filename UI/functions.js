@@ -25,21 +25,23 @@
 	var strengthColorsString = getUlColorsString("ulStrengthsColors");
 	var backgroundColorString = getColorString(getRgbArrayFromElement($("#colBackground")));
 	var cfgString = "";
-	cfgString += "AnimationType=" + $("#selAnimationType").val() + os.EOL;
-	cfgString += "SensorType=" + $("#selSensorType").val() + os.EOL;
-	cfgString += "CameraName=" + "ABC" + os.EOL;
+	//cfgString += "AnimationType=" + $("#selAnimationType").val() + os.EOL;
+	//cfgString += "SensorType=" + $("#selSensorType").val() + os.EOL;
+	//cfgString += "CameraName=" + "ABC" + os.EOL;
 	cfgString += "Fears=" + fearsWordsString + os.EOL;
 	cfgString += "FearsColors=" + fearsColorsStrnig + os.EOL;
 	cfgString += "Strengths=" + strengthWordsString + os.EOL;
 	cfgString += "StrengthsColors=" + strengthColorsString + os.EOL;
-	cfgString += "ProjectorResolution=" + "x,y" + os.EOL;
-	cfgString += "ProjectorName=" + "ABC" + os.EOL;
+	//cfgString += "ProjectorResolution=" + "x,y" + os.EOL;
+	//cfgString += "ProjectorName=" + "ABC" + os.EOL;
 	cfgString += "FontName=" + $("#txtFontName").val() + os.EOL;
 	cfgString += "FontSize=" + $("#txtFontSize").val() + os.EOL;
 	cfgString += "DisalignConversionFactor=" + $("#txtDisalignConversionFactor").val() + os.EOL;
 	cfgString += "DisalignIntervalMs=" + $("#txtDisalignIntervalMs").val() + os.EOL;
 	cfgString += "BackgroundColor=" + backgroundColorString + os.EOL;
-	cfgString += "LocationType=" + $("#selLocationType").val() + os.EOL;
+	//cfgString += "LocationType=" + $("#selLocationType").val() + os.EOL;
+  cfgString += "CameraSensibility=" + $("#txtCameraSensibility").val() + os.EOL;
+  cfgString += "Mirrored=" + $("#selMirrored").val() + os.EOL;
 
 	return cfgString;
   }

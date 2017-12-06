@@ -1,6 +1,6 @@
 class Configuration {
-  public String AnimationType = "ANIMACION1";
-  public String SensorType = "KINECT";
+  public String AnimationType = "ANIMACION2";
+  public String SensorType = "CAMERAMOVEMENT";
   public String CameraName = "";
   public Integer BackgroundColor = color(220, 230, 240);
   public ArrayList<String> Fears = new ArrayList<String>();
@@ -9,15 +9,15 @@ class Configuration {
   public ArrayList<Integer> StrengthsColors = new ArrayList<Integer>(); // colors are integers, add new item with color(r,g,b)
   public PVector ProjectorResolution = new PVector(800,600);
   public String ProjectorName = "";
-  public String FontName = "Arial";
-  public int FontSize = 48;
-  public float DisalignConversionFactor = 55.5;
-  public int DisalignIntervalMs = 500;
-  public String LocationType = "RANDOM";
-  public float CameraSensibility = 1;
+  public String FontName = "Lucida Handwriting Cursiva";
+  public int FontSize = 38;
+  public float DisalignConversionFactor = 5;
+  public int DisalignIntervalMs = 50;
+  public String LocationType = "FIXED";
+  public float CameraSensibility = 5;
   public final int RowsQuantity = 4;
   public final int ColsQuantity = 3;
-  public final Boolean Mirrored = true;
+  public Boolean Mirrored = true;
   
   public Configuration() {
     File[] files = listFiles(sketchPath());
@@ -102,6 +102,9 @@ class Configuration {
                 break;
               case "CameraSensibility":
                 this.CameraSensibility = float(keyValue[1]);
+                break;
+              case "Mirrored":
+                if (("false").equals(keyValue[1])) this.Mirrored = false;
                 break;
             }
           }

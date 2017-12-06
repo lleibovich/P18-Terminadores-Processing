@@ -105,41 +105,55 @@
         </div>
       </div>
     </div>
-    <div id="cfgs" class="col s12">
+    <div id="cfgs" class="col s12" style="visibility: gone;">
       <div class="row">
         <div class="row"><div class="col s12"><h2>Configuraciones</h2></div></div>
-        <div class="input-field col s2">
-          <select id="selSensorType">
+        <!--<div class="input-field col s2">
+          <select id="selSensorType" disabled>
+            <option value="CAMERAMOVEMENT" selected>Camara</option>
             <option value="KINECT">Kinect</option>
             <option value="RANDOM">Aleatorio</option>
           </select>
           <label>Sensor:</label>
-        </div>
-        <div class="input-field col s2">
-          <input id="txtFontName" type="text" value="Arial" />
+        </div>-->
+        <div class="input-field col s3">
+          <input id="txtFontName" type="text" value="Lucida Handwriting Cursiva" />
           <label>Fuente</label>
         </div>
-        <div class="input-field col s2">
-          <input id="txtFontSize" type="number" step="1" value="48" />
+        <div class="input-field col s3">
+          <input id="txtFontSize" type="number" step="1" value="38" />
           <label>Tamaño de Fuente</label>
         </div>
-        <div class="input-field col s2">
-          <input id="txtDisalignConversionFactor" type="number" value="100" />
-          <label>Sensibilidad sensor</label>
+        <div class="input-field col s3">
+          <input id="txtDisalignConversionFactor" type="number" value="5" />
+          <label>Factor conversion</label>
         </div>
-        <div class="input-field col s2">
-          <input id="txtDisalignIntervalMs" type="number" value="50" />
-          <label>Intervalo sensado (ms)
-        </div>
-        <div class="input-field col s2">
+        <!--<div class="input-field col s2">
           <select id="selLocationType">
             <option value="FIXED">Organizado</option>
             <option value="RANDOM">Aleatorio</option>
           </select>
           <label>Ubicación</label>
-        </div>
+        </div>-->
       </div>
       <div class="row">
+        <div class="input-field col s3">
+          <input type="number" id="txtCameraSensibility" value="5" />
+          <label>Sensibilidad cámara</label>
+        </div>
+        <div class="input-field col s3">
+          <select id="selMirrored">
+            <option value="true" selected>Si</option>
+            <option value="false">No</option>
+          </select>
+          <label>Cámara espejada</label>
+        </div>
+        <div class="input-field col s3">
+          <input id="txtDisalignIntervalMs" type="number" value="50" />
+          <label>Intervalo sensado (ms)</label>
+        </div>
+      </div>
+      <div class="row" style="visibility: hidden;">
         <div class="input-field col s2">
           <select id="selProjectorName" disabled></select>
           <label>Proyector</label>

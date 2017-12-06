@@ -21,8 +21,8 @@ boolean disaligningFears;
 boolean aligningStrengths;
 
 void settings() {
-  //fullScreen();
-  size(800, 600, P2D);
+  fullScreen();
+  //size(800, 600, P2D);
 }
 
 void setup() {
@@ -74,7 +74,20 @@ void draw() {
           if (!(zone.fears == null || zone.fears.size() == 0 || zone.fears.get(0).isCompletelyDisaligned())) {
             PVector wordTopLeft = zone.fears.get(0).TopLeftPos;
             PVector wordSize = zone.fears.get(0).calculateSizeVector();
-            float xPos = wordTopLeft.x + (wordSize.x/2);
+            boolean alignLeft = true;
+            if (wordTopLeft.x > width / 2) alignLeft = false;
+            float leftTopX = wordTopLeft.x;
+            float xPos = 0;
+            if (alignLeft) {
+              textAlign(LEFT);
+              leftTopX = 10;
+              xPos = leftTopX + (wordSize.x/2);
+            } else {
+              textAlign(RIGHT);
+              leftTopX = width - 20;
+              xPos = leftTopX - (wordSize.x/2);
+            }
+            
             float yPos = wordTopLeft.y - (wordSize.y/2);
             PVector position = new PVector(xPos, yPos);
             color particleColor = zone.fears.get(0).wordColor;
