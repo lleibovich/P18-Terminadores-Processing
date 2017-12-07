@@ -10,7 +10,7 @@ class Particle {
     velocity = new PVector(random(-1, 1), random(-2, 0));
     position = l.copy();
     //lifespan = 255.0;
-    lifespan = 75.0;
+    lifespan = 50.0;
     partColor = particleColor;
   }
 

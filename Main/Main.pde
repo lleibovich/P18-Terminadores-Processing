@@ -21,8 +21,8 @@ boolean disaligningFears;
 boolean aligningStrengths;
 
 void settings() {
-  fullScreen();
-  //size(800, 600, P2D);
+  //fullScreen(P2D);
+  size(1280, 720);
 }
 
 void setup() {
@@ -44,7 +44,7 @@ void setup() {
     kinectmov = new KinectMov();
     bodies = new ArrayList<SkeletonData>();
   } else if (this.cfg.SensorType.equals("CAMERA") || this.cfg.SensorType.equals("CAMERAMOVEMENT")) {
-    video = new Capture(this, 640, 480);
+    video = new Capture(this, 640, 480, "FaceCam 1000X");
     video.start();
     video.loadPixels();
     cameras = new Cameras(this.cfg);
@@ -61,6 +61,25 @@ void draw() {
   noStroke();
 
   background(this.cfg.BackgroundColor);
+  PImage reverse = new PImage( video.width, video.height );
+  if (this.cfg.Mirrored) {
+    for(int i=0; i < video.width; i++ ){
+      for(int j=0; j < video.height; j++){
+        reverse.set( video.width - 1 - i, j, video.get(i, j) );
+      }   
+    }
+  } else reverse = video;
+  image(reverse, 0, 0, width, height);
+  
+  fill(0);
+  stroke(126);
+  line((width/3), 0, (width/3), height);
+  line(2*(width/3), 0, 2*(width/3), height);
+  line(0, (height/4), width, (height/4));
+  line(0, 2*(height/4), width, 2*(height/4));
+  line(0, 3*(height/4), width, 3*(height/4));
+  //line(0, 4*(height/4)-5, width, (height/4)+5);
+  
   total();
   int force = 0;
   if ((millis() - msPreviousDisalign) > this.cfg.DisalignIntervalMs) {

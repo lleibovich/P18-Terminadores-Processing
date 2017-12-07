@@ -1,6 +1,6 @@
 public class Cameras {
   public int cons = 0;
-  public PVector[] movement = new PVector[10];
+  public ArrayList<PVector> movement = new ArrayList<PVector>();
   public boolean[][] movementMap;// = new boolean[2][this.config.RowsQuantity];
   
   private boolean init = false;
@@ -49,10 +49,10 @@ public class Cameras {
           //previousColors[x][y] = currColor;
           previousColors[(camWidth - 1) - x][y] = currColor;
           
-          if (aux != 0 && movement[aux-1] == null) movement[aux-1] = new PVector();
+          //if (aux != 0 && movement[aux-1] == null) movement[aux-1] = new PVector();
           if (diffR + diffG + diffB > 300 && init) {
-            if (aux == 0 || aux < 10 && movement[aux-1].x+20 < x && movement[aux-1].y+20 < y) { //<>//
-              movement[aux] = new PVector(x, y);
+            if (aux == 0 || aux < 10 && movement.get(aux-1).x+20 < x && movement.get(aux-1).y+20 < y) { //<>//
+              movement.add(new PVector(x, y));
               aux++;
             }
           }
@@ -65,10 +65,10 @@ public class Cameras {
       }
       float zoneWidth = camWidth / this.config.ColsQuantity;
       float zoneHeight = camHeight / this.config.RowsQuantity;
-      for (int i = 0; i < movement.length; i++) {
-        if (movement[i] == null) continue;
-        int colNumber = int(movement[i].x / zoneWidth);
-        int rowNumber = int(movement[i].y / zoneHeight);
+      for (int i = 0; i < movement.size(); i++) {
+        if (movement.get(i) == null) continue;
+        int colNumber = int(movement.get(i).x / zoneWidth);
+        int rowNumber = int(movement.get(i).y / zoneHeight);
         if (colNumber == this.config.ColsQuantity) {
           colNumber = this.config.ColsQuantity - 1;
         }
@@ -76,17 +76,18 @@ public class Cameras {
           rowNumber = this.config.RowsQuantity - 1;
         }
         // Si detecta en el medio va a alguno de los dos costados
-        if (colNumber == 1) {
+        /*if (colNumber == 1) {
           if (millis() % 2 == 0) colNumber = colNumber + 1;
           else colNumber = colNumber - 1;
-        }
-        movementMap[colNumber][rowNumber] = true;
+        }*/
+        if (colNumber != 1)
+          movementMap[colNumber][rowNumber] = true;
       }
     }
   }
   public void clvar() {
     aux = 0;
-    movement = new PVector[10];
+    movement = new ArrayList<PVector>();
     movementMap = new boolean[this.config.ColsQuantity][this.config.RowsQuantity];
   }
 }
